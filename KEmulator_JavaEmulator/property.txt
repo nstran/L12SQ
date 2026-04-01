@@ -1,5 +1,5 @@
 #KEmulator properties
-#Wed Apr 01 20:14:45 GMT 2026
+#Wed Apr 01 21:05:32 GMT 2026
 2D_Graphics_Enginge=SWT
 3D_Graphics_Enginge=LWJ
 AlwaysOnTop=false
@@ -48,11 +48,11 @@ MAP_KEY_RIGHT=RIGHT
 MAP_KEY_RSOFT=F2
 MAP_KEY_STAR=Key *
 MAP_KEY_UP=UP
-MRUList0=
+MRUList0=D\:\\L12SQ\\loan-12-su-quan-offline.jar
 MRUList1=D\:\\L12SQ\\loan-12-su-quan-offline.jar
-MRUList2=D\:\\Java\\loan-12-su-quan-v7.jar
-MRUList3=D\:\\Java\\loan-12-su-quan-v6.jar
-MRUList4=D\:\\Java\\loan-12-su-quan.jar
+MRUList2=D\:\\L12SQ\\loan-12-su-quan.jar
+MRUList3=D\:\\Java\\loan-12-su-quan-v7.jar
+MRUList4=D\:\\Java\\loan-12-su-quan-v6.jar
 ProxyDomain=
 ProxyHost=
 ProxyPassword=

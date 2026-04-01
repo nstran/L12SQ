@@ -16,6 +16,14 @@ import javax.imageio.ImageIO;
 public class OfflineServer {
     private static final int AUTH_PORT = 7236;
     private static final int GAME_PORT = 7238;
+    private static final String WORLD_MAP_ZONE = "M99";
+    private static final String FIRST_CITY_ZONE = "Offline Map";
+    private static final String FIRST_CITY_DISPLAY = "Hoa Lu";
+    private static final int MAP_ROWS = 10;
+    private static final int MAP_COLS = 10;
+    private static final int RES_GROUND = 1000;
+    private static final int RES_OBJECT = 1001;
+    private static final int RES_TILES = 1002;
 
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
@@ -29,6 +37,19 @@ public class OfflineServer {
     private static final java.util.concurrent.ConcurrentHashMap<String, String> ACCOUNTS = new java.util.concurrent.ConcurrentHashMap<>();
     // charExists: set of nicks that have a character saved
     private static final java.util.Set<String> CHAR_SAVED = Collections.synchronizedSet(new HashSet<>());
+    private static final byte[] SIMPLE_TILESET = generateSolidPng(32, 32, 0xD8EFC2);
+    private static final byte[] SIMPLE_OBJECTS = generateSolidPng(32, 32, 0x8FCBFF);
+    private static final byte[] SIMPLE_BG = generateSolidPng(32, 32, 0xEED9A2);
+
+    private static final class TlvEntry {
+        final int id;
+        final byte[] value;
+
+        TlvEntry(int id, byte[] value) {
+            this.id = id;
+            this.value = value;
+        }
+    }
 
     // ===== MAIN =====
     public static void main(String[] args) {
@@ -63,6 +84,7 @@ public class OfflineServer {
     // We track the logged-in nick per connection via a simple wrapper
     private static void handleClient(Socket socket, String serverType) {
         final String[] sessionNick = {null}; // mutable closure trick
+        final boolean[] awaitingCreate = {false};
         try (DataInputStream dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
              DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()))) {
 
@@ -87,7 +109,7 @@ public class OfflineServer {
                     System.out.printf("       Tag %d = %s%n", e.getKey(), fmt(e.getValue()));
                 }
 
-                processCmd(dos, cmd, tags, serverType, sessionNick);
+                processCmd(dos, cmd, tags, payload, serverType, sessionNick, awaitingCreate);
             }
         } catch (EOFException e) {
             System.out.println("[" + serverType + "] Client disconnected.");
@@ -97,26 +119,28 @@ public class OfflineServer {
     }
 
     // ===== DISPATCHER =====
-    private static void processCmd(DataOutputStream dos, int cmd, Map<Integer, byte[]> tags,
-                                   String sType, String[] sessionNick) throws IOException {
+    private static void processCmd(DataOutputStream dos, int cmd, Map<Integer, byte[]> tags, byte[] payload,
+                                   String sType, String[] sessionNick, boolean[] awaitingCreate) throws IOException {
         switch (cmd) {
             case 5:   handleVersion(dos); break;
             case 2:   handleLoginReq(dos); break;
             case 3:   handleLoginReq(dos); break;
             case 4:   handleAuth(dos, tags, sType, sessionNick); break;
             case 1:   handleKeepAlive(dos); break;
-            case 9:   handleProfileSync(dos, tags, sessionNick); break;
+            case 8:   handleCreateSelection(dos, payload, sessionNick, awaitingCreate); break;
+            case 9:   handleProfileSync(dos, tags, sessionNick, awaitingCreate); break;
             case 10:  handleStatUpdate(dos, tags, sessionNick); break;
             case 11:  handleRoomList(dos, tags); break;
+            case 13:  handleZoneEnter(dos, tags); break;
             case 15:  handleMapInfo(dos, tags); break;
             case 6:   handleResource(dos, tags); break;
-            case 29:  handlePlayerInfo(dos, tags); break;
-            case 30:  handleClassFlow(dos, tags, sessionNick); break;
+            case 29:  handlePlayerInfo(dos, tags, sessionNick, awaitingCreate); break;
+            case 30:  handleClassFlow(dos, tags, sessionNick, awaitingCreate); break;
             case 37:  handleFriendList(dos, tags); break;
             case 51:  handleInventory(dos, tags); break;
             case 16:  handleChat(dos, tags); break;
             case 25:  handleMsg(dos, tags); break;
-            case 42:  handleBootstrapRequest(dos, tags, sessionNick); break;
+            case 42:  handleBootstrapRequest(dos, tags, sessionNick, awaitingCreate); break;
             case 43:  send(dos, 43); break;
             case 84:  handleEquipSelect(dos, tags); break;
             case 96:  handleEquipView(dos, tags); break;
@@ -244,7 +268,8 @@ public class OfflineServer {
 
     // ========== PROFILE / CHARACTER ==========
 
-    private static void handleProfileSync(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
+    private static void handleProfileSync(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick,
+                                          boolean[] awaitingCreate) throws IOException {
         String nick = tagStr(tags, 9);
         if (nick == null) nick = sessionNick[0];
         if (nick == null) nick = "guest";
@@ -253,9 +278,11 @@ public class OfflineServer {
         if (profileType > 0) {
             File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
             if (charFile.exists()) {
+                awaitingCreate[0] = false;
                 sendFullProfileFromData(dos, nick, loadJson(charFile));
             } else {
-                sendEmptyProfile(dos, nick);
+                awaitingCreate[0] = true;
+                sendStartProfile(dos, nick);
             }
         } else {
             int bitmask = tagInt(tags, 23, 0);
@@ -264,7 +291,8 @@ public class OfflineServer {
     }
 
     /** CMD 42 - Login bootstrap after CMD 30. */
-    private static void handleBootstrapRequest(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
+    private static void handleBootstrapRequest(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick,
+                                               boolean[] awaitingCreate) throws IOException {
         String nick = tagStr(tags, 9);
         if (nick == null) nick = sessionNick[0];
         if (nick == null) nick = "guest";
@@ -272,15 +300,20 @@ public class OfflineServer {
 
         File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
         if (charFile.exists()) {
+            awaitingCreate[0] = false;
             sendBootstrapData(dos, true);
         } else {
-            System.out.println("       >> No character yet, bootstrap stays in create-char flow");
+            System.out.println("       >> No character yet, opening start screen flow");
+            ensureDefaultCharacter(nick);
+            awaitingCreate[0] = false;
             sendBootstrapData(dos, false);
+            sendCurrentLocation(dos, nick, "M99", 0);
         }
     }
 
     /** CMD 30 - Existing character: class bootstrap. New character: save selection first. */
-    private static void handleClassFlow(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
+    private static void handleClassFlow(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick,
+                                        boolean[] awaitingCreate) throws IOException {
         int classId = tagByte(tags, 15, 1);
         String nick = sessionNick[0] != null ? sessionNick[0] : "guest";
         File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
@@ -291,8 +324,8 @@ public class OfflineServer {
             return;
         }
 
-        if (classId <= 0) {
-            System.out.println("       >> Create-char screen bootstrap only for nick=" + nick + " classId=" + classId);
+        if (awaitingCreate[0]) {
+            System.out.println("       >> Start-screen bootstrap for new char: classId=" + classId + " nick=" + nick);
             sendClassBootstrap(dos, classId);
             return;
         }
@@ -318,8 +351,8 @@ public class OfflineServer {
         charData.put("defense", "30");
         charData.put("speed", "1000");
 
-        // Do not persist yet. The client sends bootstrap/class packets before the player
-        // actually confirms entering the world, so we only return a preview profile here.
+        saveJson(charFile, charData);
+        System.out.println("       >> Character created & saved: " + nick + " class=" + classId);
         sendClassBootstrap(dos, classId);
         sendFullProfileFromData(dos, nick, charData);
     }
@@ -342,6 +375,70 @@ public class OfflineServer {
         sendPacket(dos, 11, rTLV.toByteArray(), 2);
     }
 
+    private static void handleCreateSelection(DataOutputStream dos, byte[] payload, String[] sessionNick,
+                                              boolean[] awaitingCreate) throws IOException {
+        String nick = sessionNick[0] != null ? sessionNick[0] : "guest";
+        java.util.List<TlvEntry> entries = parseTLVEntries(payload);
+        int gender = 0;
+        int element = 1;
+        java.util.List<Integer> partIds = new ArrayList<>();
+        java.util.List<Integer> colorIds = new ArrayList<>();
+
+        for (TlvEntry entry : entries) {
+            switch (entry.id) {
+                case 16:
+                    if (entry.value.length > 0) gender = entry.value[0] & 0xFF;
+                    break;
+                case 15:
+                    if (entry.value.length > 0) element = entry.value[0] & 0xFF;
+                    break;
+                case 90:
+                    if (entry.value.length >= 4) partIds.add(ByteBuffer.wrap(entry.value).getInt());
+                    break;
+                case 96:
+                    if (entry.value.length >= 4) colorIds.add(ByteBuffer.wrap(entry.value).getInt());
+                    break;
+            }
+        }
+
+        if (partIds.size() < 3) {
+            System.out.println("       >> Create-char request missing appearance data, ignoring");
+            return;
+        }
+
+        System.out.println("       >> Create-char confirm nick=" + nick + " gender=" + gender + " element=" + element
+                + " parts=" + partIds + " colors=" + colorIds);
+
+        Map<String, String> charData = new LinkedHashMap<>();
+        charData.put("nick", nick);
+        charData.put("class", String.valueOf(element));
+        charData.put("gender", String.valueOf(gender));
+        charData.put("level", "1");
+        charData.put("hp", "1000");
+        charData.put("hpMax", "1000");
+        charData.put("mp", "500");
+        charData.put("mpMax", "500");
+        charData.put("str", "10");
+        charData.put("agi", "10");
+        charData.put("mag", "10");
+        charData.put("vit", "10");
+        charData.put("gold", "10000");
+        charData.put("honor", "0");
+        charData.put("attack", "50");
+        charData.put("defense", "30");
+        charData.put("speed", "1000");
+        charData.put("hairId", String.valueOf(partIds.get(0)));
+        charData.put("faceId", String.valueOf(partIds.get(1)));
+        charData.put("skinId", String.valueOf(partIds.get(2)));
+        charData.put("hairColor", String.valueOf(colorIds.size() > 0 ? colorIds.get(0) : 1));
+        charData.put("faceColor", String.valueOf(colorIds.size() > 1 ? colorIds.get(1) : 1));
+        charData.put("skinColor", String.valueOf(colorIds.size() > 2 ? colorIds.get(2) : 1));
+
+        saveJson(new File(CHARS_DIR, nick.toLowerCase() + ".json"), charData);
+        awaitingCreate[0] = false;
+        sendFullProfileFromData(dos, nick, charData);
+    }
+
     private static void sendClassBootstrap(DataOutputStream dos, int classId) throws IOException {
         System.out.println("       >> Sending class bootstrap (CMD 30), classId=" + classId);
         sendPacket(dos, 30, new byte[0], 0);
@@ -357,6 +454,38 @@ public class OfflineServer {
         if (enterWorld) {
             sendWorldEntry(dos);
         }
+    }
+
+    private static void sendCharacterCreationOptions(DataOutputStream dos) throws IOException {
+        System.out.println("       >> Sending create-char appearance options (CMD 8)");
+        ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+        int count = 0;
+
+        count += writeCreateOptionGroup(tlv, 79800, 0, 0, "Toc Nam 1", 1, "Den", colorBytes(0x222222));
+        count += writeCreateOptionGroup(tlv, 89900, 0, 1, "Mat Nam 1", 1, "Mac dinh", colorBytes(0xF2D3B1));
+        count += writeCreateOptionGroup(tlv, 70000, 0, 2, "Da Nam", 1, "Sang", colorBytes(0xF2D3B1));
+
+        count += writeCreateOptionGroup(tlv, 79900, 1, 0, "Toc Nu 1", 1, "Den", colorBytes(0x222222));
+        count += writeCreateOptionGroup(tlv, 89900, 1, 1, "Mat Nu 1", 1, "Mac dinh", colorBytes(0xF2D3B1));
+        count += writeCreateOptionGroup(tlv, 70001, 1, 2, "Da Nu", 1, "Sang", colorBytes(0xF2D3B1));
+
+        sendPacket(dos, 8, tlv.toByteArray(), count);
+    }
+
+    private static int writeCreateOptionGroup(OutputStream os, int appearanceId, int gender, int slot, String name,
+                                              int colorId, String colorName, byte[] colorData) throws IOException {
+        int count = 0;
+        wTag(os, 90, appearanceId); count++;
+        wTag(os, 91, (byte) slot); count++;
+        wTag(os, 92, name); count++;
+        wTag(os, 16, (byte) gender); count++;
+        wTag(os, 93, colorId); count++;
+        wTag(os, 94, colorName); count++;
+        wTag(os, 95, colorData); count++;
+        wTag(os, 96, colorId); count++;
+        wTag(os, 97, colorName); count++;
+        wTag(os, 98, colorData); count++;
+        return count;
     }
 
     // ========== PROFILE BUILDERS ==========
@@ -401,15 +530,27 @@ public class OfflineServer {
         wTag(tlv, 165, (byte) 0); count++;
         wTag(tlv, 166, (byte) 0); count++;
         wTag(tlv, 132, 0L);       count++;
+        count += writeAppearanceProfileTags(tlv, Collections.emptyMap(), 0);
         sendPacket(dos, 9, tlv.toByteArray(), count);
     }
 
     private static void sendFullProfileFromData(DataOutputStream dos, String nick, Map<String, String> d) throws IOException {
-        System.out.println("       >> Sending profile from JSON data for " + nick);
+        sendProfileFromData(dos, nick, d, true, "Su Quan");
+    }
+
+    private static void sendStartProfile(DataOutputStream dos, String nick) throws IOException {
+        System.out.println("       >> Sending START profile (no char file yet) for " + nick);
+        sendProfileFromData(dos, nick, buildDefaultCharData(nick), true, "Tan Thu");
+    }
+
+    private static void sendProfileFromData(DataOutputStream dos, String nick, Map<String, String> d,
+                                            boolean includeAppearance, String title) throws IOException {
+        System.out.println("       >> Sending profile from data for " + nick + " appearance=" + includeAppearance);
         ByteArrayOutputStream tlv = new ByteArrayOutputStream(512);
         int count = 0;
 
         int classId = parseInt(d, "class", 1);
+        int gender  = parseInt(d, "gender", 0);
         int level   = parseInt(d, "level", 1);
         int hp      = parseInt(d, "hp", 1000);
         int hpMax   = parseInt(d, "hpMax", 1000);
@@ -427,9 +568,9 @@ public class OfflineServer {
 
         wTag(tlv, 134, (byte) 1);   count++;
         wTag(tlv, 9,   nick);       count++;
-        wTag(tlv, 26,  "Su Quan");  count++;
+        wTag(tlv, 26,  title);      count++;
         wTag(tlv, 15,  (byte) classId); count++;
-        wTag(tlv, 16,  (byte) 0);   count++;
+        wTag(tlv, 16,  (byte) gender); count++;
         wTag(tlv, 27,  level);      count++;
         wTag(tlv, 17,  hp);         count++;
         wTag(tlv, 47,  hpMax);      count++;
@@ -459,6 +600,9 @@ public class OfflineServer {
         wTag(tlv, 165, (byte) 0);   count++;
         wTag(tlv, 166, (byte) 0);   count++;
         wTag(tlv, 132, (long) gold); count++;
+        if (includeAppearance) {
+            count += writeAppearanceProfileTags(tlv, d, gender);
+        }
 
         sendPacket(dos, 9, tlv.toByteArray(), count);
         System.out.println("       >> Profile sent (" + count + " tags) level=" + level + " class=" + classId);
@@ -537,25 +681,73 @@ public class OfflineServer {
     private static void handleRoomList(DataOutputStream dos, Map<Integer, byte[]> tags) throws IOException {
         String zone = tagStr(tags, 20);
         System.out.println("       >> Room list for zone: " + zone);
+        if (FIRST_CITY_ZONE.equalsIgnoreCase(zone)) {
+            sendSimpleCityMap(dos, FIRST_CITY_ZONE, FIRST_CITY_DISPLAY);
+            return;
+        }
         ByteArrayOutputStream tlv = new ByteArrayOutputStream();
         int count = 0;
-        wTag(tlv, 20, "M99"); count++;
+        wTag(tlv, 20, zone != null ? zone : WORLD_MAP_ZONE); count++;
         wTag(tlv, 12, (byte) 0); count++;
+        if (WORLD_MAP_ZONE.equalsIgnoreCase(zone)) {
+            count += writeMapEntry(tlv, 0, FIRST_CITY_DISPLAY, 0, 0, 0, 32, 32, false, 0);
+        } else if (FIRST_CITY_ZONE.equalsIgnoreCase(zone)) {
+            count += writeMapEntry(tlv, 0, "Cong Thanh", 0, 160, 160, 32, 32, false, 0);
+        }
         sendPacket(dos, 11, tlv.toByteArray(), count);
     }
 
     private static void handleMapInfo(DataOutputStream dos, Map<Integer, byte[]> tags) throws IOException {
-        System.out.println("       >> Map info request");
+        String zone = tagStr(tags, 20);
+        System.out.println("       >> Map info request for: " + zone);
+        if (FIRST_CITY_ZONE.equalsIgnoreCase(zone)) {
+            sendSimpleCityMap(dos, FIRST_CITY_ZONE, FIRST_CITY_DISPLAY);
+            return;
+        }
         ByteArrayOutputStream tlv = new ByteArrayOutputStream();
         int count = 0;
-        wTag(tlv, 20, "M99"); count++;
+        wTag(tlv, 20, zone != null ? zone : FIRST_CITY_ZONE); count++;
         wTag(tlv, 12, (byte) 0); count++;
+        if (FIRST_CITY_ZONE.equalsIgnoreCase(zone)) {
+            count += writeMapEntry(tlv, 0, "Cong Thanh", 0, 160, 160, 32, 32, false, 0);
+        }
         sendPacket(dos, 15, tlv.toByteArray(), count);
+    }
+
+    private static void handleZoneEnter(DataOutputStream dos, Map<Integer, byte[]> tags) throws IOException {
+        String zone = tagStr(tags, 20);
+        int roomId = tagInt(tags, 21, 0);
+        System.out.println("       >> Zone enter request: zone=" + zone + " room=" + roomId);
+        if (WORLD_MAP_ZONE.equalsIgnoreCase(zone) && roomId == 0) {
+            sendZoneEnterResponse(dos, FIRST_CITY_ZONE, 0, 0);
+            return;
+        }
+        sendZoneEnterResponse(dos, zone != null ? zone : FIRST_CITY_ZONE, roomId, 0);
     }
 
     private static void handleResource(DataOutputStream dos, Map<Integer, byte[]> tags) throws IOException {
         int resId = tagInt(tags, 4, 0);
-        System.out.println("       >> Resource request: " + resId);
+        int chunkIndex = tagInt(tags, 7, -1);
+        System.out.println("       >> Resource request: " + resId + " chunk=" + chunkIndex);
+        byte[] resource = getOfflineResource(resId);
+        if (resource != null) {
+            if (chunkIndex < 0) {
+                ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+                int count = 0;
+                wTag(tlv, 4, resId); count++;
+                wTag(tlv, 5, 1); count++;
+                wTag(tlv, 6, resource.length); count++;
+                sendPacket(dos, 6, tlv.toByteArray(), count);
+            } else {
+                ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+                int count = 0;
+                wTag(tlv, 4, resId); count++;
+                wTag(tlv, 7, chunkIndex); count++;
+                wTag(tlv, 8, resource); count++;
+                sendPacket(dos, 6, tlv.toByteArray(), count);
+            }
+            return;
+        }
         ByteArrayOutputStream tlv = new ByteArrayOutputStream();
         int count = 0;
         wTag(tlv, 4, resId); count++;
@@ -564,15 +756,15 @@ public class OfflineServer {
         sendPacket(dos, 6, tlv.toByteArray(), count);
     }
 
-    private static void handlePlayerInfo(DataOutputStream dos, Map<Integer, byte[]> tags) throws IOException {
+    private static void handlePlayerInfo(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick,
+                                         boolean[] awaitingCreate) throws IOException {
         String nick = tagStr(tags, 9);
-        System.out.println("       >> Player info for: " + nick);
-        ByteArrayOutputStream tlv = new ByteArrayOutputStream();
-        int count = 0;
-        wTag(tlv, 9, nick != null ? nick : "guest"); count++;
-        wTag(tlv, 20, "Online"); count++;
-        wTag(tlv, 21, 0); count++;
-        sendPacket(dos, 29, tlv.toByteArray(), count);
+        if (nick == null) nick = sessionNick[0];
+        if (nick == null) nick = "guest";
+        ensureDefaultCharacter(nick);
+        awaitingCreate[0] = false;
+        System.out.println("       >> Player info / world entry for: " + nick);
+        sendCurrentLocation(dos, nick, "M99", 0);
     }
 
     private static void handleFriendList(DataOutputStream dos, Map<Integer, byte[]> tags) throws IOException {
@@ -698,6 +890,21 @@ public class OfflineServer {
         }
     }
 
+    private static byte[] generateSolidPng(int width, int height, int rgb) {
+        try {
+            BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = img.createGraphics();
+            g.setColor(new Color(rgb));
+            g.fillRect(0, 0, width, height);
+            g.dispose();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "png", baos);
+            return baos.toByteArray();
+        } catch (Exception e) {
+            return generateCaptchaPng("0");
+        }
+    }
+
     // ========== JSON PERSISTENCE (no external libs) ==========
 
     private static void loadAccounts() {
@@ -784,6 +991,156 @@ public class OfflineServer {
         catch (NumberFormatException e) { return def; }
     }
 
+    private static Map<String, String> buildDefaultCharData(String nick) {
+        Map<String, String> charData = new LinkedHashMap<>();
+        charData.put("nick", nick);
+        charData.put("class", "1");
+        charData.put("gender", "0");
+        charData.put("level", "1");
+        charData.put("hp", "1000");
+        charData.put("hpMax", "1000");
+        charData.put("mp", "500");
+        charData.put("mpMax", "500");
+        charData.put("str", "10");
+        charData.put("agi", "10");
+        charData.put("mag", "10");
+        charData.put("vit", "10");
+        charData.put("gold", "10000");
+        charData.put("honor", "0");
+        charData.put("attack", "50");
+        charData.put("defense", "30");
+        charData.put("speed", "1000");
+        charData.put("hairId", "79800");
+        charData.put("faceId", "89900");
+        charData.put("skinId", "70000");
+        charData.put("hairColor", "1");
+        charData.put("faceColor", "1");
+        charData.put("skinColor", "1");
+        return charData;
+    }
+
+    private static void ensureDefaultCharacter(String nick) throws IOException {
+        File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
+        if (!charFile.exists()) {
+            System.out.println("       >> Creating default offline character for: " + nick);
+            saveJson(charFile, buildDefaultCharData(nick));
+        }
+    }
+
+    private static void sendCurrentLocation(DataOutputStream dos, String nick, String zone, int room) throws IOException {
+        ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+        int count = 0;
+        wTag(tlv, 9, nick); count++;
+        wTag(tlv, 20, zone); count++;
+        wTag(tlv, 21, room); count++;
+        sendPacket(dos, 29, tlv.toByteArray(), count);
+        System.out.println("       >> Current location sent: nick=" + nick + " zone=" + zone + " room=" + room);
+    }
+
+    private static void sendZoneEnterResponse(DataOutputStream dos, String zone, int room, int status) throws IOException {
+        ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+        int count = 0;
+        wTag(tlv, 20, zone); count++;
+        wTag(tlv, 21, room); count++;
+        wTag(tlv, 22, (byte) status); count++;
+        sendPacket(dos, 13, tlv.toByteArray(), count);
+        System.out.println("       >> Zone enter response: zone=" + zone + " room=" + room + " status=" + status);
+    }
+
+    private static int writeMapEntry(OutputStream os, int id, String name, int type,
+                                     int x, int y, int width, int height,
+                                     boolean locked, int resourceId) throws IOException {
+        int count = 0;
+        wTag(os, 21, id); count++;
+        wTag(os, 26, name); count++;
+        wTag(os, 22, (byte) type); count++;
+        wTag(os, 102, x); count++;
+        wTag(os, 103, y); count++;
+        wTag(os, 104, width); count++;
+        wTag(os, 105, height); count++;
+        wTag(os, 101, (byte) (locked ? 1 : 0)); count++;
+        wTag(os, 4, resourceId); count++;
+        return count;
+    }
+
+    private static void sendSimpleCityMap(DataOutputStream dos, String zoneName, String displayName) throws IOException {
+        System.out.println("       >> Sending simple city map for " + displayName);
+        ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+        int count = 0;
+        byte[] tileLayer = new byte[MAP_ROWS * MAP_COLS];
+        byte[] objectLayer = new byte[MAP_ROWS * MAP_COLS];
+        byte[] collisionLayer = new byte[MAP_ROWS * MAP_COLS];
+
+        wTag(tlv, 12, (byte) 1); count++;
+        wTag(tlv, 20, zoneName); count++;
+        wTag(tlv, 26, displayName); count++;
+        wTag(tlv, 41, 0); count++;
+        wTag(tlv, 56, MAP_ROWS); count++;
+        wTag(tlv, 57, MAP_COLS); count++;
+        wTag(tlv, 58, MAP_ROWS * 32); count++;
+        wTag(tlv, 59, MAP_COLS * 32); count++;
+        wTag(tlv, 55, tileLayer); count++;
+        wTag(tlv, 54, objectLayer); count++;
+        wTag(tlv, 61, collisionLayer); count++;
+        wTag(tlv, 60, RES_GROUND); count++;
+        wTag(tlv, 63, RES_OBJECT); count++;
+        wTag(tlv, 29, RES_TILES); count++;
+        wTag(tlv, 21, 0); count++;
+        wTag(tlv, 26, "Spawn"); count++;
+        wTag(tlv, 22, (byte) 0); count++;
+        wTag(tlv, 102, 160); count++;
+        wTag(tlv, 103, 160); count++;
+        wTag(tlv, 104, 32); count++;
+        wTag(tlv, 105, 32); count++;
+        wTag(tlv, 101, (byte) 0); count++;
+        wTag(tlv, 4, 0); count++;
+        wTag(tlv, 6, 0); count++;
+        wTag(tlv, 6, SIMPLE_BG.length + SIMPLE_OBJECTS.length + SIMPLE_TILESET.length); count++;
+
+        sendPacket(dos, 11, tlv.toByteArray(), count);
+    }
+
+    private static byte[] getOfflineResource(int resId) {
+        if (resId == RES_GROUND) return SIMPLE_BG;
+        if (resId == RES_OBJECT) return SIMPLE_OBJECTS;
+        if (resId == RES_TILES) return SIMPLE_TILESET;
+        return null;
+    }
+
+    private static int writeAppearanceProfileTags(OutputStream os, Map<String, String> d, int gender) throws IOException {
+        int hairId = parseInt(d, "hairId", gender == 0 ? 79800 : 79900);
+        int faceId = parseInt(d, "faceId", 89900);
+        int skinId = parseInt(d, "skinId", gender == 0 ? 70000 : 70001);
+        int hairColor = parseInt(d, "hairColor", 1);
+        int faceColor = parseInt(d, "faceColor", 1);
+        int skinColor = parseInt(d, "skinColor", 1);
+        int count = 0;
+        count += writeProfileAppearanceGroup(os, hairId, 0, hairColor, colorBytes(0x222222));
+        count += writeProfileAppearanceGroup(os, faceId, 1, faceColor, colorBytes(0xF2D3B1));
+        count += writeProfileAppearanceGroup(os, skinId, 2, skinColor, colorBytes(0xF2D3B1));
+        return count;
+    }
+
+    private static int writeProfileAppearanceGroup(OutputStream os, int appearanceId, int slot, int colorId,
+                                                   byte[] colorData) throws IOException {
+        int count = 0;
+        wTag(os, 90, appearanceId); count++;
+        wTag(os, 91, (byte) slot); count++;
+        wTag(os, 93, colorId); count++;
+        wTag(os, 95, colorData); count++;
+        wTag(os, 96, colorId); count++;
+        wTag(os, 98, colorData); count++;
+        return count;
+    }
+
+    private static byte[] colorBytes(int... values) {
+        ByteBuffer bb = ByteBuffer.allocate(values.length * 4);
+        for (int value : values) {
+            bb.putInt(value);
+        }
+        return bb.array();
+    }
+
     // ========== PROTOCOL HELPERS ==========
 
     private static void send(DataOutputStream dos, int cmd) throws IOException {
@@ -864,6 +1221,21 @@ public class OfflineServer {
             map.put(t, val);
         }
         return map;
+    }
+
+    private static java.util.List<TlvEntry> parseTLVEntries(byte[] data) {
+        java.util.List<TlvEntry> entries = new ArrayList<>();
+        ByteBuffer bb = ByteBuffer.wrap(data);
+        while (bb.hasRemaining()) {
+            if (bb.remaining() < 5) break;
+            int t = bb.get() & 0xFF;
+            int len = bb.getInt();
+            if (bb.remaining() < len || len < 0) break;
+            byte[] val = new byte[len];
+            bb.get(val);
+            entries.add(new TlvEntry(t, val));
+        }
+        return entries;
     }
 
     private static String tagStr(Map<Integer, byte[]> tags, int id) {
