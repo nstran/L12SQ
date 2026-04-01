@@ -1,11 +1,11 @@
 #KEmulator properties
-#Wed Apr 01 16:29:07 GMT 2026
+#Wed Apr 01 19:08:11 GMT 2026
 2D_Graphics_Enginge=SWT
 3D_Graphics_Enginge=LWJ
 AlwaysOnTop=false
 AssociateWithJar=false
 AutoGenJad=false
-CanvasScale=150
+CanvasScale=200
 DefaultFont=System
 Device=SonyEricssonK800
 EnableKeyCache=true
@@ -27,8 +27,8 @@ KEY_LSOFT=-6
 KEY_RIGHT=-4
 KEY_RSOFT=-7
 KEY_UP=-1
-LocationX=2503
-LocationY=366
+LocationX=2375
+LocationY=214
 MAP_KEY_DOWN=DOWN
 MAP_KEY_LEFT=LEFT
 MAP_KEY_LSOFT=F1
@@ -48,11 +48,11 @@ MAP_KEY_RIGHT=RIGHT
 MAP_KEY_RSOFT=F2
 MAP_KEY_STAR=Key *
 MAP_KEY_UP=UP
-MRUList0=d\:\\L12SQ\\loan-12-su-quan.jar
-MRUList1=D\:\\Java\\loan-12-su-quan-v6.jar
-MRUList2=D\:\\Java\\loan-12-su-quan.jar
-MRUList3=C\:\\Users\\MI\\Desktop\\KEmulator\\KEmulator\\new_harvest_moon.jar
-MRUList4=C\:\\Users\\MI\\Desktop\\KEmulator\\KEmulator\\contrterrorism_3d_episode_3.jar
+MRUList0=D\:\\L12SQ\\loan-12-su-quan-offline.jar
+MRUList1=D\:\\L12SQ\\loan-12-su-quan-offline.jar
+MRUList2=D\:\\Java\\loan-12-su-quan-v7.jar
+MRUList3=D\:\\Java\\loan-12-su-quan-v6.jar
+MRUList4=D\:\\Java\\loan-12-su-quan.jar
 ProxyDomain=
 ProxyHost=
 ProxyPassword=
