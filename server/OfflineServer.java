@@ -111,12 +111,12 @@ public class OfflineServer {
             case 15:  handleMapInfo(dos, tags); break;
             case 6:   handleResource(dos, tags); break;
             case 29:  handlePlayerInfo(dos, tags); break;
-            case 30:  handleClassSelect(dos, tags, sessionNick); break;
+            case 30:  handleClassFlow(dos, tags, sessionNick); break;
             case 37:  handleFriendList(dos, tags); break;
             case 51:  handleInventory(dos, tags); break;
             case 16:  handleChat(dos, tags); break;
             case 25:  handleMsg(dos, tags); break;
-            case 42:  handleProfileRequest(dos, tags, sessionNick); break;
+            case 42:  handleBootstrapRequest(dos, tags, sessionNick); break;
             case 43:  send(dos, 43); break;
             case 84:  handleEquipSelect(dos, tags); break;
             case 96:  handleEquipView(dos, tags); break;
@@ -251,43 +251,53 @@ public class OfflineServer {
         int profileType = tagByte(tags, 134, -1);
         System.out.println("       >> Profile sync for: " + nick + " type=" + profileType);
         if (profileType > 0) {
-            sendFullProfile(dos, nick);
+            File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
+            if (charFile.exists()) {
+                sendFullProfileFromData(dos, nick, loadJson(charFile));
+            } else {
+                sendEmptyProfile(dos, nick);
+            }
         } else {
             int bitmask = tagInt(tags, 23, 0);
             sendPartialProfile(dos, nick, bitmask);
         }
     }
 
-    /** CMD 42 - Profile request: send char data or empty if no char yet */
-    private static void handleProfileRequest(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
+    /** CMD 42 - Login bootstrap after CMD 30. */
+    private static void handleBootstrapRequest(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
         String nick = tagStr(tags, 9);
         if (nick == null) nick = sessionNick[0];
         if (nick == null) nick = "guest";
-        System.out.println("       >> Profile request (CMD 42) for: " + nick);
+        System.out.println("       >> Bootstrap request (CMD 42) for: " + nick);
 
         File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
         if (charFile.exists()) {
-            Map<String, String> charData = loadJson(charFile);
-            sendFullProfileFromData(dos, nick, charData);
-            // After profile, send World Entry info to clear loading screen
-            sendWorldEntry(dos);
+            sendBootstrapData(dos, true);
         } else {
-            // Trigger character creation screen: Send minimal profile with ID=0 or specific flag
-            System.out.println("       >> Triggering CHAR CREATION for: " + nick);
-            ByteArrayOutputStream tlv = new ByteArrayOutputStream();
-            int count = 0;
-            wTag(tlv, 134, (byte) 1); count++;
-            wTag(tlv, 9, nick);       count++;
-            wTag(tlv, 27, 0);         count++; // Level 0 usually triggers creation
-            sendPacket(dos, 9, tlv.toByteArray(), count);
+            System.out.println("       >> No character yet, bootstrap stays in create-char flow");
+            sendBootstrapData(dos, false);
         }
     }
 
-    /** CMD 30 - Class/He selection: create character and save to JSON */
-    private static void handleClassSelect(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
+    /** CMD 30 - Existing character: class bootstrap. New character: save selection first. */
+    private static void handleClassFlow(DataOutputStream dos, Map<Integer, byte[]> tags, String[] sessionNick) throws IOException {
         int classId = tagByte(tags, 15, 1);
         String nick = sessionNick[0] != null ? sessionNick[0] : "guest";
-        System.out.println("       >> Class select: classId=" + classId + " nick=" + nick);
+        File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
+
+        if (charFile.exists()) {
+            System.out.println("       >> Class bootstrap for existing char: classId=" + classId + " nick=" + nick);
+            sendClassBootstrap(dos, classId);
+            return;
+        }
+
+        if (classId <= 0) {
+            System.out.println("       >> Create-char screen bootstrap only for nick=" + nick + " classId=" + classId);
+            sendClassBootstrap(dos, classId);
+            return;
+        }
+
+        System.out.println("       >> Character preview only: classId=" + classId + " nick=" + nick);
 
         // Build character data
         Map<String, String> charData = new LinkedHashMap<>();
@@ -308,15 +318,10 @@ public class OfflineServer {
         charData.put("defense", "30");
         charData.put("speed", "1000");
 
-        // Save character to JSON
-        File charFile = new File(CHARS_DIR, nick.toLowerCase() + ".json");
-        saveJson(charFile, charData);
-        System.out.println("       >> Character created & saved: " + nick + " class=" + classId);
-
-        // Send class confirm + full profile so client transitions into the game world
-        send(dos, 30); // confirm class select
+        // Do not persist yet. The client sends bootstrap/class packets before the player
+        // actually confirms entering the world, so we only return a preview profile here.
+        sendClassBootstrap(dos, classId);
         sendFullProfileFromData(dos, nick, charData);
-        sendWorldEntry(dos); // Trigger entry into map
     }
 
     /** CMD 15 & CMD 11 - Send map and room info to enter the world */
@@ -337,15 +342,65 @@ public class OfflineServer {
         sendPacket(dos, 11, rTLV.toByteArray(), 2);
     }
 
+    private static void sendClassBootstrap(DataOutputStream dos, int classId) throws IOException {
+        System.out.println("       >> Sending class bootstrap (CMD 30), classId=" + classId);
+        sendPacket(dos, 30, new byte[0], 0);
+    }
+
+    private static void sendBootstrapData(DataOutputStream dos, boolean enterWorld) throws IOException {
+        ByteArrayOutputStream tlv = new ByteArrayOutputStream();
+        int count = 0;
+        wTag(tlv, 86, 0);  count++;
+        wTag(tlv, 145, 0); count++;
+        sendPacket(dos, 42, tlv.toByteArray(), count);
+        System.out.println("       >> Bootstrap data sent (CMD 42)");
+        if (enterWorld) {
+            sendWorldEntry(dos);
+        }
+    }
+
     // ========== PROFILE BUILDERS ==========
 
     private static void sendEmptyProfile(DataOutputStream dos, String nick) throws IOException {
         System.out.println("       >> Sending EMPTY profile (no char yet) for " + nick);
-        ByteArrayOutputStream tlv = new ByteArrayOutputStream(128);
+        ByteArrayOutputStream tlv = new ByteArrayOutputStream(512);
         int count = 0;
         wTag(tlv, 134, (byte) 1); count++;
         wTag(tlv, 9, nick);       count++;
-        wTag(tlv, 27, 0);         count++; // level = 0 triggers char creation flow
+        wTag(tlv, 26, "Tan Thu"); count++;
+        // The client still builds a full lf/gr.j object for the create/start screen,
+        // so we must provide a valid default class and base stats even before saving a char file.
+        wTag(tlv, 15, (byte) 1);  count++;
+        wTag(tlv, 16, (byte) 0);  count++;
+        wTag(tlv, 27, 1);         count++;
+        wTag(tlv, 17, 1000);      count++;
+        wTag(tlv, 47, 1000);      count++;
+        wTag(tlv, 18, 500);       count++;
+        wTag(tlv, 48, 500);       count++;
+        wTag(tlv, 118, 10);       count++;
+        wTag(tlv, 119, 10);       count++;
+        wTag(tlv, 120, 10);       count++;
+        wTag(tlv, 121, 10);       count++;
+        wTag(tlv, 196, 0);        count++;
+        wTag(tlv, 197, 0);        count++;
+        wTag(tlv, 198, 0);        count++;
+        wTag(tlv, 199, 0);        count++;
+        wTag(tlv, 116, 0);        count++;
+        wTag(tlv, 115, 100);      count++;
+        wTag(tlv, 42, 50);        count++;
+        wTag(tlv, 43, 30);        count++;
+        wTag(tlv, 99, 1000);      count++;
+        wTag(tlv, 53, 0);         count++;
+        wTag(tlv, 76, 0);         count++;
+        wTag(tlv, 73, 0);         count++;
+        wTag(tlv, 74, 0);         count++;
+        wTag(tlv, 108, 5);        count++;
+        wTag(tlv, 109, 5);        count++;
+        wTag(tlv, 151, "");       count++;
+        wTag(tlv, 160, 0);        count++;
+        wTag(tlv, 165, (byte) 0); count++;
+        wTag(tlv, 166, (byte) 0); count++;
+        wTag(tlv, 132, 0L);       count++;
         sendPacket(dos, 9, tlv.toByteArray(), count);
     }
 
