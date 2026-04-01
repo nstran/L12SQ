@@ -1,5 +1,5 @@
 #KEmulator properties
-#Wed Apr 01 19:08:11 GMT 2026
+#Wed Apr 01 19:30:27 GMT 2026
 2D_Graphics_Enginge=SWT
 3D_Graphics_Enginge=LWJ
 AlwaysOnTop=false
