@@ -1,0 +1,510 @@
+KEmulator Lite v0.9.8 Running...
+Get classes from d:\L12SQ\loan-12-su-quan.jar
+Get class oq
+Get class ix
+Get class my
+Get class c
+Get class bh
+Get class ha
+Get class nc
+Get class bq
+Get class hj
+Get class lk
+Get class fr
+Get class dz
+Get class js
+Get class ed
+Get class cl
+Get class ie
+Get class mf
+Get class at
+Get class gm
+Get class mo
+Get class kw
+Get class ox
+Get class dg
+Get class na
+Get class bo
+Get class hh
+Get class j
+Get class nj
+Get class bx
+Get class hq
+Get class lr
+Get class fy
+Get class aa
+Get class eb
+Get class jz
+Get class ek
+Get class kd
+Get class oe
+Get class il
+Get class cs
+Get class mm
+Get class gt
+Get class mv
+Get class be
+Get class ff
+Get class com.mg.smsgame.MGMIDlet
+Get class jg
+Get class dn
+Get class jp
+Get class dw
+Get class q
+Get class nq
+Get class hx
+Get class ly
+Get class ah
+Get class ga
+Get class ei
+Get class kk
+Get class er
+Get class ol
+Get class cz
+Get class is
+Get class mt
+Get class bc
+Get class bl
+Get class he
+Get class fm
+Get class lf
+Get class du
+Get class jn
+Get class jw
+Get class x
+Get class nx
+Get class cg
+Get class ma
+Get class ao
+Get class gh
+Get class mj
+Get class ax
+Get class gq
+Get class ey
+Get class kr
+Get class os
+Get class db
+Get class iz
+Get class e
+Get class ne
+Get class hl
+Get class bs
+Get class lm
+Get class ft
+Get class ju
+Get class ef
+Get class ig
+Get class cn
+Get class mh
+Get class go
+Get class av
+Get class mq
+Get class gx
+Get class ky
+Get class fa
+Get class oz
+Get class jb
+Get class di
+Get class pd
+Get class jk
+Get class dr
+Get class l
+Get class nl
+Get class bz
+Get class hs
+Get class lt
+Get class ac
+Get class ge
+Get class com.mg.sq.a
+Get class em
+Get class kf
+Get class og
+Get class cu
+Get class in
+Get class gv
+Get class mx
+Get class bg
+Get class fh
+Get class la
+Get class pb
+Get class dp
+Get class ji
+Get class dy
+Get class jr
+Get class s
+Get class ns
+Get class cb
+Get class hz
+Get class gc
+Get class aj
+Get class me
+Get class gl
+Get class as
+Get class et
+Get class km
+Get class on
+Get class iu
+Get class ow
+Get class df
+Get class hg
+Get class bn
+Get class fo
+Get class lh
+Get class jy
+Get class ea
+Get class z
+Get class nz
+Get class ib
+Get class ci
+Get class mc
+Get class aq
+Get class gj
+Get class ml
+Get class az
+Get class gs
+Get class kt
+Get class ou
+Get class dd
+Get class dm
+Get class jf
+Get class g
+Get class p
+Get class ng
+Get class bu
+Get class hn
+Get class lo
+Get class fv
+Get class lx
+Get class ag
+Get class eh
+Get class ka
+Get class ob
+Get class cp
+Get class ii
+Get class ok
+Get class ir
+Get class ms
+Get class bb
+Get class gz
+Get class fc
+Get class dk
+Get class jd
+Get class dt
+Get class jm
+Get class n
+Get class w
+Get class nn
+Get class hu
+Get class lv
+Get class ae
+Get class gg
+Get class an
+Get class eo
+Get class kh
+Get class oi
+Get class ip
+Get class cw
+Get class or
+Get class iy
+Get class da
+Get class mz
+Get class hb
+Get class d
+Get class bi
+Get class lc
+Get class fj
+Get class ll
+Get class fs
+Get class jt
+Get class u
+Get class nu
+Get class cd
+Get class al
+Get class mg
+Get class au
+Get class gn
+Get class ko
+Get class ev
+Get class op
+Get class iw
+Get class oy
+Get class dh
+Get class ja
+Get class b
+Get class nb
+Get class bp
+Get class hi
+Get class k
+Get class fq
+Get class lj
+Get class ls
+Get class ab
+Get class fz
+Get class ec
+Get class ck
+Get class id
+Get class of
+Get class ct
+Get class im
+Get class mn
+Get class gu
+Get class kv
+Get class pa
+Get class do
+Get class jh
+Get class i
+Get class r
+Get class ni
+Get class hp
+Get class bw
+Get class lq
+Get class fx
+Get class lz
+Get class gb
+Get class ai
+Get class kc
+Get class ej
+Get class od
+Get class ik
+Get class cr
+Get class om
+Get class it
+Get class mu
+Get class bd
+Get class fe
+Get class lg
+Get class fn
+Get class jo
+Get class dv
+Get class y
+Get class np
+Get class hw
+Get class ny
+Get class ch
+Get class ia
+Get class mb
+Get class ap
+Get class gi
+Get class eq
+Get class kj
+Get class cy
+Get class ot
+Get class dc
+Get class bk
+Get class hd
+Get class f
+Get class fl
+Get class le
+Get class ln
+Get class fu
+Get class jv
+Get class nw
+Get class cf
+Get class oa
+Get class co
+Get class ih
+Get class mi
+Get class gp
+Get class aw
+Get class ex
+Get class kq
+Get class fb
+Get class kz
+Get class jc
+Get class dj
+Get class nd
+Get class m
+Get class hk
+Get class br
+Get class nm
+Get class ht
+Get class lu
+Get class ad
+Get class ee
+Get class if
+Get class cm
+Get class oh
+Get class cv
+Get class io
+Get class mp
+Get class gw
+Get class kx
+Get class lb
+Get class fi
+Get class pc
+Get class dq
+Get class jj
+Get class t
+Get class nk
+Get class by
+Get class hr
+Get class nt
+Get class cc
+Get class ak
+Get class gd
+Get class el
+Get class ke
+Get class eu
+Get class kn
+Get class oo
+Get class iv
+Get class mw
+Get class bf
+Get class a
+Get class com.mg.sq.SQMIDlet
+Get class fg
+Get class fp
+Get class li
+Get class dx
+Get class jq
+Get class nr
+Get class hy
+Get class ca
+Get class ic
+Get class cj
+Get class md
+Get class gk
+Get class ar
+Get class es
+Get class kl
+Get class ku
+Get class ov
+Get class de
+Get class hf
+Get class h
+Get class bm
+Get class nh
+Get class bv
+Get class ho
+Get class lp
+Get class fw
+Get class jx
+Get class kb
+Get class oc
+Get class cq
+Get class ij
+Get class mk
+Get class ay
+Get class gr
+Get class ez
+Get class ks
+Get class fd
+Get class dl
+Get class je
+Get class o
+Get class nf
+Get class bt
+Get class hm
+Get class no
+Get class hv
+Get class lw
+Get class af
+Get class eg
+Get class ep
+Get class ki
+Get class oj
+Get class cx
+Get class iq
+Get class mr
+Get class gy
+Get class ba
+Get class hc
+Get class bj
+Get class fk
+Get class ld
+Get class jl
+Get class ds
+Get class v
+Get class nv
+Get class ce
+Get class gf
+Get class am
+Get class com.mg.sq.b
+Get class kg
+Get class en
+Get class kp
+Get class ew
+Custom.jar.getResourceStream: /icon.png (388)
+Launch MIDlet class: com.mg.sq.SQMIDlet
+openRecordStore olacacher
+getRecord olacacher_3
+getRecord olacacher_1
+openRecordStore 161b
+getRecord 161b_3
+getRecord 161b_2
+openRecordStore 161b
+getRecord 161b_4
+openRecordStore 161b
+openRecordStore 161b
+openRecordStore 161b
+Custom.jar.getResourceStream: _corner.mg (175)
+Custom.jar.getResourceStream: corner/3.mg (207)
+Custom.jar.getResourceStream: corner/cornerskb.mg (189)
+Custom.jar.getResourceStream: corner/1.mg (169)
+Custom.jar.getResourceStream: _arrow.mg (null)
+>>[ERROR] Create image: /_arrow.mg
+>>java.lang.NullPointerException
+>>	at f.a(Unknown Source)
+>>	at f.d(Unknown Source)
+>>	at ak.<clinit>(Unknown Source)
+>>	at com.mg.sq.SQMIDlet.g(Unknown Source)
+>>	at com.mg.smsgame.MGMIDlet.<init>(Unknown Source)
+>>	at com.mg.sq.SQMIDlet.<init>(Unknown Source)
+>>	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+>>	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+>>	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+>>	at java.lang.reflect.Constructor.newInstance(Constructor.java:274)
+>>	at java.lang.Class.newInstance0(Class.java:308)
+>>	at java.lang.Class.newInstance(Class.java:261)
+>>	at emulator.Emulator.main(Unknown Source)
+System.getProperty#microedition.platform=SonyEricssonK800
+Custom.jar.getResourceStream: _corner.mg (175)
+System.getProperty#microedition.platform=SonyEricssonK800
+System.getProperty#microedition.configuration=CDLC1.1
+System.getProperty#microedition.profiles=MIDP2.0
+System.getProperty#com.sonyericsson.java.platform=null
+Custom.jar.getResourceStream: _fontcap.mg (1797)
+Custom.jar.getResourceStream: _mglogo.mg (757)
+openRecordStore 161b
+getRecord 161b_9
+openRecordStore 161b
+addRecord 161b_15
+Custom.jar.getResourceStream: _blackfont.mg (1772)
+Custom.jar.getResourceStream: f/ver.mg (3186)
+Custom.jar.getResourceStream: createcs/bk.mg (8399)
+Custom.jar.getResourceStream: focusmovechess1.mg (133)
+Custom.jar.getResourceStream: crystalblue.mg (177)
+Custom.jar.getResourceStream: notifygtmicon.mg (162)
+Custom.jar.getResourceStream: tab.mg (3038)
+Custom.jar.getResourceStream: dialog/corner.mg (115)
+Custom.jar.getResourceStream: corner/2.mg (153)
+Custom.jar.getResourceStream: hiddendragon.mg (935)
+Custom.jar.getResourceStream: m/hand.mg (238)
+Custom.jar.getResourceStream: m/arrow.mg (212)
+Custom.jar.getResourceStream: hiddenphoenix.mg (410)
+Custom.jar.getResourceStream: roomicon.mg (824)
+Custom.jar.getResourceStream: elementsicon.mg (413)
+openRecordStore 161b
+getRecord 161b_6
+Custom.jar.getResourceStream: createcs/bk.mg (8399)
+Custom.jar.getResourceStream: bardownloadscreen.mg (338)
+System.getProperty#microedition.platform=SonyEricssonK800
+Custom.jar.getResourceStream: fillbardownloadscreen.mg (112)
+openRecordStore 161b
+getRecord 161b_8
+Custom.jar.getResourceStream: _blackfont.mg (1772)
+SocketConnection: socket://127.0.0.1:1238
+host:127.0.0.1
+port:1238
+Custom.jar.getResourceStream: f/ver.mg (3186)
+openRecordStore 161b
+getRecord 161b_5
+SocketConnection: socket://127.0.0.1:1238
+host:127.0.0.1
+port:1238
+SocketConnection: socket://127.0.0.1:1238
+host:127.0.0.1
+port:1238
+SocketConnection: socket://127.0.0.1:1238
+host:127.0.0.1
+port:1238
