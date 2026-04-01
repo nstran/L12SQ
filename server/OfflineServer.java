@@ -170,7 +170,7 @@ public class OfflineServer {
                 // OR we allow bypass if we haven't implemented the salt algo yet, 
                 // but for now let's try to match exactly (some clients send fixed hash in registration/login)
                 if (loginPassHex == null || loginPassHex.equalsIgnoreCase(savedPassHex) || savedPassHex.equals("OFFLINE")) {
-                    sessionNick[0] = nick.toLowerCase();
+                    sessionNick[0] = nick; // PRESERVE CASE
                     send(dos, 1);  // auth success
                     send(dos, 2, tag(3, "127.0.0.1")); // redirect to game port
                     System.out.println("       >> AUTH SUCCESS for " + nick);
@@ -269,6 +269,8 @@ public class OfflineServer {
         if (charFile.exists()) {
             Map<String, String> charData = loadJson(charFile);
             sendFullProfileFromData(dos, nick, charData);
+            // After profile, send World Entry info to clear loading screen
+            sendWorldEntry(dos);
         } else {
             // Trigger character creation screen: Send minimal profile with ID=0 or specific flag
             System.out.println("       >> Triggering CHAR CREATION for: " + nick);
@@ -314,6 +316,25 @@ public class OfflineServer {
         // Send class confirm + full profile so client transitions into the game world
         send(dos, 30); // confirm class select
         sendFullProfileFromData(dos, nick, charData);
+        sendWorldEntry(dos); // Trigger entry into map
+    }
+
+    /** CMD 15 & CMD 11 - Send map and room info to enter the world */
+    private static void sendWorldEntry(DataOutputStream dos) throws IOException {
+        System.out.println("       >> Sending World Entry (Map & Room)");
+        // Map Info (CMD 15)
+        ByteArrayOutputStream mTLV = new ByteArrayOutputStream();
+        // M99 is handled specially by the client and avoids the RMS map-cache path
+        // that currently crashes on our minimal offline packets.
+        wTag(mTLV, 20, "M99");
+        wTag(mTLV, 12, (byte) 0);
+        sendPacket(dos, 15, mTLV.toByteArray(), 2);
+
+        // Room List (CMD 11)
+        ByteArrayOutputStream rTLV = new ByteArrayOutputStream();
+        wTag(rTLV, 20, "M99");
+        wTag(rTLV, 12, (byte) 0);
+        sendPacket(dos, 11, rTLV.toByteArray(), 2);
     }
 
     // ========== PROFILE BUILDERS ==========
@@ -463,7 +484,7 @@ public class OfflineServer {
         System.out.println("       >> Room list for zone: " + zone);
         ByteArrayOutputStream tlv = new ByteArrayOutputStream();
         int count = 0;
-        wTag(tlv, 20, zone != null ? zone : "offline"); count++;
+        wTag(tlv, 20, "M99"); count++;
         wTag(tlv, 12, (byte) 0); count++;
         sendPacket(dos, 11, tlv.toByteArray(), count);
     }
@@ -472,7 +493,7 @@ public class OfflineServer {
         System.out.println("       >> Map info request");
         ByteArrayOutputStream tlv = new ByteArrayOutputStream();
         int count = 0;
-        wTag(tlv, 20, "offline"); count++;
+        wTag(tlv, 20, "M99"); count++;
         wTag(tlv, 12, (byte) 0); count++;
         sendPacket(dos, 15, tlv.toByteArray(), count);
     }

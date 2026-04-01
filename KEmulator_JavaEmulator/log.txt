@@ -501,34 +501,18 @@ openRecordStore 161b
 listRecordStores
 Custom.jar.getResourceStream: bklogin.mg (42249)
 openRecordStore 161b
-getRecord 161b_14
+getRecord 161b_10
 openRecordStore 161b
-getRecord 161b_8
+getRecord 161b_5
 openRecordStore 161b
-getRecord 161b_17
+getRecord 161b_11
 openRecordStore 161b
-getRecord 161b_16
+getRecord 161b_12
 Custom.jar.getResourceStream: skicon.mg (352)
 openRecordStore 161b
 openRecordStore 161b
 getRecord 161b_13
 openRecordStore 161b
-System.getProperty#microedition.platform=SonyEricssonK800
->>java.lang.NullPointerException
->>	at oz.d(Unknown Source)
->>	at nz.f(Unknown Source)
->>	at nz.d(Unknown Source)
->>	at bv.f(Unknown Source)
->>	at bv.c(Unknown Source)
->>	at ar.a(Unknown Source)
->>	at aq.h(Unknown Source)
->>	at al.h(Unknown Source)
->>	at ak.run(Unknown Source)
->>	at java.lang.Thread.run(Thread.java:534)
-openRecordStore 161b
-openRecordStore 161b
-getRecord 161b_13
-openRecordStore 161b
 >>java.lang.NullPointerException
 >>	at oz.d(Unknown Source)
 >>	at nz.f(Unknown Source)
@@ -541,5 +525,14 @@ openRecordStore 161b
 >>	at ak.run(Unknown Source)
 >>	at java.lang.Thread.run(Thread.java:534)
 System.getProperty#microedition.platform=SonyEricssonK800
-Notify Destroyed
-Exiting Emulator
+>>org.eclipse.swt.SWTError: No more handles
+>>	at org.eclipse.swt.SWT.error(Unknown Source)
+>>	at org.eclipse.swt.SWT.error(Unknown Source)
+>>	at org.eclipse.swt.SWT.error(Unknown Source)
+>>	at org.eclipse.swt.graphics.Transform.<init>(Unknown Source)
+>>	at org.eclipse.swt.graphics.Transform.<init>(Unknown Source)
+>>	at emulator.graphics2D.swt.a.<init>(Unknown Source)
+>>	at emulator.graphics2D.swt.b.createGraphics(Unknown Source)
+>>	at javax.microedition.lcdui.Graphics.<init>(Unknown Source)
+>>	at emulator.i.run(Unknown Source)
+>>	at java.lang.Thread.run(Thread.java:534)
