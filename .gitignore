@@ -1,2 +1,35 @@
-/KEmulator_JavaEmulator
-/decompiled-cfr
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Java build outputs
+*.class
+*.log
+*.tmp
+*.bak
+
+# Root generated artifacts
+/loan-12-su-quan-local.jar
+
+# Decompiled / extracted artifacts regenerated from the original client jar
+/client-base/extracted/
+
+# Emulator local state / cache
+/KEmulator_JavaEmulator/
+
+# Server generated outputs
+/server/build/
+/server/dist/
+/server/runtime/
+
+# Server local data
+/server/data/accounts.json
+/server/data/*.db
+/server/data/**/*.db
+/server/data/chars/
+
+# Tooling outputs
+/tools/*.class
