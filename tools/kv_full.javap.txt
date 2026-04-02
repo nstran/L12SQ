@@ -1,0 +1,185 @@
+public final class kv {
+  private java.io.ByteArrayOutputStream a;
+
+  public kv();
+    Code:
+       0: aload_0
+       1: invokespecial #14                 // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: new           #3                  // class java/io/ByteArrayOutputStream
+       8: dup
+       9: invokespecial #10                 // Method java/io/ByteArrayOutputStream."<init>":()V
+      12: putfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      15: return
+
+  public final void a(short, byte[]);
+    Code:
+       0: aload_2
+       1: ifnonnull     5
+       4: return
+       5: aload_0
+       6: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+       9: iload_1
+      10: i2b
+      11: invokevirtual #12                 // Method java/io/ByteArrayOutputStream.write:(I)V
+      14: aload_0
+      15: aload_2
+      16: astore_2
+      17: astore_1
+      18: aload_2
+      19: arraylength
+      20: invokestatic  #19                 // Method p.a:(I)[B
+      23: astore_3
+      24: aload_1
+      25: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      28: aload_3
+      29: iconst_0
+      30: aload_3
+      31: arraylength
+      32: invokevirtual #13                 // Method java/io/ByteArrayOutputStream.write:([BII)V
+      35: aload_1
+      36: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      39: aload_2
+      40: iconst_0
+      41: aload_2
+      42: arraylength
+      43: invokevirtual #13                 // Method java/io/ByteArrayOutputStream.write:([BII)V
+      46: return
+      47: dup
+      48: astore_3
+      49: invokevirtual #17                 // Method java/lang/Throwable.printStackTrace:()V
+      52: return
+    Exception table:
+       from    to  target type
+          18    46    47   Class java/lang/Throwable
+
+  public final void a(short, java.lang.String);
+    Code:
+       0: aload_2
+       1: ifnonnull     5
+       4: return
+       5: aload_0
+       6: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+       9: iload_1
+      10: i2b
+      11: invokevirtual #12                 // Method java/io/ByteArrayOutputStream.write:(I)V
+      14: aload_0
+      15: aload_2
+      16: astore_2
+      17: astore_1
+      18: aload_2
+      19: ldc           #1                  // String UTF-8
+      21: invokevirtual #16                 // Method java/lang/String.getBytes:(Ljava/lang/String;)[B
+      24: dup
+      25: astore_3
+      26: ifnull        34
+      29: aload_3
+      30: arraylength
+      31: ifne          39
+      34: aload_2
+      35: invokevirtual #15                 // Method java/lang/String.getBytes:()[B
+      38: astore_3
+      39: aload_3
+      40: arraylength
+      41: invokestatic  #19                 // Method p.a:(I)[B
+      44: astore        4
+      46: aload_1
+      47: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      50: aload         4
+      52: iconst_0
+      53: aload         4
+      55: arraylength
+      56: invokevirtual #13                 // Method java/io/ByteArrayOutputStream.write:([BII)V
+      59: aload_1
+      60: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      63: aload_3
+      64: iconst_0
+      65: aload_3
+      66: arraylength
+      67: invokevirtual #13                 // Method java/io/ByteArrayOutputStream.write:([BII)V
+      70: return
+      71: astore_3
+      72: aload_2
+      73: invokevirtual #15                 // Method java/lang/String.getBytes:()[B
+      76: dup
+      77: astore        4
+      79: arraylength
+      80: invokestatic  #19                 // Method p.a:(I)[B
+      83: astore_2
+      84: aload_1
+      85: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      88: aload_2
+      89: iconst_0
+      90: aload_2
+      91: arraylength
+      92: invokevirtual #13                 // Method java/io/ByteArrayOutputStream.write:([BII)V
+      95: aload_1
+      96: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+      99: aload         4
+     101: iconst_0
+     102: aload         4
+     104: arraylength
+     105: invokevirtual #13                 // Method java/io/ByteArrayOutputStream.write:([BII)V
+     108: return
+     109: dup
+     110: astore_1
+     111: invokevirtual #17                 // Method java/lang/Throwable.printStackTrace:()V
+     114: return
+    Exception table:
+       from    to  target type
+          18    70    71   Class java/lang/Throwable
+          84   108   109   Class java/lang/Throwable
+
+  public final void a(short, byte);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iconst_1
+       3: newarray       byte
+       5: dup
+       6: iconst_0
+       7: iload_2
+       8: bastore
+       9: invokevirtual #18                 // Method a:(S[B)V
+      12: return
+
+  public final void a(short, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iconst_1
+       3: newarray       byte
+       5: dup
+       6: iconst_0
+       7: iload_2
+       8: i2b
+       9: bastore
+      10: invokevirtual #18                 // Method a:(S[B)V
+      13: return
+
+  public final void b(short, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iload_2
+       3: invokestatic  #19                 // Method p.a:(I)[B
+       6: invokevirtual #18                 // Method a:(S[B)V
+       9: return
+
+  public final void a(short, long);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: lload_2
+       3: invokestatic  #20                 // Method p.a:(J)[B
+       6: invokevirtual #18                 // Method a:(S[B)V
+       9: return
+
+  public final byte[] a();
+    Code:
+       0: aload_0
+       1: getfield      #9                  // Field a:Ljava/io/ByteArrayOutputStream;
+       4: invokevirtual #11                 // Method java/io/ByteArrayOutputStream.toByteArray:()[B
+       7: areturn
+}
+

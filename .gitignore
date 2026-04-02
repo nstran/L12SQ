@@ -19,6 +19,7 @@ Desktop.ini
 
 # Emulator local state / cache
 /KEmulator_JavaEmulator/
+/kemulator.cfg
 
 # Server generated outputs
 /server/build/
@@ -32,4 +33,5 @@ Desktop.ini
 /server/data/chars/
 
 # Tooling outputs
+# Keep tools/*.javap.txt tracked: they are reverse-engineering notes from the client JAR.
 /tools/*.class
