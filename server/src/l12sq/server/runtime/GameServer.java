@@ -1,5 +1,10 @@
 package l12sq.server.runtime;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,15 +22,17 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.imageio.ImageIO;
 import l12sq.server.auth.AuthService;
 import l12sq.server.auth.CaptchaFactory;
 import l12sq.server.config.ServerConfig;
 import l12sq.server.net.PacketRequest;
 import l12sq.server.net.TlvCodec;
 import l12sq.server.storage.AccountStore;
+import l12sq.server.storage.CharacterStore;
 
 public final class GameServer {
-    private static final int INSTALL_PACKAGE_VERSION = 3;
+    private static final int INSTALL_PACKAGE_VERSION = 5;
     private static final int[] METADATA_FRAME_COUNTS = {2, 6, 4, 4, 4, 4, 3};
     private static final byte[] PLACEHOLDER_PNG = Base64.getDecoder().decode(
             "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVChTY/h/4PR/UvCoBmLwCNRw+j8Awcz9IBccOeIAAAAASUVORK5CYII=");
@@ -52,10 +59,12 @@ public final class GameServer {
 
     private final ServerConfig config;
     private final AuthService authService;
+    private final CharacterStore characterStore;
 
-    public GameServer(ServerConfig config, AccountStore accountStore) {
+    public GameServer(ServerConfig config, AccountStore accountStore, CharacterStore characterStore) {
         this.config = config;
         this.authService = new AuthService(accountStore);
+        this.characterStore = characterStore;
     }
 
     public void start() {
@@ -115,6 +124,7 @@ public final class GameServer {
             case 6 -> handleInstallResourceRequest(request.tags(), dos, session);
             case 8 -> handleCreateCharacterRequest(request, dos, session);
             case 9 -> handleProfileSync(request.tags(), dos, session);
+            case 29 -> handleMapJoinRequest(request.tags(), dos, session);
             case 30 -> handleNoCharacterBootstrap(request.tags(), dos, session);
             case 42 -> handleStartButton(request.tags(), dos, session);
             case 1 -> TlvCodec.sendEmpty(dos, 1);
@@ -197,6 +207,19 @@ public final class GameServer {
         String username = firstNonBlank(TlvCodec.tagString(tags, 9), session.username, "player");
         session.username = username;
 
+        CharacterStore.CharacterData characterData = characterStore.load(username);
+        if (characterData != null) {
+            TagPacketBuilder profile = buildCharacterProfile(characterData);
+            System.out.println("[GAME] Sending CHARACTER profile for " + username);
+            TlvCodec.sendPacket(dos, 9, profile.payload(), profile.count());
+            session.currentMapName = "M99";
+            session.currentRoomId = 0;
+            sendMapJoin(dos, username, session.currentMapName, session.currentRoomId);
+            session.awaitingCharacterCreation = false;
+            session.createCharacterOptionsSent = false;
+            return;
+        }
+
         TagPacketBuilder profile = buildStartProfile(username);
         System.out.println("[GAME] Sending START profile for " + username);
         TlvCodec.sendPacket(dos, 9, profile.payload(), profile.count());
@@ -238,6 +261,26 @@ public final class GameServer {
 
         System.out.println("[GAME] Ack start button for " + session.username + " tags=" + tags.size());
         TlvCodec.sendEmpty(dos, 42);
+        if (session.currentMapName != null && !session.currentMapName.isEmpty()) {
+            sendMapJoin(dos, session.username, session.currentMapName, session.currentRoomId);
+        }
+    }
+
+    private void handleMapJoinRequest(Map<Integer, byte[]> tags, DataOutputStream dos, SessionContext session) throws IOException {
+        if (!session.authenticated) {
+            return;
+        }
+
+        String username = firstNonBlank(TlvCodec.tagString(tags, 9), session.username, "player");
+        session.username = username;
+        if (session.currentMapName == null || session.currentMapName.isEmpty()) {
+            session.currentMapName = "M99";
+            session.currentRoomId = 0;
+        }
+
+        System.out.println("[GAME] Respond map join request for " + session.username
+                + " -> " + session.currentMapName + " room=" + session.currentRoomId);
+        sendMapJoin(dos, session.username, session.currentMapName, session.currentRoomId);
     }
 
     private void handleCreateCharacterRequest(PacketRequest request, DataOutputStream dos, SessionContext session) throws IOException {
@@ -246,10 +289,31 @@ public final class GameServer {
             return;
         }
 
-        System.out.println("[GAME] Received create-character request for " + session.username
-                + " payload=" + request.payloadLength() + " tags=" + request.tags().size());
+        CreateCharacterSelection selection = parseCreateCharacterSelection(request.payload());
+        CharacterStore.CharacterData characterData = new CharacterStore.CharacterData(
+                session.username,
+                selection.gender(),
+                selection.element(),
+                selection.hairOptionId(),
+                selection.hairColorId(),
+                selection.faceOptionId(),
+                selection.skinOptionId(),
+                selection.skinColorId());
+
+        characterStore.save(characterData);
+        System.out.println("[GAME] Created character for " + session.username
+                + " gender=" + selection.gender()
+                + " element=" + selection.element()
+                + " hair=" + selection.hairOptionId() + "/" + selection.hairColorId()
+                + " face=" + selection.faceOptionId()
+                + " skin=" + selection.skinOptionId() + "/" + selection.skinColorId());
+
         session.awaitingCharacterCreation = false;
-        TlvCodec.sendEmpty(dos, 8);
+        session.currentMapName = "M99";
+        session.currentRoomId = 0;
+        TagPacketBuilder profile = buildCharacterProfile(characterData);
+        TlvCodec.sendPacket(dos, 9, profile.payload(), profile.count());
+        sendMapJoin(dos, session.username, session.currentMapName, session.currentRoomId);
     }
 
     private void handleInstallResourceRequest(Map<Integer, byte[]> tags, DataOutputStream dos, SessionContext session) throws IOException {
@@ -317,18 +381,36 @@ public final class GameServer {
 
     private void sendCreateCharacterOptions(DataOutputStream dos, String username) throws IOException {
         TagPacketBuilder options = new TagPacketBuilder();
-        appendCmd8AppearanceEntry(options, 79800, 0, 0, "Nam Mat 1", 79899, "Nam Mat 1");
-        appendCmd8AppearanceEntry(options, 79900, 1, 0, "Nam Toc 1", 79999, "Nam Toc 1");
-        appendCmd8AppearanceEntry(options, 89900, 2, 0, "Nam Da 1", 89999, "Nam Da 1");
-        appendCmd8AppearanceEntry(options, 79900, 0, 1, "Nu Mat 1", 79999, "Nu Mat 1");
-        appendCmd8AppearanceEntry(options, 79900, 1, 1, "Nu Toc 1", 79999, "Nu Toc 1");
-        appendCmd8AppearanceEntry(options, 89900, 2, 1, "Nu Da 1", 89999, "Nu Da 1");
+        appendCmd8AppearanceEntry(options, 79800, 0, 0, "Nam Toc 1", 79899, "Mau Toc Nam 1");
+        appendCmd8AppearanceEntry(options, 79900, 1, 0, "Nam Mat 1", 79999, "Nam Mat 1");
+        appendCmd8AppearanceEntry(options, 89900, 2, 0, "Nam Da 1", 89999, "Mau Da Nam 1");
+        appendCmd8AppearanceEntry(options, 79900, 0, 1, "Nu Toc 1", 79999, "Mau Toc Nu 1");
+        appendCmd8AppearanceEntry(options, 79800, 1, 1, "Nu Mat 1", 79899, "Nu Mat 1");
+        appendCmd8AppearanceEntry(options, 89900, 2, 1, "Nu Da 1", 89999, "Mau Da Nu 1");
 
         System.out.println("[GAME] Sending create-character options (CMD 8) for " + username);
         TlvCodec.sendPacket(dos, 8, options.payload(), options.count());
     }
 
+    private static TagPacketBuilder buildCharacterProfile(CharacterStore.CharacterData characterData) {
+        TagPacketBuilder profile = buildBaseProfile(characterData.username());
+        profile.byteTag(15, characterData.element());
+        profile.byteTag(16, characterData.gender());
+        appendCmd9AppearanceEntry(profile, characterData.hairOptionId(), 0, characterData.hairOptionId() + 99, characterData.hairColorId());
+        appendCmd9AppearanceEntry(profile, characterData.faceOptionId(), 1, characterData.faceOptionId() + 99, characterData.faceOptionId() + 99);
+        appendCmd9AppearanceEntry(profile, characterData.skinOptionId(), 2, characterData.skinOptionId() + 99, characterData.skinColorId());
+        return profile;
+    }
+
     private static TagPacketBuilder buildStartProfile(String username) {
+        TagPacketBuilder profile = buildBaseProfile(username);
+        appendCmd9AppearanceEntry(profile, 79800, 0, 79899, 79899);
+        appendCmd9AppearanceEntry(profile, 79900, 1, 79999, 79999);
+        appendCmd9AppearanceEntry(profile, 89900, 2, 89999, 89999);
+        return profile;
+    }
+
+    private static TagPacketBuilder buildBaseProfile(String username) {
         TagPacketBuilder profile = new TagPacketBuilder();
         profile.byteTag(134, 1);
         profile.stringTag(9, username);
@@ -364,9 +446,6 @@ public final class GameServer {
         profile.byteTag(165, 0);
         profile.byteTag(166, 0);
         profile.longTag(132, 0L);
-        appendCmd9AppearanceEntry(profile, 79800, 0, 79899, 79899);
-        appendCmd9AppearanceEntry(profile, 79900, 1, 79999, 79999);
-        appendCmd9AppearanceEntry(profile, 89900, 2, 89999, 89999);
         return profile;
     }
 
@@ -443,6 +522,66 @@ public final class GameServer {
         builder.rawTag(96, intBytes(spriteId));
         builder.stringTag(97, spriteName);
         builder.rawTag(98, intArrayBytes(spriteId));
+    }
+
+    private static CreateCharacterSelection parseCreateCharacterSelection(byte[] payload) {
+        List<TagEntry> entries = parseTagEntries(payload);
+        int gender = 0;
+        int element = 1;
+        int[] optionIds = new int[3];
+        int[] variantIds = new int[3];
+        int optionIndex = 0;
+        int variantIndex = 0;
+
+        for (TagEntry entry : entries) {
+            if (entry.tagId() == 16 && entry.value().length > 0) {
+                gender = entry.value()[0] & 0xFF;
+            } else if (entry.tagId() == 15 && entry.value().length > 0) {
+                element = entry.value()[0] & 0xFF;
+            } else if (entry.tagId() == 90 && entry.value().length >= 4 && optionIndex < optionIds.length) {
+                optionIds[optionIndex++] = ByteBuffer.wrap(entry.value(), 0, 4).getInt();
+            } else if (entry.tagId() == 96 && entry.value().length >= 4 && variantIndex < variantIds.length) {
+                variantIds[variantIndex++] = ByteBuffer.wrap(entry.value(), 0, 4).getInt();
+            }
+        }
+
+        return new CreateCharacterSelection(
+                gender,
+                element,
+                fallback(optionIds, 0, 79800),
+                fallback(variantIds, 0, 79899),
+                fallback(optionIds, 1, gender == 0 ? 79900 : 79800),
+                fallback(optionIds, 2, 89900),
+                fallback(variantIds, 2, 89999));
+    }
+
+    private static List<TagEntry> parseTagEntries(byte[] payload) {
+        ByteBuffer buffer = ByteBuffer.wrap(payload);
+        java.util.ArrayList<TagEntry> entries = new java.util.ArrayList<>();
+        while (buffer.remaining() >= 5) {
+            int tagId = buffer.get() & 0xFF;
+            int length = buffer.getInt();
+            if (length < 0 || buffer.remaining() < length) {
+                break;
+            }
+            byte[] value = new byte[length];
+            buffer.get(value);
+            entries.add(new TagEntry(tagId, value));
+        }
+        return entries;
+    }
+
+    private static int fallback(int[] values, int index, int defaultValue) {
+        return index < values.length && values[index] != 0 ? values[index] : defaultValue;
+    }
+
+    private static void sendMapJoin(DataOutputStream dos, String username, String mapName, int roomId) throws IOException {
+        TagPacketBuilder builder = new TagPacketBuilder();
+        builder.stringTag(9, username);
+        builder.stringTag(20, mapName);
+        builder.intTag(21, roomId);
+        System.out.println("[GAME] Sending map join CMD 29 user=" + username + " map=" + mapName + " room=" + roomId);
+        TlvCodec.sendPacket(dos, 29, builder.payload(), builder.count());
     }
 
     private static void sendInstallResourceAnnouncement(DataOutputStream dos, int resourceId, int totalBytes, int totalChunks) throws IOException {
@@ -539,6 +678,8 @@ public final class GameServer {
         private final Set<Integer> preloadedResources = new LinkedHashSet<>();
         private Integer activeInstallResourceId;
         private boolean installManifestSent;
+        private String currentMapName;
+        private int currentRoomId;
 
         private SessionContext(String channel) {
             this.channel = channel;
@@ -589,18 +730,11 @@ public final class GameServer {
         resources.put(79899, metadataBytes(700000));
         resources.put(79999, metadataBytes(700010));
         resources.put(89999, metadataBytes(700020));
-        addPlaceholderRange(resources, 99000, 7);
-        addPlaceholderRange(resources, 700000, 7);
-        addPlaceholderRange(resources, 700010, 7);
-        addPlaceholderRange(resources, 700020, 7);
+        addSpriteRange(resources, 99000, SpriteLayer.BODY);
+        addSpriteRange(resources, 700000, SpriteLayer.HAIR);
+        addSpriteRange(resources, 700010, SpriteLayer.FACE);
+        addSpriteRange(resources, 700020, SpriteLayer.SKIN);
         return resources;
-    }
-
-    private static byte[] framedImageBytes(int frameCount) {
-        ByteBuffer buffer = ByteBuffer.allocate(4 + PLACEHOLDER_PNG.length);
-        buffer.putInt(frameCount);
-        buffer.put(PLACEHOLDER_PNG);
-        return buffer.array();
     }
 
     private static byte[] metadataBytes(int imageBaseId) {
@@ -628,9 +762,110 @@ public final class GameServer {
         }
     }
 
+    private static void addSpriteRange(Map<Integer, byte[]> resources, int startId, SpriteLayer layer) {
+        for (int groupId = 0; groupId < METADATA_FRAME_COUNTS.length; groupId++) {
+            resources.put(startId + groupId, spriteSheetBytes(layer, groupId, METADATA_FRAME_COUNTS[groupId]));
+        }
+    }
+
     private static void addPlaceholderRange(Map<Integer, byte[]> resources, int startId, int count) {
         for (int offset = 0; offset < count; offset++) {
             resources.put(startId + offset, PLACEHOLDER_PNG);
         }
+    }
+
+    private static byte[] spriteSheetBytes(SpriteLayer layer, int groupId, int frameCount) {
+        final int frameWidth = 16;
+        final int frameHeight = 22;
+        BufferedImage image = new BufferedImage(frameWidth * frameCount, frameHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        graphics.setStroke(new BasicStroke(1f));
+        graphics.setBackground(new Color(0, 0, 0, 0));
+        graphics.clearRect(0, 0, image.getWidth(), image.getHeight());
+
+        for (int frameIndex = 0; frameIndex < frameCount; frameIndex++) {
+            int x = frameIndex * frameWidth;
+            int bob = (frameIndex + groupId) % 2;
+            drawSpriteFrame(graphics, layer, x, bob);
+        }
+
+        graphics.dispose();
+        try {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", output);
+            return output.toByteArray();
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to render sprite sheet for " + layer + " group " + groupId, exception);
+        }
+    }
+
+    private static void drawSpriteFrame(Graphics2D graphics, SpriteLayer layer, int x, int bob) {
+        int headX = x + 5;
+        int headY = 2 + bob;
+        int bodyX = x + 4;
+        int bodyY = 9 + bob;
+
+        switch (layer) {
+            case BODY -> {
+                graphics.setColor(new Color(255, 221, 178));
+                graphics.fillRect(headX, headY, 6, 6);
+                graphics.fillRect(x + 2, bodyY + 7, 2, 5);
+                graphics.fillRect(x + 12, bodyY + 7, 2, 5);
+
+                graphics.setColor(new Color(215, 120, 40));
+                graphics.fillRect(bodyX, bodyY, 8, 9);
+
+                graphics.setColor(new Color(40, 170, 70));
+                graphics.fillRect(x + 3, bodyY + 16, 4, 3);
+                graphics.fillRect(x + 9, bodyY + 16, 4, 3);
+
+                graphics.setColor(new Color(110, 68, 30));
+                graphics.drawRect(bodyX, bodyY, 7, 8);
+            }
+            case HAIR -> {
+                graphics.setColor(new Color(90, 110, 180));
+                graphics.fillRect(headX - 1, headY - 1, 8, 3);
+                graphics.fillRect(headX - 1, headY + 1, 2, 4);
+                graphics.fillRect(headX + 5, headY + 1, 2, 4);
+
+                graphics.setColor(new Color(50, 70, 130));
+                graphics.drawRect(headX - 1, headY - 1, 7, 5);
+            }
+            case FACE -> {
+                graphics.setColor(new Color(30, 30, 30));
+                graphics.fillRect(headX + 1, headY + 2, 1, 1);
+                graphics.fillRect(headX + 4, headY + 2, 1, 1);
+                graphics.fillRect(headX + 2, headY + 4, 2, 1);
+            }
+            case SKIN -> {
+                graphics.setColor(new Color(255, 236, 204, 110));
+                graphics.fillRect(headX, headY, 6, 6);
+                graphics.fillRect(x + 2, bodyY + 7, 2, 5);
+                graphics.fillRect(x + 12, bodyY + 7, 2, 5);
+            }
+        }
+    }
+
+    private enum SpriteLayer {
+        BODY,
+        HAIR,
+        FACE,
+        SKIN
+    }
+
+    private record TagEntry(int tagId, byte[] value) {
+    }
+
+    private record CreateCharacterSelection(
+            int gender,
+            int element,
+            int hairOptionId,
+            int hairColorId,
+            int faceOptionId,
+            int skinOptionId,
+            int skinColorId) {
     }
 }

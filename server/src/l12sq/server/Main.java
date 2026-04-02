@@ -2,6 +2,7 @@ package l12sq.server;
 
 import l12sq.server.config.ServerConfig;
 import l12sq.server.runtime.GameServer;
+import l12sq.server.storage.JsonCharacterStore;
 import l12sq.server.storage.JsonAccountStore;
 
 public final class Main {
@@ -11,7 +12,8 @@ public final class Main {
     public static void main(String[] args) throws Exception {
         ServerConfig config = ServerConfig.defaults();
         JsonAccountStore accountStore = new JsonAccountStore(config.accountsFile());
-        GameServer server = new GameServer(config, accountStore);
+        JsonCharacterStore characterStore = new JsonCharacterStore(config.charactersDirectory());
+        GameServer server = new GameServer(config, accountStore, characterStore);
         server.start();
     }
 }

@@ -44,219 +44,288 @@
 [GAME] >> CMD 6 chunk resource=89999 chunk=0 bytes=162
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99000 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99000 bytes=224 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99000 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99000 chunk=0 bytes=224
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99001 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99001 bytes=305 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99001 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99001 chunk=0 bytes=305
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99002 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99002 bytes=275 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99002 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99002 chunk=0 bytes=275
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99003 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99003 bytes=271 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99003 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99003 chunk=0 bytes=271
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99004 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99004 bytes=275 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99004 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99004 chunk=0 bytes=275
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99005 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99005 bytes=271 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99005 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99005 chunk=0 bytes=271
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=99006 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=99006 bytes=253 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=99006 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=99006 chunk=0 bytes=253
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700000 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700000 bytes=142 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700000 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700000 chunk=0 bytes=142
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700001 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700001 bytes=192 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700001 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700001 chunk=0 bytes=192
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700002 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700002 bytes=176 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700002 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700002 chunk=0 bytes=176
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700003 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700003 bytes=172 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700003 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700003 chunk=0 bytes=172
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700004 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700004 bytes=176 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700004 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700004 chunk=0 bytes=176
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700005 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700005 bytes=172 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700005 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700005 chunk=0 bytes=172
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700006 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700006 bytes=163 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700006 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700006 chunk=0 bytes=163
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700010 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700010 bytes=104 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700010 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700010 chunk=0 bytes=104
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700011 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700011 bytes=122 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700011 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700011 chunk=0 bytes=122
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700012 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700012 bytes=119 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700012 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700012 chunk=0 bytes=119
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700013 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700013 bytes=119 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700013 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700013 chunk=0 bytes=119
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700014 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700014 bytes=119 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700014 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700014 chunk=0 bytes=119
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700015 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700015 bytes=119 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700015 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700015 chunk=0 bytes=119
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700016 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700016 bytes=109 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700016 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700016 chunk=0 bytes=109
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700020 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700020 bytes=172 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700020 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700020 chunk=0 bytes=172
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700021 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700021 bytes=259 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700021 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700021 chunk=0 bytes=259
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700022 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700022 bytes=220 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700022 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700022 chunk=0 bytes=220
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700023 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700023 bytes=217 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700023 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700023 chunk=0 bytes=217
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700024 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700024 bytes=220 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700024 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700024 chunk=0 bytes=220
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700025 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700025 bytes=217 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700025 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700025 chunk=0 bytes=217
 [GAME] << CMD 6 len=9 tags=1
        Tag 4 (4b)
-[GAME] >> CMD 6 announce resource=700026 bytes=131 chunks=1
+[GAME] >> CMD 6 announce resource=700026 bytes=197 chunks=1
 [GAME] << CMD 6 len=18 tags=2
        Tag 4 (4b)
        Tag 7 (4b)
-[GAME] >> CMD 6 chunk resource=700026 chunk=0 bytes=131
+[GAME] >> CMD 6 chunk resource=700026 chunk=0 bytes=197
 [GAME] << CMD 2 len=0 tags=0
-[GAME] << CMD 4 len=131 tags=4
+[GAME] << CMD 4 len=128 tags=4
        Tag 9 (3b)
-       Tag 10 (86b)
+       Tag 10 (83b)
        Tag 1 (16b)
        Tag 11 (6b)
 [GAME] << CMD 9 len=14 tags=2
        Tag 9 (3b)
        Tag 134 (1b)
-[GAME] Sending START profile for nst
-[GAME] Sending create-character options (CMD 8) for nst
+[GAME] Sending CHARACTER profile for nst
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
 [GAME] << CMD 30 len=6 tags=1
        Tag 15 (1b)
-[GAME] Ignore bootstrap CMD 30 while waiting create-char for nst classFlag=1
+[GAME] Ack no-char bootstrap for nst classFlag=1
+[GAME] << CMD 42 len=8 tags=1
+       Tag 9 (3b)
+[GAME] Ack start button for nst tags=1
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 29 len=8 tags=1
+       Tag 9 (3b)
+[GAME] Respond map join request for nst -> M99 room=0
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 11 len=17 tags=2
+       Tag 20 (3b)
+       Tag 41 (4b)
+[GAME] [WARN] Unhandled CMD 11
 [GAME] << CMD 1 len=0 tags=0
-[GAME] << CMD 8 len=66 tags=4
-       Tag 16 (1b)
+[GAME] Error: Connection reset
+[GAME] Client connected from /127.0.0.1
+[GAME] << CMD 2 len=0 tags=0
+[GAME] << CMD 4 len=87 tags=4
+       Tag 9 (3b)
+       Tag 10 (42b)
+       Tag 1 (16b)
+       Tag 11 (6b)
+[GAME] << CMD 9 len=14 tags=2
+       Tag 9 (3b)
+       Tag 134 (1b)
+[GAME] Sending CHARACTER profile for nst
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 30 len=6 tags=1
        Tag 15 (1b)
-       Tag 90 (4b)
-       Tag 96 (4b)
-[GAME] Received create-character request for nst payload=66 tags=4
+[GAME] Ack no-char bootstrap for nst classFlag=1
+[GAME] << CMD 42 len=8 tags=1
+       Tag 9 (3b)
+[GAME] Ack start button for nst tags=1
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 29 len=8 tags=1
+       Tag 9 (3b)
+[GAME] Respond map join request for nst -> M99 room=0
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 11 len=17 tags=2
+       Tag 20 (3b)
+       Tag 41 (4b)
+[GAME] [WARN] Unhandled CMD 11
 [GAME] << CMD 1 len=0 tags=0
+[GAME] Error: Connection reset
+[GAME] Client connected from /127.0.0.1
+[GAME] << CMD 2 len=0 tags=0
+[GAME] << CMD 4 len=61 tags=4
+       Tag 9 (3b)
+       Tag 10 (16b)
+       Tag 1 (16b)
+       Tag 11 (6b)
+[GAME] << CMD 9 len=14 tags=2
+       Tag 9 (3b)
+       Tag 134 (1b)
+[GAME] Sending CHARACTER profile for nst
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 30 len=6 tags=1
+       Tag 15 (1b)
+[GAME] Ack no-char bootstrap for nst classFlag=1
+[GAME] << CMD 42 len=8 tags=1
+       Tag 9 (3b)
+[GAME] Ack start button for nst tags=1
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 29 len=8 tags=1
+       Tag 9 (3b)
+[GAME] Respond map join request for nst -> M99 room=0
+[GAME] Sending map join CMD 29 user=nst map=M99 room=0
+[GAME] << CMD 11 len=17 tags=2
+       Tag 20 (3b)
+       Tag 41 (4b)
+[GAME] [WARN] Unhandled CMD 11
+[GAME] Error: Connection reset
+[GAME] Client connected from /127.0.0.1
+[GAME] << CMD 1 len=0 tags=0
+[GAME] << CMD 1 len=0 tags=0
+[GAME] << CMD 1 len=0 tags=0
+[GAME] << CMD 1 len=0 tags=0
+[GAME] Error: Connection reset

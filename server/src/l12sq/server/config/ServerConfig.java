@@ -7,13 +7,15 @@ public record ServerConfig(
         String advertisedHost,
         int authPort,
         int gamePort,
-        Path accountsFile) {
+        Path accountsFile,
+        Path charactersDirectory) {
 
     public static ServerConfig defaults() {
         return new ServerConfig(
                 "192.168.1.226",
                 1236,
                 1238,
-                Paths.get("d:\\L12SQ\\server\\data\\accounts.json"));
+                Paths.get("d:\\L12SQ\\server\\data\\accounts.json"),
+                Paths.get("d:\\L12SQ\\server\\data\\chars"));
     }
 }
