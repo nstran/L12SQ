@@ -124,6 +124,7 @@ public final class GameServer {
             case 6 -> handleInstallResourceRequest(request.tags(), dos, session);
             case 8 -> handleCreateCharacterRequest(request, dos, session);
             case 9 -> handleProfileSync(request.tags(), dos, session);
+            case 11 -> handleWorldMapHotspotRequest(request.tags(), dos, session);
             case 29 -> handleMapJoinRequest(request.tags(), dos, session);
             case 30 -> handleNoCharacterBootstrap(request.tags(), dos, session);
             case 42 -> handleStartButton(request.tags(), dos, session);
@@ -281,6 +282,20 @@ public final class GameServer {
         System.out.println("[GAME] Respond map join request for " + session.username
                 + " -> " + session.currentMapName + " room=" + session.currentRoomId);
         sendMapJoin(dos, session.username, session.currentMapName, session.currentRoomId);
+    }
+
+    private void handleWorldMapHotspotRequest(Map<Integer, byte[]> tags, DataOutputStream dos, SessionContext session) throws IOException {
+        if (!session.authenticated) {
+            return;
+        }
+
+        String mapName = firstNonBlank(TlvCodec.tagString(tags, 20), session.currentMapName, "M99");
+        int requestValue = tagInt(tags, 41, 0);
+        session.currentMapName = mapName;
+
+        System.out.println("[GAME] Respond world map CMD 11 for " + session.username
+                + " map=" + mapName + " requestValue=" + requestValue);
+        sendWorldMapHotspots(dos, mapName);
     }
 
     private void handleCreateCharacterRequest(PacketRequest request, DataOutputStream dos, SessionContext session) throws IOException {
@@ -584,6 +599,38 @@ public final class GameServer {
         TlvCodec.sendPacket(dos, 29, builder.payload(), builder.count());
     }
 
+    private static void sendWorldMapHotspots(DataOutputStream dos, String mapName) throws IOException {
+        TagPacketBuilder builder = new TagPacketBuilder();
+        builder.byteTag(12, 0);
+        builder.stringTag(20, mapName);
+        builder.rawTag(21, worldMapMarkerPayload(1, "Hoa Lu", 0, 120, 220, 64, 40, true, 0));
+        System.out.println("[GAME] Sending world map hotspots CMD 11 map=" + mapName + " count=1");
+        TlvCodec.sendPacket(dos, 11, builder.payload(), builder.count());
+    }
+
+    private static byte[] worldMapMarkerPayload(
+            int id,
+            String label,
+            int markerType,
+            int centerX,
+            int centerY,
+            int width,
+            int height,
+            boolean enabled,
+            int iconId) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        output.writeBytes(intBytes(id));
+        TlvCodec.writeTag(output, 26, label);
+        TlvCodec.writeTag(output, 22, new byte[]{(byte) (markerType & 0xFF)});
+        TlvCodec.writeTag(output, 102, intBytes(centerX));
+        TlvCodec.writeTag(output, 103, intBytes(centerY));
+        TlvCodec.writeTag(output, 104, intBytes(width));
+        TlvCodec.writeTag(output, 105, intBytes(height));
+        TlvCodec.writeTag(output, 101, new byte[]{(byte) (enabled ? 1 : 0)});
+        TlvCodec.writeTag(output, 4, intBytes(iconId));
+        return output.toByteArray();
+    }
+
     private static void sendInstallResourceAnnouncement(DataOutputStream dos, int resourceId, int totalBytes, int totalChunks) throws IOException {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.intTag(4, resourceId);
@@ -648,7 +695,19 @@ public final class GameServer {
                 request.tags().size());
         for (Map.Entry<Integer, byte[]> entry : request.tags().entrySet()) {
             int size = entry.getValue() == null ? 0 : entry.getValue().length;
-            System.out.printf("       Tag %d (%db)%n", entry.getKey(), size);
+            if (entry.getKey() == 20) {
+                System.out.printf("       Tag %d (%db) = \"%s\"%n",
+                        entry.getKey(),
+                        size,
+                        new String(entry.getValue()));
+            } else if (size == 4) {
+                System.out.printf("       Tag %d (%db) = %d%n",
+                        entry.getKey(),
+                        size,
+                        ByteBuffer.wrap(entry.getValue(), 0, 4).getInt());
+            } else {
+                System.out.printf("       Tag %d (%db)%n", entry.getKey(), size);
+            }
         }
     }
 
