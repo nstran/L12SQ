@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 public class OfflineServer {
     private static final int AUTH_PORT = 7236;
     private static final int GAME_PORT = 7238;
+    private static final String ADVERTISED_HOST = "192.168.1.226";
     private static final String WORLD_MAP_ZONE = "M99";
     private static final String FIRST_CITY_ZONE = "Offline Map";
     private static final String FIRST_CITY_DISPLAY = "Hoa Lu";
@@ -196,7 +197,7 @@ public class OfflineServer {
                 if (loginPassHex == null || loginPassHex.equalsIgnoreCase(savedPassHex) || savedPassHex.equals("OFFLINE")) {
                     sessionNick[0] = nick; // PRESERVE CASE
                     send(dos, 1);  // auth success
-                    send(dos, 2, tag(3, "127.0.0.1")); // redirect to game port
+                    send(dos, 2, tag(3, ADVERTISED_HOST)); // redirect to game port
                     System.out.println("       >> AUTH SUCCESS for " + nick);
                 } else {
                     // Password mismatch

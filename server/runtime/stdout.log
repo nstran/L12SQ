@@ -7,3 +7,78 @@
 =============================================
 [GAME] Listening on port 7238...
 [AUTH] Listening on port 7236...
+
+[GAME] Client connected from /127.0.0.1
+[GAME] << CMD 5 (0x05) len=35 tags=3
+       Tag 41 = [00 00 00 00] (4b)
+       Tag 11 = "0.17.0"
+       Tag 170 = [FF FF FF FF] (4b)
+       >> Version OK
+[GAME] << CMD 2 (0x02) len=6 tags=0
+       >> Sending Salt challenge
+[GAME] << CMD 4 (0x04) len=70 tags=4
+       Tag 9 = "tranns"
+       Tag 10 = [01 C2 3D 8B 49 F6 C6 27 7B 5F B5 BD 43 81 7C A8] (16b)
+       Tag 1 = "SonyEricssonK800"
+       Tag 11 = "0.17.0"
+       >> Auth submit from: tranns
+       >> GAME AUTH OK, session=tranns
+[GAME] << CMD 9 (0x09) len=23 tags=2
+       Tag 9 = "tranns"
+       Tag 134 = [01] (1b)
+       >> Profile sync for: tranns type=1
+       >> Sending profile from data for tranns appearance=true
+       >> Profile sent (52 tags) level=1 class=1
+[GAME] << CMD 30 (0x1E) len=12 tags=1
+       Tag 15 = [01] (1b)
+       >> Class bootstrap for existing char: classId=1 nick=tranns
+       >> Sending class bootstrap (CMD 30), classId=1
+[GAME] << CMD 42 (0x2A) len=17 tags=1
+       Tag 9 = "tranns"
+       >> Bootstrap request (CMD 42) for: tranns
+       >> Bootstrap data sent (CMD 42)
+       >> Sending World Entry (Map & Room)
+[GAME] << CMD 29 (0x1D) len=17 tags=1
+       Tag 9 = "tranns"
+       >> Player info / world entry for: tranns
+       >> Current location sent: nick=tranns zone=M99 room=0
+[GAME] << CMD 29 (0x1D) len=17 tags=1
+       Tag 9 = "tranns"
+       >> Player info / world entry for: tranns
+       >> Current location sent: nick=tranns zone=M99 room=0
+[GAME] << CMD 11 (0x0B) len=23 tags=2
+       Tag 20 = "M99"
+       Tag 41 = [FF FF FF FF] (4b)
+       >> Room list for zone: M99
+[GAME] << CMD 13 (0x0D) len=23 tags=2
+       Tag 20 = "M99"
+       Tag 21 = [00 00 00 00] (4b)
+       >> Zone enter request: zone=M99 room=0
+       >> Zone enter response: zone=Offline Map room=0 status=0
+[GAME] << CMD 11 (0x0B) len=22 tags=1
+       Tag 20 = "Offline Map"
+       >> Room list for zone: Offline Map
+       >> Sending simple city map for Hoa Lu
+[GAME] << CMD 6 (0x06) len=15 tags=1
+       Tag 4 = [00 00 03 E8] (4b)
+       >> Resource request: 1000 chunk=-1
+[GAME] << CMD 6 (0x06) len=24 tags=2
+       Tag 4 = [00 00 03 E8] (4b)
+       Tag 7 = [00 00 00 00] (4b)
+       >> Resource request: 1000 chunk=0
+[GAME] << CMD 6 (0x06) len=15 tags=1
+       Tag 4 = [00 00 03 E9] (4b)
+       >> Resource request: 1001 chunk=-1
+[GAME] << CMD 6 (0x06) len=24 tags=2
+       Tag 4 = [00 00 03 E9] (4b)
+       Tag 7 = [00 00 00 00] (4b)
+       >> Resource request: 1001 chunk=0
+[GAME] << CMD 6 (0x06) len=15 tags=1
+       Tag 4 = [00 00 03 EA] (4b)
+       >> Resource request: 1002 chunk=-1
+[GAME] << CMD 6 (0x06) len=24 tags=2
+       Tag 4 = [00 00 03 EA] (4b)
+       Tag 7 = [00 00 00 00] (4b)
+       >> Resource request: 1002 chunk=0
+[GAME] << CMD 1 (0x01) len=6 tags=0
+[GAME] Error: Connection reset
