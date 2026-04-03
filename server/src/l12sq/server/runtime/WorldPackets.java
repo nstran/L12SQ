@@ -60,7 +60,7 @@ final class WorldPackets {
         builder.intTag(60, InstallResourceCatalog.MAP_HOA_LU_TILESET_ID);
         builder.intTag(63, InstallResourceCatalog.MAP_HOA_LU_BACKGROUND_ID);
         builder.intTag(29, InstallResourceCatalog.MAP_HOA_LU_OVERLAY_ID);
-        appendEntry(builder, 1, "Khu 1", 1, 146, 72, 64, 48, true, 0);
+        appendEntry(builder, 1, "Khu 1", 1, 124, 132, 180, 28, true, 0);
         builder.intTag(6, 0);
         builder.intTag(6, 0);
         System.out.println("[GAME] Sending map info CMD 11 map=" + mapName + " resources=3 rooms=1");
@@ -138,20 +138,23 @@ final class WorldPackets {
     private static byte[] buildHoaLuLogicLayer() {
         byte[] layer = repeatedByteArray(HOA_LU_MAP_WIDTH * HOA_LU_MAP_HEIGHT, 0);
 
-        // Bit 32 is the floor/ground flag the local movement controller expects under the player.
-        for (int row = 3; row < HOA_LU_MAP_HEIGHT; row++) {
-            for (int col = 0; col < HOA_LU_MAP_WIDTH; col++) {
-                setCell(layer, HOA_LU_MAP_WIDTH, row, col, 32);
-            }
+        // Flat walkable floor across the lower part of the map.
+        for (int row = 5; row < HOA_LU_MAP_HEIGHT; row++) {
+            setFloorRange(layer, row, 0, HOA_LU_MAP_WIDTH - 1, 32);
         }
 
-        // The client also requires at least one exact "2" marker for its spawn list bootstrap.
-        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 2, 2);
-        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 2, 3);
-        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 2, 4);
-        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 2, 5);
-        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 2, 6);
+        // Spawn centered on the lower floor.
+        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 5, 3);
+        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 5, 4);
+        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 5, 5);
+        markSpawnCell(layer, HOA_LU_MAP_WIDTH, 5, 6);
         return layer;
+    }
+
+    private static void setFloorRange(byte[] layer, int row, int startCol, int endCol, int value) {
+        for (int col = startCol; col <= endCol; col++) {
+            setCell(layer, HOA_LU_MAP_WIDTH, row, col, value);
+        }
     }
 
     private static void markSpawnCell(byte[] layer, int mapWidth, int row, int col) {
