@@ -19,7 +19,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 final class InstallResourceCatalog {
-    static final int INSTALL_PACKAGE_VERSION = 16;
+    static final int INSTALL_PACKAGE_VERSION = 17;
     static final int MAP_HOA_LU_BACKGROUND_ID = 31000;
     static final int MAP_HOA_LU_OVERLAY_ID = 31001;
     static final int MAP_HOA_LU_TILESET_ID = 31002;
@@ -46,7 +46,6 @@ final class InstallResourceCatalog {
     private static final int[] METADATA_FRAME_COUNTS = {2, 6, 4, 4, 4, 4, 3};
     private static final byte[] PLACEHOLDER_PNG = Base64.getDecoder().decode(
             "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVChTY/h/4PR/UvCoBmLwCNRw+j8Awcz9IBccOeIAAAAASUVORK5CYII=");
-    private static final Map<Integer, byte[]> INSTALL_RESOURCES = createInstallResources();
     private static final Color SKY_TOP = new Color(105, 211, 233);
     private static final Color SKY_BOTTOM = new Color(156, 224, 220);
     private static final Color WATER_TOP = new Color(103, 210, 232);
@@ -63,6 +62,7 @@ final class InstallResourceCatalog {
     private static final Color FOLIAGE_LIGHT = new Color(101, 161, 87);
     private static final Color FOLIAGE_MID = new Color(94, 161, 52);
     private static final Color FOLIAGE_DARK = new Color(36, 109, 42);
+    private static final Map<Integer, byte[]> INSTALL_RESOURCES = createInstallResources();
 
     private InstallResourceCatalog() {
     }
@@ -133,31 +133,12 @@ final class InstallResourceCatalog {
         BufferedImage image = new BufferedImage(240, 160, BufferedImage.TYPE_BYTE_INDEXED);
         Graphics2D graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setPaint(new java.awt.GradientPaint(0, 0, SKY_TOP, 0, 106, SKY_BOTTOM));
-        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-
-        graphics.setPaint(new java.awt.GradientPaint(0, 94, WATER_TOP, 0, 160, WATER_BOTTOM));
-        graphics.fillRect(0, 92, image.getWidth(), 68);
-        graphics.setColor(new Color(CLOUD.getRed(), CLOUD.getGreen(), CLOUD.getBlue(), 138));
-        graphics.fillRect(0, 90, image.getWidth(), 4);
-
-        drawCloudSwirl(graphics, 18, 18, 40, 15);
-        drawCloudSwirl(graphics, 74, 18, 54, 18);
-        drawCloudSwirl(graphics, 148, 20, 52, 17);
-        drawSkyCurlBand(graphics, 104, 26, 92, 28);
-
-        drawDistantIsland(graphics, 18, 108, 54, 16);
-        drawDistantIsland(graphics, 150, 104, 60, 18);
-        drawPagodaIsland(graphics, 26, 58, 46, 34);
-        drawPagodaIsland(graphics, 178, 70, 38, 28);
-        drawFloatingSpire(graphics, 144, 44, 30, 50);
-        drawFloatingSpire(graphics, 112, 66, 22, 32);
-        drawFloatingSpire(graphics, 192, 62, 18, 24);
-        drawGoldenRoof(graphics, 76, 84, 38, 18, 110);
-
-        graphics.setColor(new Color(216, 238, 212, 72));
-        graphics.fillOval(114, 44, 64, 18);
-        drawSoftWaterBands(graphics, 0, 108, 240, 46);
+        fillVerticalBlend(graphics, 0, 0, image.getWidth(), 112, SKY_TOP, SKY_BOTTOM);
+        fillVerticalBlend(graphics, 0, 100, image.getWidth(), 60, WATER_TOP, WATER_BOTTOM);
+        drawAtmosphericSky(graphics);
+        drawReferenceBackground(graphics);
+        drawSoftWaterBands(graphics, 0, 104, 240, 50);
+        drawWaterReflections(graphics);
         graphics.dispose();
         return writePng(image, "scene background");
     }
@@ -167,33 +148,36 @@ final class InstallResourceCatalog {
         Graphics2D graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        graphics.setPaint(new java.awt.GradientPaint(0, 0, SKY_TOP, 0, 106, SKY_BOTTOM));
-        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        graphics.setPaint(new java.awt.GradientPaint(0, 94, WATER_TOP, 0, 160, WATER_BOTTOM));
-        graphics.fillRect(0, 92, image.getWidth(), 68);
-        graphics.setColor(new Color(CLOUD.getRed(), CLOUD.getGreen(), CLOUD.getBlue(), 130));
-        graphics.fillRect(0, 90, image.getWidth(), 4);
-        drawSoftWaterBands(graphics, 0, 108, 240, 46);
+        fillVerticalBlend(graphics, 0, 0, image.getWidth(), 112, SKY_TOP, SKY_BOTTOM);
+        fillVerticalBlend(graphics, 0, 100, image.getWidth(), 60, WATER_TOP, WATER_BOTTOM);
+        drawSoftWaterBands(graphics, 0, 104, 240, 50);
 
-        drawGoldenRoof(graphics, 70, 84, 40, 18, 255);
-
-        // Hanging island ceiling, close to the reference video.
-        int[] topIslandX = {0, 240, 240, 220, 198, 178, 160, 140, 120, 96, 72, 46, 20, 0};
-        int[] topIslandY = {0, 0, 52, 54, 88, 96, 74, 82, 96, 88, 74, 66, 56, 54};
+        int[] topIslandX = {74, 236, 236, 224, 214, 208, 196, 186, 176, 164, 154, 144, 132, 122, 112, 102, 94, 86, 78, 74};
+        int[] topIslandY = {0, 0, 42, 46, 56, 72, 84, 96, 86, 68, 76, 88, 96, 86, 74, 64, 56, 48, 44, 40};
         drawConnectedTerrain(graphics, topIslandX, topIslandY);
-        drawTerrainMoss(graphics, 118, 66, 10, 18);
-        drawTerrainMoss(graphics, 150, 82, 12, 8);
+        drawGrassContour(graphics,
+                new int[] {74, 100, 126, 154, 182, 208, 236},
+                new int[] {40, 42, 43, 42, 41, 41, 42});
+        drawGrassShrub(graphics, 94, 34, 12, 8);
+        drawGrassShrub(graphics, 118, 35, 15, 9);
+        drawGrassShrub(graphics, 151, 35, 16, 9);
+        drawGrassShrub(graphics, 182, 34, 14, 8);
+        drawTerrainMoss(graphics, 146, 59, 9, 18);
+        drawTerrainMoss(graphics, 118, 71, 10, 14);
+        drawTerrainMoss(graphics, 196, 48, 8, 12);
 
-        // Bottom walkable floor, flat and continuous.
         int[] bottomFloorX = {0, 240, 240, 0};
-        int[] bottomFloorY = {134, 134, 160, 160};
+        int[] bottomFloorY = {132, 132, 160, 160};
         drawConnectedTerrain(graphics, bottomFloorX, bottomFloorY);
-        drawGrassContour(graphics, new int[] {0, 240}, new int[] {134, 134});
+        drawGrassContour(graphics, new int[] {0, 240}, new int[] {132, 132});
 
-        drawBananaPlant(graphics, 4, 78);
-        drawFlowerBush(graphics, 102, 124);
-        drawFlowerBush(graphics, 132, 124);
-        drawRopeLadder(graphics, 228, 12, 116);
+        drawForegroundBananaCluster(graphics, -2, 80);
+        drawFlowerBush(graphics, 92, 122);
+        drawFlowerBush(graphics, 106, 121);
+        drawFlowerBush(graphics, 121, 123);
+        drawReferenceTree(graphics, 146, 74);
+        drawRopeLadder(graphics, 227, 8, 122);
+        drawWaterfallForeground(graphics, 144, 44);
 
         graphics.dispose();
         return writePng(image, "scene overlay");
@@ -425,23 +409,32 @@ final class InstallResourceCatalog {
         graphics.setColor(EARTH_BASE);
         graphics.fillRect(x, y, width, height);
         graphics.setColor(EARTH_MID);
-        for (int row = y + 4; row < y + height; row += 11) {
-            for (int col = x + ((row / 11) % 2 == 0 ? 1 : 10); col < x + width + 12; col += 20) {
-                graphics.drawLine(col, row + 4, col + 6, row + 1);
-                graphics.drawLine(col + 6, row + 1, col + 12, row + 4);
-                graphics.drawLine(col, row + 4, col + 6, row + 8);
-                graphics.drawLine(col + 6, row + 8, col + 12, row + 4);
+        for (int row = y + 5; row < y + height; row += 10) {
+            int offset = ((row / 10) % 2 == 0) ? 0 : 9;
+            for (int col = x - 6 + offset; col < x + width + 14; col += 18) {
+                graphics.drawLine(col + 2, row + 3, col + 7, row);
+                graphics.drawLine(col + 7, row, col + 12, row + 3);
+                graphics.drawLine(col + 2, row + 3, col + 7, row + 7);
+                graphics.drawLine(col + 7, row + 7, col + 12, row + 3);
             }
         }
         graphics.setColor(EARTH_HIGHLIGHT);
-        for (int row = y + 4; row < y + height; row += 11) {
-            for (int col = x + 2 + ((row / 11) % 2 == 0 ? 1 : 10); col < x + width + 12; col += 20) {
-                graphics.drawLine(col + 1, row + 4, col + 5, row + 2);
+        for (int row = y + 6; row < y + height; row += 10) {
+            int offset = ((row / 10) % 2 == 0) ? 1 : 10;
+            for (int col = x - 4 + offset; col < x + width + 12; col += 18) {
+                graphics.drawLine(col + 3, row + 2, col + 6, row + 1);
+                graphics.drawLine(col + 7, row + 6, col + 10, row + 5);
             }
         }
-        graphics.setColor(new Color(EARTH_SHADE.getRed(), EARTH_SHADE.getGreen(), EARTH_SHADE.getBlue(), 110));
-        for (int row = y + 8; row < y + height; row += 22) {
-            graphics.drawLine(x, row, x + width, row + 2);
+        graphics.setColor(new Color(EARTH_SHADE.getRed(), EARTH_SHADE.getGreen(), EARTH_SHADE.getBlue(), 95));
+        for (int row = y + 10; row < y + height; row += 18) {
+            graphics.drawLine(x, row, x + width, row + 1);
+        }
+        graphics.setColor(new Color(193, 154, 93, 85));
+        for (int row = y + 8; row < y + height; row += 16) {
+            for (int col = x + 6 + ((row / 8) % 2 == 0 ? 0 : 11); col < x + width; col += 26) {
+                graphics.fillOval(col, row, 6, 4);
+            }
         }
     }
 
@@ -464,6 +457,17 @@ final class InstallResourceCatalog {
         graphics.fillOval(x, y + 3, width / 2, height - 4);
         graphics.fillOval(x + width / 4, y, width / 2, height);
         graphics.fillOval(x + width / 2, y + 4, width / 3, height - 5);
+    }
+
+    private static void fillVerticalBlend(Graphics2D graphics, int x, int y, int width, int height, Color top, Color bottom) {
+        for (int row = 0; row < height; row++) {
+            float t = height <= 1 ? 0.0f : (float) row / (float) (height - 1);
+            int red = (int) Math.round(top.getRed() + (bottom.getRed() - top.getRed()) * t);
+            int green = (int) Math.round(top.getGreen() + (bottom.getGreen() - top.getGreen()) * t);
+            int blue = (int) Math.round(top.getBlue() + (bottom.getBlue() - top.getBlue()) * t);
+            graphics.setColor(new Color(red, green, blue));
+            graphics.fillRect(x, y + row, width, 1);
+        }
     }
 
     private static void drawSkyCurlBand(Graphics2D graphics, int x, int y, int width, int height) {
@@ -697,6 +701,134 @@ final class InstallResourceCatalog {
         graphics.fillOval(x, y, width, height);
         graphics.setColor(FOLIAGE_DARK);
         graphics.fillOval(x + 2, y + 1, width - 4, height - 2);
+    }
+
+    private static void drawAtmosphericSky(Graphics2D graphics) {
+        drawCloudSwirl(graphics, 20, 14, 36, 13);
+        drawCloudSwirl(graphics, 74, 14, 50, 16);
+        drawCloudSwirl(graphics, 168, 16, 38, 13);
+        drawCloudSwirl(graphics, 196, 10, 28, 10);
+        drawSkyCurlBand(graphics, 92, 22, 96, 30);
+
+        graphics.setColor(new Color(232, 247, 248, 80));
+        graphics.fillOval(112, 52, 92, 24);
+        graphics.fillOval(32, 76, 80, 18);
+    }
+
+    private static void drawReferenceBackground(Graphics2D graphics) {
+        drawPagodaIsland(graphics, 12, 60, 52, 38);
+        drawPagodaIsland(graphics, 183, 74, 42, 30);
+        drawFloatingSpire(graphics, 140, 36, 34, 56);
+        drawFloatingSpire(graphics, 150, 92, 24, 30);
+        drawSoftMidIsland(graphics, 118, 92, 28, 22);
+        drawSoftMidIsland(graphics, 170, 104, 38, 22);
+        drawSoftMidIsland(graphics, 28, 110, 44, 20);
+        drawGoldenRoof(graphics, 73, 84, 36, 18, 120);
+        drawDistantTemple(graphics, 184, 82, 34, 20);
+        drawHazeMountains(graphics);
+    }
+
+    private static void drawHazeMountains(Graphics2D graphics) {
+        graphics.setColor(new Color(198, 227, 219, 95));
+        graphics.fillOval(78, 102, 88, 20);
+        graphics.fillOval(130, 98, 78, 22);
+        graphics.fillOval(8, 100, 64, 20);
+    }
+
+    private static void drawSoftMidIsland(Graphics2D graphics, int x, int y, int width, int height) {
+        graphics.setColor(new Color(219, 238, 211, 135));
+        graphics.fillOval(x, y + height - 8, width, 10);
+        graphics.setColor(new Color(232, 220, 184, 145));
+        graphics.fillPolygon(
+                new int[] {x + width / 2, x + 5, x + width - 5},
+                new int[] {y, y + height - 6, y + height - 6},
+                3);
+        graphics.setColor(new Color(GRASS_LIGHT.getRed(), GRASS_LIGHT.getGreen(), GRASS_LIGHT.getBlue(), 165));
+        graphics.fillRect(x + 4, y, width - 8, 3);
+    }
+
+    private static void drawDistantTemple(Graphics2D graphics, int x, int y, int width, int height) {
+        graphics.setColor(new Color(205, 153, 129, 165));
+        graphics.fillPolygon(
+                new int[] {x, x + width / 2, x + width},
+                new int[] {y + 6, y, y + 6},
+                3);
+        graphics.fillRect(x + 5, y + 6, width - 10, height - 10);
+        graphics.setColor(new Color(214, 236, 200, 100));
+        graphics.fillOval(x - 2, y + height - 8, width + 4, 10);
+    }
+
+    private static void drawWaterReflections(Graphics2D graphics) {
+        graphics.setColor(new Color(237, 247, 240, 108));
+        graphics.fillOval(18, 118, 22, 7);
+        graphics.fillOval(44, 116, 12, 4);
+        graphics.fillOval(106, 118, 8, 4);
+        graphics.fillOval(114, 116, 8, 4);
+        graphics.fillOval(122, 118, 8, 4);
+        graphics.fillOval(176, 120, 12, 4);
+        graphics.fillOval(190, 118, 8, 3);
+        graphics.fillOval(200, 121, 9, 3);
+        graphics.setColor(new Color(220, 240, 248, 62));
+        graphics.fillRect(0, 112, 240, 1);
+        graphics.fillRect(0, 126, 240, 1);
+    }
+
+    private static void drawReferenceTree(Graphics2D graphics, int x, int y) {
+        graphics.setColor(new Color(112, 83, 45));
+        graphics.fillRect(x + 10, y + 32, 8, 26);
+        graphics.fillRect(x + 13, y + 16, 3, 20);
+        graphics.fillRect(x + 6, y + 24, 4, 14);
+        graphics.setColor(new Color(142, 110, 63));
+        graphics.fillRect(x + 14, y + 19, 2, 16);
+        graphics.setColor(FOLIAGE_DARK);
+        graphics.fillOval(x, y + 16, 16, 10);
+        graphics.fillOval(x + 10, y + 6, 16, 10);
+        graphics.fillOval(x + 20, y + 16, 16, 10);
+        graphics.fillOval(x + 10, y + 14, 18, 11);
+        graphics.setColor(FOLIAGE_LIGHT);
+        graphics.fillOval(x + 2, y + 18, 10, 7);
+        graphics.fillOval(x + 14, y + 8, 10, 7);
+        graphics.fillOval(x + 24, y + 18, 10, 7);
+        graphics.setColor(new Color(120, 193, 89));
+        graphics.fillOval(x + 8, y + 14, 8, 5);
+        graphics.fillOval(x + 18, y + 11, 8, 5);
+    }
+
+    private static void drawForegroundBananaCluster(Graphics2D graphics, int x, int y) {
+        graphics.setColor(new Color(104, 160, 57));
+        graphics.fillOval(x, y + 16, 22, 40);
+        graphics.fillOval(x + 10, y + 1, 24, 50);
+        graphics.fillOval(x + 25, y + 8, 22, 42);
+        graphics.fillOval(x + 36, y + 21, 17, 26);
+        graphics.setColor(new Color(140, 214, 91));
+        graphics.fillOval(x + 4, y + 18, 7, 22);
+        graphics.fillOval(x + 18, y + 10, 8, 26);
+        graphics.fillOval(x + 32, y + 15, 7, 22);
+        graphics.setColor(new Color(133, 94, 48));
+        graphics.fillRect(x + 22, y + 30, 6, 34);
+        graphics.setColor(new Color(208, 178, 69));
+        graphics.fillOval(x + 30, y + 28, 9, 12);
+        graphics.fillOval(x + 35, y + 32, 9, 12);
+        graphics.fillOval(x + 40, y + 36, 9, 12);
+    }
+
+    private static void drawWaterfallForeground(Graphics2D graphics, int x, int y) {
+        graphics.setColor(new Color(74, 193, 235));
+        graphics.fillRect(x, y, 5, 34);
+        graphics.setColor(new Color(63, 151, 195));
+        graphics.fillRect(x + 2, y + 2, 2, 32);
+        graphics.fillRect(x, y + 31, 20, 3);
+        graphics.setColor(new Color(106, 214, 245, 180));
+        graphics.fillRect(x + 1, y + 4, 1, 28);
+    }
+
+    private static void drawGrassShrub(Graphics2D graphics, int x, int y, int width, int height) {
+        graphics.setColor(GRASS_DARK);
+        graphics.fillOval(x, y + 2, width, height - 2);
+        graphics.setColor(GRASS_MID);
+        graphics.fillOval(x + 1, y + 1, width - 2, height - 2);
+        graphics.setColor(GRASS_LIGHT);
+        graphics.fillOval(x + 2, y, width - 5, Math.max(2, height - 4));
     }
 
     private enum SpriteLayer {
