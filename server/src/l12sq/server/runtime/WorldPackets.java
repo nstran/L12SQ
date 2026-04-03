@@ -92,7 +92,7 @@ final class WorldPackets {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.stringTag(20, mapName);
         builder.byteTag(40, 3);
-        appendSceneActor(builder, "npc_hoalu_guard", "Linh canh", 1, 0, 0, 1, 0);
+        appendSceneActor(builder, "npc_hoalu_guard", "Linh canh", 1, 0, 0, 1, 0, 48, 104);
         System.out.println("[GAME] Sending scene actors CMD 43 map=" + mapName + " viewer=" + username + " count=1");
         TlvCodec.sendPacket(dos, 43, builder.payload(), builder.count());
     }
@@ -127,7 +127,9 @@ final class WorldPackets {
             int actorVariant,
             int actorPower,
             int actorCopies,
-            int actorPalette) {
+            int actorPalette,
+            int x,
+            int y) {
         builder.stringTag(9, actorId);
         builder.stringTag(26, label);
         builder.intTag(27, actorKind);
@@ -135,6 +137,8 @@ final class WorldPackets {
         builder.intTag(129, actorPower);
         builder.intTag(106, actorCopies);
         builder.byteTag(107, actorPalette);
+        builder.intTag(102, x);
+        builder.intTag(103, y);
     }
 
     private static byte[] repeatedByteArray(int size, int value) {

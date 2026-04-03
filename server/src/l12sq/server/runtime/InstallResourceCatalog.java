@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 
 final class InstallResourceCatalog {
-    static final int INSTALL_PACKAGE_VERSION = 27;
+    static final int INSTALL_PACKAGE_VERSION = 29;
     static final int MAP_HOA_LU_BACKGROUND_ID = 31000;
     static final int MAP_HOA_LU_OVERLAY_ID = 31001;
     static final int MAP_HOA_LU_TILESET_ID = 31002;
