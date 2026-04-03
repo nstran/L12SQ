@@ -1,0 +1,2191 @@
+public final class h {
+  private static int[] a;
+
+  private static int b;
+
+  private static int c;
+
+  private static int d;
+
+  private static int e;
+
+  private static int f;
+
+  private static int g;
+
+  static {};
+    Code:
+       0: bipush        16
+       2: newarray       char
+       4: dup
+       5: iconst_0
+       6: bipush        48
+       8: castore
+       9: dup
+      10: iconst_1
+      11: bipush        49
+      13: castore
+      14: dup
+      15: iconst_2
+      16: bipush        50
+      18: castore
+      19: dup
+      20: iconst_3
+      21: bipush        51
+      23: castore
+      24: dup
+      25: iconst_4
+      26: bipush        52
+      28: castore
+      29: dup
+      30: iconst_5
+      31: bipush        53
+      33: castore
+      34: dup
+      35: bipush        6
+      37: bipush        54
+      39: castore
+      40: dup
+      41: bipush        7
+      43: bipush        55
+      45: castore
+      46: dup
+      47: bipush        8
+      49: bipush        56
+      51: castore
+      52: dup
+      53: bipush        9
+      55: bipush        57
+      57: castore
+      58: dup
+      59: bipush        10
+      61: bipush        65
+      63: castore
+      64: dup
+      65: bipush        11
+      67: bipush        66
+      69: castore
+      70: dup
+      71: bipush        12
+      73: bipush        67
+      75: castore
+      76: dup
+      77: bipush        13
+      79: bipush        68
+      81: castore
+      82: dup
+      83: bipush        14
+      85: bipush        69
+      87: castore
+      88: bipush        15
+      90: bipush        70
+      92: castore
+      93: sipush        360
+      96: newarray       int
+      98: putstatic     #23                 // Field a:[I
+     101: iconst_0
+     102: istore_0
+     103: goto          132
+     106: iload_0
+     107: sipush        255
+     110: imul
+     111: bipush        60
+     113: idiv
+     114: i2b
+     115: istore_1
+     116: getstatic     #23                 // Field a:[I
+     119: iload_0
+     120: iconst_0
+     121: iadd
+     122: iconst_m1
+     123: iload_1
+     124: iconst_0
+     125: invokestatic  #33                 // Method a:(BBB)I
+     128: iastore
+     129: iinc          0, 1
+     132: iload_0
+     133: bipush        60
+     135: if_icmple     106
+     138: iconst_0
+     139: istore_0
+     140: goto          174
+     143: sipush        255
+     146: iload_0
+     147: sipush        255
+     150: imul
+     151: bipush        60
+     153: idiv
+     154: isub
+     155: i2b
+     156: istore_1
+     157: getstatic     #23                 // Field a:[I
+     160: iload_0
+     161: bipush        60
+     163: iadd
+     164: iload_1
+     165: iconst_m1
+     166: iconst_0
+     167: invokestatic  #33                 // Method a:(BBB)I
+     170: iastore
+     171: iinc          0, 1
+     174: iload_0
+     175: bipush        60
+     177: if_icmple     143
+     180: iconst_0
+     181: istore_0
+     182: goto          212
+     185: iload_0
+     186: sipush        255
+     189: imul
+     190: bipush        60
+     192: idiv
+     193: i2b
+     194: istore_1
+     195: getstatic     #23                 // Field a:[I
+     198: iload_0
+     199: bipush        120
+     201: iadd
+     202: iconst_0
+     203: iconst_m1
+     204: iload_1
+     205: invokestatic  #33                 // Method a:(BBB)I
+     208: iastore
+     209: iinc          0, 1
+     212: iload_0
+     213: bipush        60
+     215: if_icmple     185
+     218: iconst_0
+     219: istore_0
+     220: goto          255
+     223: sipush        255
+     226: iload_0
+     227: sipush        255
+     230: imul
+     231: bipush        60
+     233: idiv
+     234: isub
+     235: i2b
+     236: istore_1
+     237: getstatic     #23                 // Field a:[I
+     240: iload_0
+     241: sipush        180
+     244: iadd
+     245: iconst_0
+     246: iload_1
+     247: iconst_m1
+     248: invokestatic  #33                 // Method a:(BBB)I
+     251: iastore
+     252: iinc          0, 1
+     255: iload_0
+     256: bipush        60
+     258: if_icmple     223
+     261: iconst_0
+     262: istore_0
+     263: goto          294
+     266: iload_0
+     267: sipush        255
+     270: imul
+     271: bipush        60
+     273: idiv
+     274: i2b
+     275: istore_1
+     276: getstatic     #23                 // Field a:[I
+     279: iload_0
+     280: sipush        240
+     283: iadd
+     284: iload_1
+     285: iconst_0
+     286: iconst_m1
+     287: invokestatic  #33                 // Method a:(BBB)I
+     290: iastore
+     291: iinc          0, 1
+     294: iload_0
+     295: bipush        60
+     297: if_icmple     266
+     300: iconst_0
+     301: istore_0
+     302: goto          337
+     305: sipush        255
+     308: iload_0
+     309: sipush        255
+     312: imul
+     313: bipush        60
+     315: idiv
+     316: isub
+     317: i2b
+     318: istore_1
+     319: getstatic     #23                 // Field a:[I
+     322: iload_0
+     323: sipush        300
+     326: iadd
+     327: iconst_m1
+     328: iconst_0
+     329: iload_1
+     330: invokestatic  #33                 // Method a:(BBB)I
+     333: iastore
+     334: iinc          0, 1
+     337: iload_0
+     338: bipush        60
+     340: if_icmplt     305
+     343: iconst_1
+     344: putstatic     #24                 // Field b:I
+     347: iconst_2
+     348: putstatic     #25                 // Field c:I
+     351: iconst_4
+     352: putstatic     #26                 // Field d:I
+     355: bipush        8
+     357: putstatic     #27                 // Field e:I
+     360: bipush        16
+     362: putstatic     #28                 // Field f:I
+     365: bipush        32
+     367: putstatic     #29                 // Field g:I
+     370: return
+
+  public h();
+    Code:
+       0: aload_0
+       1: invokespecial #36                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  private static byte[] a(int);
+    Code:
+       0: iconst_3
+       1: newarray       byte
+       3: dup
+       4: astore_1
+       5: iconst_0
+       6: iload_0
+       7: bipush        16
+       9: ishr
+      10: sipush        255
+      13: iand
+      14: i2b
+      15: bastore
+      16: aload_1
+      17: iconst_1
+      18: iload_0
+      19: bipush        8
+      21: ishr
+      22: sipush        255
+      25: iand
+      26: i2b
+      27: bastore
+      28: aload_1
+      29: iconst_2
+      30: iload_0
+      31: i2b
+      32: bastore
+      33: aload_1
+      34: areturn
+
+  private static int a(byte, byte, byte);
+    Code:
+       0: iconst_4
+       1: newarray       byte
+       3: dup
+       4: iconst_1
+       5: iload_0
+       6: bastore
+       7: dup
+       8: iconst_2
+       9: iload_1
+      10: bastore
+      11: dup
+      12: iconst_3
+      13: iload_2
+      14: bastore
+      15: dup
+      16: astore_0
+      17: invokestatic  #39                 // Method p.c:([B)I
+      20: ireturn
+
+  public static boolean a(byte[], int[], int[]);
+    Code:
+       0: aload_1
+       1: ifnull        48
+       4: aload_2
+       5: ifnull        48
+       8: iconst_0
+       9: istore_3
+      10: iconst_0
+      11: istore        4
+      13: goto          35
+      16: aload_1
+      17: iload         4
+      19: iaload
+      20: aload_2
+      21: iload         4
+      23: iaload
+      24: if_icmpeq     32
+      27: iconst_1
+      28: istore_3
+      29: goto          42
+      32: iinc          4, 1
+      35: iload         4
+      37: aload_1
+      38: arraylength
+      39: if_icmplt     16
+      42: iload_3
+      43: ifne          48
+      46: iconst_0
+      47: ireturn
+      48: iconst_0
+      49: istore_3
+      50: iconst_0
+      51: istore        4
+      53: aconst_null
+      54: astore        5
+      56: iconst_0
+      57: istore        6
+      59: iconst_0
+      60: istore        5
+      62: aload_0
+      63: arraylength
+      64: iconst_4
+      65: isub
+      66: istore        7
+      68: goto          152
+      71: aload_0
+      72: iload         5
+      74: baload
+      75: bipush        80
+      77: if_icmpne     149
+      80: aload_0
+      81: iload         5
+      83: iconst_1
+      84: iadd
+      85: baload
+      86: bipush        76
+      88: if_icmpne     149
+      91: aload_0
+      92: iload         5
+      94: iconst_2
+      95: iadd
+      96: baload
+      97: bipush        84
+      99: if_icmpne     149
+     102: aload_0
+     103: iload         5
+     105: iconst_3
+     106: iadd
+     107: baload
+     108: bipush        69
+     110: if_icmpne     149
+     113: iload         5
+     115: istore        6
+     117: aload_0
+     118: iload         5
+     120: iconst_4
+     121: isub
+     122: baload
+     123: aload_0
+     124: iload         5
+     126: iconst_3
+     127: isub
+     128: baload
+     129: aload_0
+     130: iload         5
+     132: iconst_2
+     133: isub
+     134: baload
+     135: aload_0
+     136: iload         5
+     138: iconst_1
+     139: isub
+     140: baload
+     141: invokestatic  #38                 // Method p.a:(BBBB)I
+     144: istore        4
+     146: goto          159
+     149: iinc          5, 1
+     152: iload         5
+     154: iload         7
+     156: if_icmplt     71
+     159: iconst_m1
+     160: istore        5
+     162: iload         6
+     164: bipush        12
+     166: iadd
+     167: iload         4
+     169: iadd
+     170: istore        7
+     172: aload_0
+     173: iload         7
+     175: baload
+     176: bipush        116
+     178: if_icmpne     253
+     181: aload_0
+     182: iload         7
+     184: iconst_1
+     185: iadd
+     186: baload
+     187: bipush        82
+     189: if_icmpne     253
+     192: aload_0
+     193: iload         7
+     195: iconst_2
+     196: iadd
+     197: baload
+     198: bipush        78
+     200: if_icmpne     253
+     203: aload_0
+     204: iload         7
+     206: iconst_3
+     207: iadd
+     208: baload
+     209: bipush        83
+     211: if_icmpne     253
+     214: aload_0
+     215: iload         7
+     217: iconst_4
+     218: isub
+     219: baload
+     220: aload_0
+     221: iload         7
+     223: iconst_3
+     224: isub
+     225: baload
+     226: aload_0
+     227: iload         7
+     229: iconst_2
+     230: isub
+     231: baload
+     232: aload_0
+     233: iload         7
+     235: iconst_1
+     236: isub
+     237: baload
+     238: invokestatic  #38                 // Method p.a:(BBBB)I
+     241: istore        5
+     243: iinc          5, -1
+     246: goto          253
+     249: pop
+     250: iconst_m1
+     251: istore        5
+     253: iload         5
+     255: iflt          347
+     258: iconst_0
+     259: istore        7
+     261: iload         6
+     263: iconst_4
+     264: iadd
+     265: istore        9
+     267: iload         4
+     269: iload         6
+     271: iadd
+     272: iconst_4
+     273: iadd
+     274: istore        10
+     276: goto          331
+     279: aload_0
+     280: iload         9
+     282: baload
+     283: istore        8
+     285: aload_0
+     286: iload         9
+     288: iconst_1
+     289: iadd
+     290: baload
+     291: istore        11
+     293: aload_0
+     294: iload         9
+     296: iconst_2
+     297: iadd
+     298: baload
+     299: istore        12
+     301: iload         8
+     303: sipush        255
+     306: if_icmpne     328
+     309: iload         11
+     311: sipush        255
+     314: if_icmpne     328
+     317: iload         12
+     319: sipush        255
+     322: if_icmpne     328
+     325: iinc          7, 1
+     328: iinc          9, 3
+     331: iload         9
+     333: iload         10
+     335: if_icmplt     279
+     338: iload         7
+     340: iconst_2
+     341: if_icmpge     347
+     344: iconst_m1
+     345: istore        5
+     347: iload         4
+     349: iconst_3
+     350: idiv
+     351: newarray       boolean
+     353: astore        7
+     355: iconst_0
+     356: istore        9
+     358: goto          370
+     361: aload         7
+     363: iload         9
+     365: iconst_1
+     366: bastore
+     367: iinc          9, 1
+     370: iload         9
+     372: aload         7
+     374: arraylength
+     375: if_icmplt     361
+     378: iconst_0
+     379: istore        9
+     381: goto          565
+     384: aload_1
+     385: iload         9
+     387: iaload
+     388: bipush        16
+     390: ishr
+     391: sipush        255
+     394: iand
+     395: i2b
+     396: istore        10
+     398: aload_1
+     399: iload         9
+     401: iaload
+     402: bipush        8
+     404: ishr
+     405: sipush        255
+     408: iand
+     409: i2b
+     410: istore        8
+     412: aload_1
+     413: iload         9
+     415: iaload
+     416: i2b
+     417: istore        11
+     419: iload         6
+     421: iconst_4
+     422: iadd
+     423: dup
+     424: istore        12
+     426: istore        13
+     428: iload         4
+     430: iload         12
+     432: iadd
+     433: istore        14
+     435: goto          555
+     438: iload         13
+     440: iload         12
+     442: isub
+     443: iconst_3
+     444: idiv
+     445: iload         5
+     447: if_icmpeq     552
+     450: aload         7
+     452: iload         13
+     454: iload         12
+     456: isub
+     457: iconst_3
+     458: idiv
+     459: baload
+     460: ifeq          552
+     463: aload_0
+     464: iload         13
+     466: baload
+     467: iload         10
+     469: if_icmpne     552
+     472: aload_0
+     473: iload         13
+     475: iconst_1
+     476: iadd
+     477: baload
+     478: iload         8
+     480: if_icmpne     552
+     483: aload_0
+     484: iload         13
+     486: iconst_2
+     487: iadd
+     488: baload
+     489: iload         11
+     491: if_icmpne     552
+     494: aload_0
+     495: iload         13
+     497: aload_2
+     498: iload         9
+     500: iaload
+     501: bipush        16
+     503: ishr
+     504: sipush        255
+     507: iand
+     508: i2b
+     509: bastore
+     510: aload_0
+     511: iload         13
+     513: iconst_1
+     514: iadd
+     515: aload_2
+     516: iload         9
+     518: iaload
+     519: bipush        8
+     521: ishr
+     522: sipush        255
+     525: iand
+     526: i2b
+     527: bastore
+     528: aload_0
+     529: iload         13
+     531: iconst_2
+     532: iadd
+     533: aload_2
+     534: iload         9
+     536: iaload
+     537: i2b
+     538: bastore
+     539: aload         7
+     541: iload         13
+     543: iload         12
+     545: isub
+     546: iconst_3
+     547: idiv
+     548: iconst_0
+     549: bastore
+     550: iconst_1
+     551: istore_3
+     552: iinc          13, 3
+     555: iload         13
+     557: iload         14
+     559: if_icmplt     438
+     562: iinc          9, 1
+     565: iload         9
+     567: aload_1
+     568: arraylength
+     569: if_icmplt     384
+     572: iload         4
+     574: iconst_4
+     575: iadd
+     576: newarray       byte
+     578: astore        5
+     580: iconst_0
+     581: istore        9
+     583: goto          601
+     586: aload         5
+     588: iload         9
+     590: aload_0
+     591: iload         6
+     593: iload         9
+     595: iadd
+     596: baload
+     597: bastore
+     598: iinc          9, 1
+     601: iload         9
+     603: iload         4
+     605: iconst_4
+     606: iadd
+     607: if_icmplt     586
+     610: invokestatic  #31                 // Method e.a:()V
+     613: aload         5
+     615: invokestatic  #32                 // Method e.a:([B)J
+     618: lstore        9
+     620: iconst_3
+     621: istore        8
+     623: goto          661
+     626: lload         9
+     628: iload         8
+     630: bipush        8
+     632: imul
+     633: lshr
+     634: ldc2_w        #21                 // long 255l
+     637: land
+     638: l2i
+     639: i2b
+     640: istore        11
+     642: aload_0
+     643: iload         6
+     645: iconst_4
+     646: iadd
+     647: iload         4
+     649: iadd
+     650: iconst_3
+     651: iadd
+     652: iload         8
+     654: isub
+     655: iload         11
+     657: bastore
+     658: iinc          8, -1
+     661: iload         8
+     663: ifge          626
+     666: iload_3
+     667: ireturn
+     668: dup
+     669: astore        5
+     671: invokevirtual #37                 // Method java/lang/Throwable.printStackTrace:()V
+     674: iconst_0
+     675: ireturn
+    Exception table:
+       from    to  target type
+         162   246   249   Class java/lang/Exception
+          59   667   668   Class java/lang/Exception
+
+  public static void a(byte[], int);
+    Code:
+       0: iload_1
+       1: ifne          5
+       4: return
+       5: iconst_0
+       6: istore_2
+       7: aconst_null
+       8: astore_3
+       9: iconst_0
+      10: istore        4
+      12: iconst_0
+      13: istore_3
+      14: aload_0
+      15: arraylength
+      16: iconst_4
+      17: isub
+      18: istore        6
+      20: goto          94
+      23: aload_0
+      24: iload_3
+      25: baload
+      26: bipush        80
+      28: if_icmpne     91
+      31: aload_0
+      32: iload_3
+      33: iconst_1
+      34: iadd
+      35: baload
+      36: bipush        76
+      38: if_icmpne     91
+      41: aload_0
+      42: iload_3
+      43: iconst_2
+      44: iadd
+      45: baload
+      46: bipush        84
+      48: if_icmpne     91
+      51: aload_0
+      52: iload_3
+      53: iconst_3
+      54: iadd
+      55: baload
+      56: bipush        69
+      58: if_icmpne     91
+      61: iload_3
+      62: istore        4
+      64: aload_0
+      65: iload_3
+      66: iconst_4
+      67: isub
+      68: baload
+      69: aload_0
+      70: iload_3
+      71: iconst_3
+      72: isub
+      73: baload
+      74: aload_0
+      75: iload_3
+      76: iconst_2
+      77: isub
+      78: baload
+      79: aload_0
+      80: iload_3
+      81: iconst_1
+      82: isub
+      83: baload
+      84: invokestatic  #38                 // Method p.a:(BBBB)I
+      87: istore_2
+      88: goto          100
+      91: iinc          3, 1
+      94: iload_3
+      95: iload         6
+      97: if_icmplt     23
+     100: iconst_m1
+     101: istore_3
+     102: iload         4
+     104: bipush        12
+     106: iadd
+     107: iload_2
+     108: iadd
+     109: istore        6
+     111: aload_0
+     112: iload         6
+     114: baload
+     115: bipush        116
+     117: if_icmpne     190
+     120: aload_0
+     121: iload         6
+     123: iconst_1
+     124: iadd
+     125: baload
+     126: bipush        82
+     128: if_icmpne     190
+     131: aload_0
+     132: iload         6
+     134: iconst_2
+     135: iadd
+     136: baload
+     137: bipush        78
+     139: if_icmpne     190
+     142: aload_0
+     143: iload         6
+     145: iconst_3
+     146: iadd
+     147: baload
+     148: bipush        83
+     150: if_icmpne     190
+     153: aload_0
+     154: iload         6
+     156: iconst_4
+     157: isub
+     158: baload
+     159: aload_0
+     160: iload         6
+     162: iconst_3
+     163: isub
+     164: baload
+     165: aload_0
+     166: iload         6
+     168: iconst_2
+     169: isub
+     170: baload
+     171: aload_0
+     172: iload         6
+     174: iconst_1
+     175: isub
+     176: baload
+     177: invokestatic  #38                 // Method p.a:(BBBB)I
+     180: istore_3
+     181: iinc          3, -1
+     184: goto          190
+     187: pop
+     188: iconst_m1
+     189: istore_3
+     190: iload_3
+     191: iflt          281
+     194: iconst_0
+     195: istore        6
+     197: iload         4
+     199: iconst_4
+     200: iadd
+     201: istore        7
+     203: iload_2
+     204: iload         4
+     206: iadd
+     207: iconst_4
+     208: iadd
+     209: istore        5
+     211: goto          266
+     214: aload_0
+     215: iload         7
+     217: baload
+     218: istore        8
+     220: aload_0
+     221: iload         7
+     223: iconst_1
+     224: iadd
+     225: baload
+     226: istore        9
+     228: aload_0
+     229: iload         7
+     231: iconst_2
+     232: iadd
+     233: baload
+     234: istore        10
+     236: iload         8
+     238: sipush        255
+     241: if_icmpne     263
+     244: iload         9
+     246: sipush        255
+     249: if_icmpne     263
+     252: iload         10
+     254: sipush        255
+     257: if_icmpne     263
+     260: iinc          6, 1
+     263: iinc          7, 3
+     266: iload         7
+     268: iload         5
+     270: if_icmplt     214
+     273: iload         6
+     275: iconst_2
+     276: if_icmpge     281
+     279: iconst_m1
+     280: istore_3
+     281: iload         4
+     283: iconst_4
+     284: iadd
+     285: istore        6
+     287: iload         4
+     289: iconst_4
+     290: iadd
+     291: iload_2
+     292: iadd
+     293: istore        7
+     295: goto          1140
+     298: iload         6
+     300: iload_3
+     301: if_icmpeq     1137
+     304: aload_0
+     305: iload         6
+     307: baload
+     308: istore        5
+     310: aload_0
+     311: iload         6
+     313: iconst_1
+     314: iadd
+     315: baload
+     316: istore        8
+     318: aload_0
+     319: iload         6
+     321: iconst_2
+     322: iadd
+     323: baload
+     324: istore        9
+     326: iload         5
+     328: iload         8
+     330: iload         9
+     332: invokestatic  #33                 // Method a:(BBB)I
+     335: iload_1
+     336: istore        8
+     338: dup
+     339: istore        5
+     341: bipush        16
+     343: ishr
+     344: sipush        255
+     347: iand
+     348: istore        9
+     350: iload         5
+     352: bipush        8
+     354: ishr
+     355: sipush        255
+     358: iand
+     359: istore        10
+     361: iload         5
+     363: sipush        255
+     366: iand
+     367: istore        11
+     369: iconst_0
+     370: istore        12
+     372: iconst_0
+     373: istore        13
+     375: iload         9
+     377: iload         10
+     379: if_icmpne     394
+     382: iload         10
+     384: iload         11
+     386: if_icmpne     394
+     389: iload         5
+     391: goto          1104
+     394: iconst_0
+     395: istore        5
+     397: iload         9
+     399: iload         10
+     401: if_icmplt     457
+     404: iload         10
+     406: iload         11
+     408: if_icmplt     457
+     411: iload         9
+     413: istore        12
+     415: iload         11
+     417: istore        13
+     419: bipush        60
+     421: iload         10
+     423: iload         11
+     425: isub
+     426: imul
+     427: iload         9
+     429: iload         11
+     431: isub
+     432: idiv
+     433: dup
+     434: istore        5
+     436: iflt          446
+     439: iload         5
+     441: bipush        60
+     443: if_icmple     789
+     446: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     449: ldc           #4                  // String Co van de khi tinh goc hien t?i o truong hop 1
+     451: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     454: goto          789
+     457: iload         10
+     459: iload         9
+     461: if_icmple     522
+     464: iload         9
+     466: iload         11
+     468: if_icmplt     522
+     471: iload         10
+     473: istore        12
+     475: iload         11
+     477: istore        13
+     479: bipush        120
+     481: bipush        60
+     483: iload         9
+     485: iload         11
+     487: isub
+     488: imul
+     489: iload         10
+     491: iload         11
+     493: isub
+     494: idiv
+     495: isub
+     496: dup
+     497: istore        5
+     499: bipush        60
+     501: if_icmplt     511
+     504: iload         5
+     506: bipush        120
+     508: if_icmple     789
+     511: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     514: ldc           #5                  // String Co van de khi tinh goc hien t?i o truong hop 2
+     516: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     519: goto          789
+     522: iload         10
+     524: iload         11
+     526: if_icmplt     588
+     529: iload         11
+     531: iload         9
+     533: if_icmple     588
+     536: iload         10
+     538: istore        12
+     540: iload         9
+     542: istore        13
+     544: bipush        120
+     546: bipush        60
+     548: iload         11
+     550: iload         9
+     552: isub
+     553: imul
+     554: iload         10
+     556: iload         9
+     558: isub
+     559: idiv
+     560: iadd
+     561: dup
+     562: istore        5
+     564: bipush        120
+     566: if_icmplt     577
+     569: iload         5
+     571: sipush        180
+     574: if_icmple     789
+     577: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     580: ldc           #6                  // String Co van de khi tinh goc hien t?i o truong hop 3
+     582: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     585: goto          789
+     588: iload         11
+     590: iload         10
+     592: if_icmple     656
+     595: iload         10
+     597: iload         9
+     599: if_icmple     656
+     602: iload         11
+     604: istore        12
+     606: iload         9
+     608: istore        13
+     610: sipush        240
+     613: bipush        60
+     615: iload         10
+     617: iload         9
+     619: isub
+     620: imul
+     621: iload         11
+     623: iload         9
+     625: isub
+     626: idiv
+     627: isub
+     628: dup
+     629: istore        5
+     631: sipush        180
+     634: if_icmplt     645
+     637: iload         5
+     639: sipush        240
+     642: if_icmple     789
+     645: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     648: ldc           #7                  // String Co van de khi tinh goc hien t?i o truong hop 4
+     650: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     653: goto          789
+     656: iload         11
+     658: iload         9
+     660: if_icmple     724
+     663: iload         9
+     665: iload         10
+     667: if_icmplt     724
+     670: iload         11
+     672: istore        12
+     674: iload         10
+     676: istore        13
+     678: sipush        240
+     681: bipush        60
+     683: iload         9
+     685: iload         10
+     687: isub
+     688: imul
+     689: iload         11
+     691: iload         10
+     693: isub
+     694: idiv
+     695: iadd
+     696: dup
+     697: istore        5
+     699: sipush        240
+     702: if_icmplt     713
+     705: iload         5
+     707: sipush        320
+     710: if_icmple     789
+     713: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     716: ldc           #8                  // String Co van de khi tinh goc hien t?i o truong hop 5
+     718: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     721: goto          789
+     724: iload         9
+     726: iload         11
+     728: if_icmplt     789
+     731: iload         11
+     733: iload         10
+     735: if_icmple     789
+     738: iload         9
+     740: istore        12
+     742: iload         10
+     744: istore        13
+     746: sipush        360
+     749: bipush        60
+     751: iload         11
+     753: iload         10
+     755: isub
+     756: imul
+     757: iload         9
+     759: iload         10
+     761: isub
+     762: idiv
+     763: isub
+     764: dup
+     765: istore        5
+     767: sipush        320
+     770: if_icmplt     781
+     773: iload         5
+     775: sipush        360
+     778: if_icmple     789
+     781: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     784: ldc           #9                  // String Co van de khi tinh goc hien t?i o truong hop 6
+     786: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     789: iload         5
+     791: iload         8
+     793: iadd
+     794: sipush        360
+     797: iadd
+     798: sipush        360
+     801: irem
+     802: istore        5
+     804: iconst_0
+     805: istore        8
+     807: iconst_0
+     808: istore        9
+     810: iconst_0
+     811: istore        10
+     813: iload         5
+     815: iflt          852
+     818: iload         5
+     820: bipush        60
+     822: if_icmpge     852
+     825: iload         12
+     827: istore        8
+     829: iload         13
+     831: istore        10
+     833: iload         5
+     835: iload         8
+     837: iload         10
+     839: isub
+     840: imul
+     841: bipush        60
+     843: idiv
+     844: iload         10
+     846: iadd
+     847: istore        9
+     849: goto          1079
+     852: bipush        60
+     854: iload         5
+     856: if_icmpgt     896
+     859: iload         5
+     861: bipush        120
+     863: if_icmpge     896
+     866: iload         12
+     868: istore        9
+     870: iload         13
+     872: istore        10
+     874: iload         5
+     876: bipush        120
+     878: isub
+     879: iload         10
+     881: iload         9
+     883: isub
+     884: imul
+     885: bipush        60
+     887: idiv
+     888: iload         10
+     890: iadd
+     891: istore        8
+     893: goto          1079
+     896: bipush        120
+     898: iload         5
+     900: if_icmpgt     941
+     903: iload         5
+     905: sipush        180
+     908: if_icmpge     941
+     911: iload         12
+     913: istore        9
+     915: iload         13
+     917: istore        8
+     919: iload         5
+     921: bipush        120
+     923: isub
+     924: iload         9
+     926: iload         8
+     928: isub
+     929: imul
+     930: bipush        60
+     932: idiv
+     933: iload         8
+     935: iadd
+     936: istore        10
+     938: goto          1079
+     941: sipush        180
+     944: iload         5
+     946: if_icmpgt     988
+     949: iload         5
+     951: sipush        240
+     954: if_icmpge     988
+     957: iload         12
+     959: istore        10
+     961: iload         13
+     963: istore        8
+     965: iload         5
+     967: sipush        240
+     970: isub
+     971: iload         8
+     973: iload         10
+     975: isub
+     976: imul
+     977: bipush        60
+     979: idiv
+     980: iload         8
+     982: iadd
+     983: istore        9
+     985: goto          1079
+     988: sipush        240
+     991: iload         5
+     993: if_icmpgt     1035
+     996: iload         5
+     998: sipush        300
+    1001: if_icmpge     1035
+    1004: iload         12
+    1006: istore        10
+    1008: iload         13
+    1010: istore        9
+    1012: iload         5
+    1014: sipush        240
+    1017: isub
+    1018: iload         10
+    1020: iload         9
+    1022: isub
+    1023: imul
+    1024: bipush        60
+    1026: idiv
+    1027: iload         9
+    1029: iadd
+    1030: istore        8
+    1032: goto          1079
+    1035: sipush        300
+    1038: iload         5
+    1040: if_icmpgt     1079
+    1043: iload         5
+    1045: sipush        360
+    1048: if_icmpge     1079
+    1051: iload         12
+    1053: istore        8
+    1055: iload         13
+    1057: istore        9
+    1059: iload         5
+    1061: sipush        360
+    1064: isub
+    1065: iload         9
+    1067: iload         8
+    1069: isub
+    1070: imul
+    1071: bipush        60
+    1073: idiv
+    1074: iload         9
+    1076: iadd
+    1077: istore        10
+    1079: iconst_0
+    1080: iload         8
+    1082: bipush        16
+    1084: ishl
+    1085: ior
+    1086: dup
+    1087: istore        5
+    1089: iload         9
+    1091: bipush        8
+    1093: ishl
+    1094: ior
+    1095: dup
+    1096: istore        5
+    1098: iload         10
+    1100: ior
+    1101: dup
+    1102: istore        5
+    1104: invokestatic  #34                 // Method a:(I)[B
+    1107: astore        10
+    1109: aload_0
+    1110: iload         6
+    1112: aload         10
+    1114: iconst_0
+    1115: baload
+    1116: bastore
+    1117: aload_0
+    1118: iload         6
+    1120: iconst_1
+    1121: iadd
+    1122: aload         10
+    1124: iconst_1
+    1125: baload
+    1126: bastore
+    1127: aload_0
+    1128: iload         6
+    1130: iconst_2
+    1131: iadd
+    1132: aload         10
+    1134: iconst_2
+    1135: baload
+    1136: bastore
+    1137: iinc          6, 3
+    1140: iload         6
+    1142: iload         7
+    1144: if_icmplt     298
+    1147: iload_2
+    1148: iconst_4
+    1149: iadd
+    1150: newarray       byte
+    1152: astore_3
+    1153: iconst_0
+    1154: istore        6
+    1156: goto          1173
+    1159: aload_3
+    1160: iload         6
+    1162: aload_0
+    1163: iload         4
+    1165: iload         6
+    1167: iadd
+    1168: baload
+    1169: bastore
+    1170: iinc          6, 1
+    1173: iload         6
+    1175: iload_2
+    1176: iconst_4
+    1177: iadd
+    1178: if_icmplt     1159
+    1181: invokestatic  #31                 // Method e.a:()V
+    1184: aload_3
+    1185: invokestatic  #32                 // Method e.a:([B)J
+    1188: lstore        6
+    1190: iconst_3
+    1191: istore        5
+    1193: goto          1230
+    1196: lload         6
+    1198: iload         5
+    1200: bipush        8
+    1202: imul
+    1203: lshr
+    1204: ldc2_w        #21                 // long 255l
+    1207: land
+    1208: l2i
+    1209: i2b
+    1210: istore        8
+    1212: aload_0
+    1213: iload         4
+    1215: iconst_4
+    1216: iadd
+    1217: iload_2
+    1218: iadd
+    1219: iconst_3
+    1220: iadd
+    1221: iload         5
+    1223: isub
+    1224: iload         8
+    1226: bastore
+    1227: iinc          5, -1
+    1230: iload         5
+    1232: ifge          1196
+    1235: return
+    1236: astore_3
+    1237: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+    1240: ldc           #3                  // String Co loi trong qua trinh HUE 1 file PNG
+    1242: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+    1245: aload_3
+    1246: invokevirtual #37                 // Method java/lang/Throwable.printStackTrace:()V
+    1249: return
+    Exception table:
+       from    to  target type
+         102   184   187   Class java/lang/Exception
+          12  1235  1236   Class java/lang/Exception
+
+  public static void b(byte[], int);
+    Code:
+       0: iload_1
+       1: ifne          5
+       4: return
+       5: iconst_0
+       6: istore_2
+       7: aconst_null
+       8: astore_3
+       9: iconst_0
+      10: istore        4
+      12: iconst_0
+      13: istore_3
+      14: aload_0
+      15: arraylength
+      16: iconst_4
+      17: isub
+      18: istore        6
+      20: goto          94
+      23: aload_0
+      24: iload_3
+      25: baload
+      26: bipush        80
+      28: if_icmpne     91
+      31: aload_0
+      32: iload_3
+      33: iconst_1
+      34: iadd
+      35: baload
+      36: bipush        76
+      38: if_icmpne     91
+      41: aload_0
+      42: iload_3
+      43: iconst_2
+      44: iadd
+      45: baload
+      46: bipush        84
+      48: if_icmpne     91
+      51: aload_0
+      52: iload_3
+      53: iconst_3
+      54: iadd
+      55: baload
+      56: bipush        69
+      58: if_icmpne     91
+      61: iload_3
+      62: istore        4
+      64: aload_0
+      65: iload_3
+      66: iconst_4
+      67: isub
+      68: baload
+      69: aload_0
+      70: iload_3
+      71: iconst_3
+      72: isub
+      73: baload
+      74: aload_0
+      75: iload_3
+      76: iconst_2
+      77: isub
+      78: baload
+      79: aload_0
+      80: iload_3
+      81: iconst_1
+      82: isub
+      83: baload
+      84: invokestatic  #38                 // Method p.a:(BBBB)I
+      87: istore_2
+      88: goto          100
+      91: iinc          3, 1
+      94: iload_3
+      95: iload         6
+      97: if_icmplt     23
+     100: iconst_m1
+     101: istore_3
+     102: iload         4
+     104: bipush        12
+     106: iadd
+     107: iload_2
+     108: iadd
+     109: istore        6
+     111: aload_0
+     112: iload         6
+     114: baload
+     115: bipush        116
+     117: if_icmpne     190
+     120: aload_0
+     121: iload         6
+     123: iconst_1
+     124: iadd
+     125: baload
+     126: bipush        82
+     128: if_icmpne     190
+     131: aload_0
+     132: iload         6
+     134: iconst_2
+     135: iadd
+     136: baload
+     137: bipush        78
+     139: if_icmpne     190
+     142: aload_0
+     143: iload         6
+     145: iconst_3
+     146: iadd
+     147: baload
+     148: bipush        83
+     150: if_icmpne     190
+     153: aload_0
+     154: iload         6
+     156: iconst_4
+     157: isub
+     158: baload
+     159: aload_0
+     160: iload         6
+     162: iconst_3
+     163: isub
+     164: baload
+     165: aload_0
+     166: iload         6
+     168: iconst_2
+     169: isub
+     170: baload
+     171: aload_0
+     172: iload         6
+     174: iconst_1
+     175: isub
+     176: baload
+     177: invokestatic  #38                 // Method p.a:(BBBB)I
+     180: istore_3
+     181: iinc          3, -1
+     184: goto          190
+     187: pop
+     188: iconst_m1
+     189: istore_3
+     190: iload_3
+     191: iflt          281
+     194: iconst_0
+     195: istore        6
+     197: iload         4
+     199: iconst_4
+     200: iadd
+     201: istore        7
+     203: iload_2
+     204: iload         4
+     206: iadd
+     207: iconst_4
+     208: iadd
+     209: istore        5
+     211: goto          266
+     214: aload_0
+     215: iload         7
+     217: baload
+     218: istore        8
+     220: aload_0
+     221: iload         7
+     223: iconst_1
+     224: iadd
+     225: baload
+     226: istore        9
+     228: aload_0
+     229: iload         7
+     231: iconst_2
+     232: iadd
+     233: baload
+     234: istore        10
+     236: iload         8
+     238: sipush        255
+     241: if_icmpne     263
+     244: iload         9
+     246: sipush        255
+     249: if_icmpne     263
+     252: iload         10
+     254: sipush        255
+     257: if_icmpne     263
+     260: iinc          6, 1
+     263: iinc          7, 3
+     266: iload         7
+     268: iload         5
+     270: if_icmplt     214
+     273: iload         6
+     275: iconst_2
+     276: if_icmpge     281
+     279: iconst_m1
+     280: istore_3
+     281: iload         4
+     283: iconst_4
+     284: iadd
+     285: istore        6
+     287: iload         4
+     289: iconst_4
+     290: iadd
+     291: iload_2
+     292: iadd
+     293: istore        7
+     295: goto          552
+     298: iload         6
+     300: iload_3
+     301: if_icmpeq     549
+     304: aload_0
+     305: iload         6
+     307: baload
+     308: istore        5
+     310: aload_0
+     311: iload         6
+     313: iconst_1
+     314: iadd
+     315: baload
+     316: istore        8
+     318: aload_0
+     319: iload         6
+     321: iconst_2
+     322: iadd
+     323: baload
+     324: istore        9
+     326: iload         5
+     328: iload         8
+     330: iload         9
+     332: invokestatic  #33                 // Method a:(BBB)I
+     335: iload_1
+     336: istore        8
+     338: istore        5
+     340: iload         8
+     342: bipush        -100
+     344: if_icmpgt     351
+     347: iconst_0
+     348: goto          516
+     351: iload         8
+     353: bipush        100
+     355: if_icmplt     363
+     358: ldc           #1                  // int 16777215
+     360: goto          516
+     363: iload         5
+     365: bipush        16
+     367: ishr
+     368: sipush        255
+     371: iand
+     372: istore        9
+     374: iload         5
+     376: bipush        8
+     378: ishr
+     379: sipush        255
+     382: iand
+     383: istore        10
+     385: iload         5
+     387: sipush        255
+     390: iand
+     391: istore        5
+     393: iload         8
+     395: ifge          440
+     398: iload         9
+     400: iload         8
+     402: bipush        100
+     404: iadd
+     405: imul
+     406: bipush        100
+     408: idiv
+     409: istore        9
+     411: iload         10
+     413: iload         8
+     415: bipush        100
+     417: iadd
+     418: imul
+     419: bipush        100
+     421: idiv
+     422: istore        10
+     424: iload         5
+     426: iload         8
+     428: bipush        100
+     430: iadd
+     431: imul
+     432: bipush        100
+     434: idiv
+     435: istore        5
+     437: goto          491
+     440: iload         9
+     442: sipush        255
+     445: iload         9
+     447: isub
+     448: iload         8
+     450: imul
+     451: bipush        100
+     453: idiv
+     454: iadd
+     455: istore        9
+     457: iload         10
+     459: sipush        255
+     462: iload         10
+     464: isub
+     465: iload         8
+     467: imul
+     468: bipush        100
+     470: idiv
+     471: iadd
+     472: istore        10
+     474: iload         5
+     476: sipush        255
+     479: iload         5
+     481: isub
+     482: iload         8
+     484: imul
+     485: bipush        100
+     487: idiv
+     488: iadd
+     489: istore        5
+     491: iconst_0
+     492: iload         9
+     494: bipush        16
+     496: ishl
+     497: ior
+     498: dup
+     499: istore        8
+     501: iload         10
+     503: bipush        8
+     505: ishl
+     506: ior
+     507: dup
+     508: istore        8
+     510: iload         5
+     512: ior
+     513: dup
+     514: istore        8
+     516: invokestatic  #34                 // Method a:(I)[B
+     519: astore        10
+     521: aload_0
+     522: iload         6
+     524: aload         10
+     526: iconst_0
+     527: baload
+     528: bastore
+     529: aload_0
+     530: iload         6
+     532: iconst_1
+     533: iadd
+     534: aload         10
+     536: iconst_1
+     537: baload
+     538: bastore
+     539: aload_0
+     540: iload         6
+     542: iconst_2
+     543: iadd
+     544: aload         10
+     546: iconst_2
+     547: baload
+     548: bastore
+     549: iinc          6, 3
+     552: iload         6
+     554: iload         7
+     556: if_icmplt     298
+     559: iload_2
+     560: iconst_4
+     561: iadd
+     562: newarray       byte
+     564: astore_3
+     565: iconst_0
+     566: istore        6
+     568: goto          585
+     571: aload_3
+     572: iload         6
+     574: aload_0
+     575: iload         4
+     577: iload         6
+     579: iadd
+     580: baload
+     581: bastore
+     582: iinc          6, 1
+     585: iload         6
+     587: iload_2
+     588: iconst_4
+     589: iadd
+     590: if_icmplt     571
+     593: invokestatic  #31                 // Method e.a:()V
+     596: aload_3
+     597: invokestatic  #32                 // Method e.a:([B)J
+     600: lstore        6
+     602: iconst_3
+     603: istore        5
+     605: goto          642
+     608: lload         6
+     610: iload         5
+     612: bipush        8
+     614: imul
+     615: lshr
+     616: ldc2_w        #21                 // long 255l
+     619: land
+     620: l2i
+     621: i2b
+     622: istore        8
+     624: aload_0
+     625: iload         4
+     627: iconst_4
+     628: iadd
+     629: iload_2
+     630: iadd
+     631: iconst_3
+     632: iadd
+     633: iload         5
+     635: isub
+     636: iload         8
+     638: bastore
+     639: iinc          5, -1
+     642: iload         5
+     644: ifge          608
+     647: return
+     648: astore_3
+     649: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     652: ldc           #3                  // String Co loi trong qua trinh HUE 1 file PNG
+     654: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     657: aload_3
+     658: invokevirtual #37                 // Method java/lang/Throwable.printStackTrace:()V
+     661: return
+    Exception table:
+       from    to  target type
+         102   184   187   Class java/lang/Exception
+          12   647   648   Class java/lang/Exception
+
+  public static void a(byte[]);
+    Code:
+       0: iconst_0
+       1: istore_1
+       2: aconst_null
+       3: astore_2
+       4: iconst_0
+       5: istore_3
+       6: iconst_0
+       7: istore_2
+       8: aload_0
+       9: arraylength
+      10: iconst_4
+      11: isub
+      12: istore        5
+      14: goto          87
+      17: aload_0
+      18: iload_2
+      19: baload
+      20: bipush        80
+      22: if_icmpne     84
+      25: aload_0
+      26: iload_2
+      27: iconst_1
+      28: iadd
+      29: baload
+      30: bipush        76
+      32: if_icmpne     84
+      35: aload_0
+      36: iload_2
+      37: iconst_2
+      38: iadd
+      39: baload
+      40: bipush        84
+      42: if_icmpne     84
+      45: aload_0
+      46: iload_2
+      47: iconst_3
+      48: iadd
+      49: baload
+      50: bipush        69
+      52: if_icmpne     84
+      55: iload_2
+      56: istore_3
+      57: aload_0
+      58: iload_2
+      59: iconst_4
+      60: isub
+      61: baload
+      62: aload_0
+      63: iload_2
+      64: iconst_3
+      65: isub
+      66: baload
+      67: aload_0
+      68: iload_2
+      69: iconst_2
+      70: isub
+      71: baload
+      72: aload_0
+      73: iload_2
+      74: iconst_1
+      75: isub
+      76: baload
+      77: invokestatic  #38                 // Method p.a:(BBBB)I
+      80: istore_1
+      81: goto          93
+      84: iinc          2, 1
+      87: iload_2
+      88: iload         5
+      90: if_icmplt     17
+      93: iconst_m1
+      94: istore_2
+      95: iload_3
+      96: bipush        12
+      98: iadd
+      99: iload_1
+     100: iadd
+     101: istore        5
+     103: aload_0
+     104: iload         5
+     106: baload
+     107: bipush        116
+     109: if_icmpne     182
+     112: aload_0
+     113: iload         5
+     115: iconst_1
+     116: iadd
+     117: baload
+     118: bipush        82
+     120: if_icmpne     182
+     123: aload_0
+     124: iload         5
+     126: iconst_2
+     127: iadd
+     128: baload
+     129: bipush        78
+     131: if_icmpne     182
+     134: aload_0
+     135: iload         5
+     137: iconst_3
+     138: iadd
+     139: baload
+     140: bipush        83
+     142: if_icmpne     182
+     145: aload_0
+     146: iload         5
+     148: iconst_4
+     149: isub
+     150: baload
+     151: aload_0
+     152: iload         5
+     154: iconst_3
+     155: isub
+     156: baload
+     157: aload_0
+     158: iload         5
+     160: iconst_2
+     161: isub
+     162: baload
+     163: aload_0
+     164: iload         5
+     166: iconst_1
+     167: isub
+     168: baload
+     169: invokestatic  #38                 // Method p.a:(BBBB)I
+     172: istore_2
+     173: iinc          2, -1
+     176: goto          182
+     179: pop
+     180: iconst_m1
+     181: istore_2
+     182: iload_2
+     183: iflt          271
+     186: iconst_0
+     187: istore        5
+     189: iload_3
+     190: iconst_4
+     191: iadd
+     192: istore        6
+     194: iload_1
+     195: iload_3
+     196: iadd
+     197: iconst_4
+     198: iadd
+     199: istore        4
+     201: goto          256
+     204: aload_0
+     205: iload         6
+     207: baload
+     208: istore        7
+     210: aload_0
+     211: iload         6
+     213: iconst_1
+     214: iadd
+     215: baload
+     216: istore        8
+     218: aload_0
+     219: iload         6
+     221: iconst_2
+     222: iadd
+     223: baload
+     224: istore        9
+     226: iload         7
+     228: sipush        255
+     231: if_icmpne     253
+     234: iload         8
+     236: sipush        255
+     239: if_icmpne     253
+     242: iload         9
+     244: sipush        255
+     247: if_icmpne     253
+     250: iinc          5, 1
+     253: iinc          6, 3
+     256: iload         6
+     258: iload         4
+     260: if_icmplt     204
+     263: iload         5
+     265: iconst_2
+     266: if_icmpge     271
+     269: iconst_m1
+     270: istore_2
+     271: iload_3
+     272: iconst_4
+     273: iadd
+     274: istore        5
+     276: iload_3
+     277: iconst_4
+     278: iadd
+     279: iload_1
+     280: iadd
+     281: istore        6
+     283: goto          430
+     286: iload_2
+     287: iload         5
+     289: if_icmpeq     427
+     292: aload_0
+     293: iload         5
+     295: baload
+     296: istore        4
+     298: aload_0
+     299: iload         5
+     301: iconst_1
+     302: iadd
+     303: baload
+     304: istore        7
+     306: aload_0
+     307: iload         5
+     309: iconst_2
+     310: iadd
+     311: baload
+     312: istore        8
+     314: iload         4
+     316: iload         7
+     318: iload         8
+     320: invokestatic  #33                 // Method a:(BBB)I
+     323: dup
+     324: istore        4
+     326: bipush        16
+     328: ishr
+     329: sipush        255
+     332: iand
+     333: istore        7
+     335: iload         4
+     337: bipush        8
+     339: ishr
+     340: sipush        255
+     343: iand
+     344: istore        8
+     346: iload         4
+     348: sipush        255
+     351: iand
+     352: istore        4
+     354: iload         7
+     356: iload         8
+     358: iadd
+     359: iload         4
+     361: iadd
+     362: iconst_3
+     363: idiv
+     364: dup
+     365: istore        7
+     367: istore        8
+     369: iconst_0
+     370: iload         7
+     372: bipush        16
+     374: ishl
+     375: ior
+     376: dup
+     377: istore        4
+     379: iload         7
+     381: bipush        8
+     383: ishl
+     384: ior
+     385: dup
+     386: istore        4
+     388: iload         8
+     390: ior
+     391: dup
+     392: istore        4
+     394: invokestatic  #34                 // Method a:(I)[B
+     397: astore        9
+     399: aload_0
+     400: iload         5
+     402: aload         9
+     404: iconst_0
+     405: baload
+     406: bastore
+     407: aload_0
+     408: iload         5
+     410: iconst_1
+     411: iadd
+     412: aload         9
+     414: iconst_1
+     415: baload
+     416: bastore
+     417: aload_0
+     418: iload         5
+     420: iconst_2
+     421: iadd
+     422: aload         9
+     424: iconst_2
+     425: baload
+     426: bastore
+     427: iinc          5, 3
+     430: iload         5
+     432: iload         6
+     434: if_icmplt     286
+     437: iload_1
+     438: iconst_4
+     439: iadd
+     440: newarray       byte
+     442: astore_2
+     443: iconst_0
+     444: istore        5
+     446: goto          462
+     449: aload_2
+     450: iload         5
+     452: aload_0
+     453: iload_3
+     454: iload         5
+     456: iadd
+     457: baload
+     458: bastore
+     459: iinc          5, 1
+     462: iload         5
+     464: iload_1
+     465: iconst_4
+     466: iadd
+     467: if_icmplt     449
+     470: invokestatic  #31                 // Method e.a:()V
+     473: aload_2
+     474: invokestatic  #32                 // Method e.a:([B)J
+     477: lstore        5
+     479: iconst_3
+     480: istore        4
+     482: goto          518
+     485: lload         5
+     487: iload         4
+     489: bipush        8
+     491: imul
+     492: lshr
+     493: ldc2_w        #21                 // long 255l
+     496: land
+     497: l2i
+     498: i2b
+     499: istore        7
+     501: aload_0
+     502: iload_3
+     503: iconst_4
+     504: iadd
+     505: iload_1
+     506: iadd
+     507: iconst_3
+     508: iadd
+     509: iload         4
+     511: isub
+     512: iload         7
+     514: bastore
+     515: iinc          4, -1
+     518: iload         4
+     520: ifge          485
+     523: return
+     524: astore_2
+     525: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+     528: ldc           #2                  // String Co loi trong qua trinh GRAY 1 file PNG
+     530: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     533: aload_2
+     534: invokevirtual #37                 // Method java/lang/Throwable.printStackTrace:()V
+     537: return
+    Exception table:
+       from    to  target type
+          95   176   179   Class java/lang/Exception
+           6   523   524   Class java/lang/Exception
+}

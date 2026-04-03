@@ -1,0 +1,427 @@
+public final class jm {
+  public java.lang.String a;
+
+  public java.lang.String b;
+
+  public int c;
+
+  public int d;
+
+  public int e;
+
+  public int f;
+
+  public int g;
+
+  public int h;
+
+  public int i;
+
+  public byte[] j;
+
+  public byte[] k;
+
+  public byte[] l;
+
+  public int m;
+
+  public jl[] n;
+
+  public int[] o;
+
+  public int p;
+
+  public jm();
+    Code:
+       0: aload_0
+       1: invokespecial #26                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public final byte[] a();
+    Code:
+       0: aconst_null
+       1: astore_1
+       2: iconst_0
+       3: istore_2
+       4: aconst_null
+       5: astore_3
+       6: aconst_null
+       7: astore        4
+       9: aload_0
+      10: getfield      #11                 // Field a:Ljava/lang/String;
+      13: invokestatic  #30                 // Method l.c:(Ljava/lang/String;)[B
+      16: astore_3
+      17: bipush        32
+      19: aload_3
+      20: arraylength
+      21: iconst_4
+      22: iadd
+      23: iadd
+      24: istore_2
+      25: aload_0
+      26: getfield      #12                 // Field b:Ljava/lang/String;
+      29: invokestatic  #30                 // Method l.c:(Ljava/lang/String;)[B
+      32: astore        4
+      34: iload_2
+      35: aload         4
+      37: arraylength
+      38: iconst_4
+      39: iadd
+      40: iadd
+      41: dup
+      42: istore_2
+      43: aload_0
+      44: getfield      #20                 // Field j:[B
+      47: arraylength
+      48: iconst_4
+      49: iadd
+      50: aload_0
+      51: getfield      #21                 // Field k:[B
+      54: arraylength
+      55: iadd
+      56: iconst_4
+      57: iadd
+      58: aload_0
+      59: getfield      #22                 // Field l:[B
+      62: arraylength
+      63: iadd
+      64: iconst_4
+      65: iadd
+      66: iadd
+      67: istore_2
+      68: aload_0
+      69: getfield      #25                 // Field o:[I
+      72: arraylength
+      73: iconst_2
+      74: ishl
+      75: newarray       byte
+      77: astore        5
+      79: iconst_0
+      80: istore        6
+      82: iconst_0
+      83: istore        7
+      85: goto          113
+      88: aload_0
+      89: getfield      #25                 // Field o:[I
+      92: iload         7
+      94: iaload
+      95: invokestatic  #31                 // Method p.a:(I)[B
+      98: iconst_0
+      99: aload         5
+     101: iload         6
+     103: iconst_4
+     104: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     107: iinc          6, 4
+     110: iinc          7, 1
+     113: iload         7
+     115: aload_0
+     116: getfield      #25                 // Field o:[I
+     119: arraylength
+     120: if_icmplt     88
+     123: iload_2
+     124: aload         5
+     126: arraylength
+     127: iadd
+     128: istore_2
+     129: iinc          2, 4
+     132: aload_0
+     133: getfield      #24                 // Field n:[Ljl;
+     136: arraylength
+     137: anewarray     #1                  // class "[B"
+     140: astore        7
+     142: iconst_0
+     143: istore        8
+     145: iconst_0
+     146: istore        9
+     148: goto          193
+     151: aload         7
+     153: iload         9
+     155: aload_0
+     156: getfield      #24                 // Field n:[Ljl;
+     159: iload         9
+     161: aaload
+     162: invokevirtual #29                 // Method jl.a:()[B
+     165: aastore
+     166: iload_2
+     167: aload         7
+     169: iload         9
+     171: aaload
+     172: arraylength
+     173: iconst_4
+     174: iadd
+     175: iadd
+     176: istore_2
+     177: iload         8
+     179: aload         7
+     181: iload         9
+     183: aaload
+     184: arraylength
+     185: iconst_4
+     186: iadd
+     187: iadd
+     188: istore        8
+     190: iinc          9, 1
+     193: iload         9
+     195: aload         7
+     197: arraylength
+     198: if_icmplt     151
+     201: iinc          2, 4
+     204: iload_2
+     205: newarray       byte
+     207: astore_1
+     208: aload_0
+     209: getfield      #18                 // Field h:I
+     212: invokestatic  #31                 // Method p.a:(I)[B
+     215: iconst_0
+     216: aload_1
+     217: iconst_0
+     218: iconst_4
+     219: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     222: aload_0
+     223: getfield      #15                 // Field e:I
+     226: invokestatic  #31                 // Method p.a:(I)[B
+     229: iconst_0
+     230: aload_1
+     231: iconst_4
+     232: iconst_4
+     233: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     236: aload_0
+     237: getfield      #19                 // Field i:I
+     240: invokestatic  #31                 // Method p.a:(I)[B
+     243: iconst_0
+     244: aload_1
+     245: bipush        8
+     247: iconst_4
+     248: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     251: aload_0
+     252: getfield      #13                 // Field c:I
+     255: invokestatic  #31                 // Method p.a:(I)[B
+     258: iconst_0
+     259: aload_1
+     260: bipush        12
+     262: iconst_4
+     263: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     266: aload_0
+     267: getfield      #14                 // Field d:I
+     270: invokestatic  #31                 // Method p.a:(I)[B
+     273: iconst_0
+     274: aload_1
+     275: bipush        16
+     277: iconst_4
+     278: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     281: aload_0
+     282: getfield      #17                 // Field g:I
+     285: invokestatic  #31                 // Method p.a:(I)[B
+     288: iconst_0
+     289: aload_1
+     290: bipush        20
+     292: iconst_4
+     293: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     296: aload_0
+     297: getfield      #23                 // Field m:I
+     300: invokestatic  #31                 // Method p.a:(I)[B
+     303: iconst_0
+     304: aload_1
+     305: bipush        24
+     307: iconst_4
+     308: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     311: aload_0
+     312: getfield      #16                 // Field f:I
+     315: invokestatic  #31                 // Method p.a:(I)[B
+     318: iconst_0
+     319: aload_1
+     320: bipush        28
+     322: iconst_4
+     323: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     326: aload_3
+     327: arraylength
+     328: invokestatic  #31                 // Method p.a:(I)[B
+     331: iconst_0
+     332: aload_1
+     333: bipush        32
+     335: iconst_4
+     336: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     339: aload_3
+     340: iconst_0
+     341: aload_1
+     342: bipush        36
+     344: aload_3
+     345: arraylength
+     346: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     349: bipush        36
+     351: aload_3
+     352: arraylength
+     353: iadd
+     354: istore        6
+     356: aload         4
+     358: arraylength
+     359: invokestatic  #31                 // Method p.a:(I)[B
+     362: iconst_0
+     363: aload_1
+     364: iload         6
+     366: iconst_4
+     367: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     370: iinc          6, 4
+     373: aload         4
+     375: iconst_0
+     376: aload_1
+     377: iload         6
+     379: aload         4
+     381: arraylength
+     382: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     385: iload         6
+     387: aload         4
+     389: arraylength
+     390: iadd
+     391: istore        6
+     393: aload_0
+     394: getfield      #20                 // Field j:[B
+     397: arraylength
+     398: invokestatic  #31                 // Method p.a:(I)[B
+     401: iconst_0
+     402: aload_1
+     403: iload         6
+     405: iconst_4
+     406: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     409: iinc          6, 4
+     412: aload_0
+     413: getfield      #20                 // Field j:[B
+     416: iconst_0
+     417: aload_1
+     418: iload         6
+     420: aload_0
+     421: getfield      #20                 // Field j:[B
+     424: arraylength
+     425: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     428: iload         6
+     430: aload_0
+     431: getfield      #20                 // Field j:[B
+     434: arraylength
+     435: iadd
+     436: istore        6
+     438: aload_0
+     439: getfield      #21                 // Field k:[B
+     442: arraylength
+     443: invokestatic  #31                 // Method p.a:(I)[B
+     446: iconst_0
+     447: aload_1
+     448: iload         6
+     450: iconst_4
+     451: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     454: iinc          6, 4
+     457: aload_0
+     458: getfield      #21                 // Field k:[B
+     461: iconst_0
+     462: aload_1
+     463: iload         6
+     465: aload_0
+     466: getfield      #21                 // Field k:[B
+     469: arraylength
+     470: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     473: iload         6
+     475: aload_0
+     476: getfield      #21                 // Field k:[B
+     479: arraylength
+     480: iadd
+     481: istore        6
+     483: aload_0
+     484: getfield      #22                 // Field l:[B
+     487: arraylength
+     488: invokestatic  #31                 // Method p.a:(I)[B
+     491: iconst_0
+     492: aload_1
+     493: iload         6
+     495: iconst_4
+     496: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     499: iinc          6, 4
+     502: aload_0
+     503: getfield      #22                 // Field l:[B
+     506: iconst_0
+     507: aload_1
+     508: iload         6
+     510: aload_0
+     511: getfield      #22                 // Field l:[B
+     514: arraylength
+     515: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     518: iload         6
+     520: aload_0
+     521: getfield      #22                 // Field l:[B
+     524: arraylength
+     525: iadd
+     526: istore        6
+     528: aload         5
+     530: arraylength
+     531: invokestatic  #31                 // Method p.a:(I)[B
+     534: iconst_0
+     535: aload_1
+     536: iload         6
+     538: iconst_4
+     539: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     542: iinc          6, 4
+     545: aload         5
+     547: iconst_0
+     548: aload_1
+     549: iload         6
+     551: aload         5
+     553: arraylength
+     554: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     557: iload         6
+     559: aload         5
+     561: arraylength
+     562: iadd
+     563: istore        6
+     565: iload         8
+     567: invokestatic  #31                 // Method p.a:(I)[B
+     570: iconst_0
+     571: aload_1
+     572: iload         6
+     574: iconst_4
+     575: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     578: iinc          6, 4
+     581: iconst_0
+     582: istore        9
+     584: goto          639
+     587: aload         7
+     589: iload         9
+     591: aaload
+     592: arraylength
+     593: invokestatic  #31                 // Method p.a:(I)[B
+     596: iconst_0
+     597: aload_1
+     598: iload         6
+     600: iconst_4
+     601: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     604: iinc          6, 4
+     607: aload         7
+     609: iload         9
+     611: aaload
+     612: iconst_0
+     613: aload_1
+     614: iload         6
+     616: aload         7
+     618: iload         9
+     620: aaload
+     621: arraylength
+     622: invokestatic  #27                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     625: iload         6
+     627: aload         7
+     629: iload         9
+     631: aaload
+     632: arraylength
+     633: iadd
+     634: istore        6
+     636: iinc          9, 1
+     639: iload         9
+     641: aload         7
+     643: arraylength
+     644: if_icmplt     587
+     647: goto          656
+     650: dup
+     651: astore        5
+     653: invokevirtual #28                 // Method java/lang/Throwable.printStackTrace:()V
+     656: aload_1
+     657: areturn
+    Exception table:
+       from    to  target type
+           9   647   650   Class java/io/UnsupportedEncodingException
+}

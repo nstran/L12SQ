@@ -12,7 +12,7 @@ Desktop.ini
 *.bak
 
 # Root generated artifacts
-/loan-12-su-quan-local.jar
+#/loan-12-su-quan-local.jar
 
 # Decompiled / extracted artifacts regenerated from the original client jar
 /client-base/extracted/

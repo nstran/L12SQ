@@ -1,0 +1,1924 @@
+public class y {
+  private final java.lang.String a;
+
+  private final int b;
+
+  private int c;
+
+  private int d;
+
+  private int e;
+
+  private a f;
+
+  private a g;
+
+  private a h;
+
+  private int i;
+
+  private int j;
+
+  private int k;
+
+  private java.lang.Object l;
+
+  private boolean m;
+
+  private javax.microedition.rms.RecordStore n;
+
+  private boolean o;
+
+  private int p;
+
+  private y(java.lang.String, int, int, int, int, int, int, boolean);
+    Code:
+       0: aload_0
+       1: invokespecial #64                 // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: iconst_0
+       6: putfield      #43                 // Field m:Z
+       9: aload_0
+      10: aconst_null
+      11: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      14: aload_0
+      15: iconst_1
+      16: putfield      #45                 // Field o:Z
+      19: aload_0
+      20: iconst_0
+      21: putfield      #46                 // Field p:I
+      24: aload_0
+      25: iload_3
+      26: putfield      #33                 // Field c:I
+      29: aload_0
+      30: aload_1
+      31: putfield      #31                 // Field a:Ljava/lang/String;
+      34: aload_0
+      35: iload_2
+      36: putfield      #32                 // Field b:I
+      39: aload_0
+      40: iload         4
+      42: putfield      #34                 // Field d:I
+      45: aload_0
+      46: iload         5
+      48: putfield      #35                 // Field e:I
+      51: aload_0
+      52: iload         6
+      54: iload_3
+      55: iconst_1
+      56: ishl
+      57: isub
+      58: iload_2
+      59: bipush        10
+      61: imul
+      62: isub
+      63: putfield      #40                 // Field j:I
+      66: aload_0
+      67: iload         8
+      69: putfield      #45                 // Field o:Z
+      72: aload_0
+      73: iload         7
+      75: putfield      #46                 // Field p:I
+      78: aload_0
+      79: new           #6                  // class a
+      82: dup
+      83: invokespecial #47                 // Method a."<init>":()V
+      86: putfield      #36                 // Field f:La;
+      89: aload_0
+      90: new           #6                  // class a
+      93: dup
+      94: invokespecial #47                 // Method a."<init>":()V
+      97: putfield      #37                 // Field g:La;
+     100: aload_0
+     101: new           #6                  // class a
+     104: dup
+     105: invokespecial #47                 // Method a."<init>":()V
+     108: putfield      #38                 // Field h:La;
+     111: aload_0
+     112: new           #11                 // class java/lang/Object
+     115: dup
+     116: invokespecial #64                 // Method java/lang/Object."<init>":()V
+     119: putfield      #42                 // Field l:Ljava/lang/Object;
+     122: aload_0
+     123: invokespecial #90                 // Method f:()V
+     126: aload_0
+     127: invokevirtual #88                 // Method e:()V
+     130: return
+
+  private byte[] a(javax.microedition.rms.RecordStore);
+    Code:
+       0: aload_0
+       1: getfield      #33                 // Field c:I
+       4: newarray       byte
+       6: astore_2
+       7: aload_1
+       8: aload_2
+       9: invokestatic  #58                 // Method j.a:(Ljavax/microedition/rms/RecordStore;[B)I
+      12: pop
+      13: aload_1
+      14: aload_2
+      15: invokestatic  #58                 // Method j.a:(Ljavax/microedition/rms/RecordStore;[B)I
+      18: pop
+      19: aload_1
+      20: iconst_1
+      21: newarray       byte
+      23: dup
+      24: iconst_0
+      25: iconst_1
+      26: bastore
+      27: invokestatic  #58                 // Method j.a:(Ljavax/microedition/rms/RecordStore;[B)I
+      30: pop
+      31: goto          39
+      34: dup
+      35: astore_1
+      36: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+      39: aload_0
+      40: iconst_1
+      41: putfield      #39                 // Field i:I
+      44: aload_2
+      45: areturn
+    Exception table:
+       from    to  target type
+           7    31    34   Class java/lang/Exception
+
+  private void f();
+    Code:
+       0: aload_0
+       1: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+       4: ifnonnull     19
+       7: aload_0
+       8: aload_0
+       9: getfield      #31                 // Field a:Ljava/lang/String;
+      12: iconst_0
+      13: invokestatic  #54                 // Method j.a:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+      16: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      19: aload_0
+      20: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      23: ifnull        37
+      26: aload_0
+      27: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      30: invokestatic  #55                 // Method j.a:(Ljavax/microedition/rms/RecordStore;)I
+      33: iconst_3
+      34: if_icmpge     72
+      37: aload_0
+      38: invokevirtual #87                 // Method d:()V
+      41: aload_0
+      42: getfield      #31                 // Field a:Ljava/lang/String;
+      45: invokestatic  #59                 // Method j.b:(Ljava/lang/String;)V
+      48: aload_0
+      49: aload_0
+      50: getfield      #31                 // Field a:Ljava/lang/String;
+      53: iconst_1
+      54: invokestatic  #54                 // Method j.a:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+      57: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      60: aload_0
+      61: aload_0
+      62: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      65: invokespecial #81                 // Method a:(Ljavax/microedition/rms/RecordStore;)[B
+      68: astore_1
+      69: goto          159
+      72: aload_0
+      73: iconst_0
+      74: putfield      #39                 // Field i:I
+      77: aload_0
+      78: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      81: iconst_3
+      82: invokestatic  #56                 // Method j.a:(Ljavax/microedition/rms/RecordStore;I)[B
+      85: dup
+      86: astore_2
+      87: ifnull        97
+      90: aload_0
+      91: aload_2
+      92: iconst_0
+      93: baload
+      94: putfield      #39                 // Field i:I
+      97: aload_0
+      98: getfield      #39                 // Field i:I
+     101: ifle          112
+     104: aload_0
+     105: getfield      #39                 // Field i:I
+     108: iconst_2
+     109: if_icmple     117
+     112: aload_0
+     113: iconst_1
+     114: putfield      #39                 // Field i:I
+     117: aload_0
+     118: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+     121: aload_0
+     122: getfield      #39                 // Field i:I
+     125: invokestatic  #56                 // Method j.a:(Ljavax/microedition/rms/RecordStore;I)[B
+     128: dup
+     129: astore_1
+     130: iconst_0
+     131: invokestatic  #73                 // Method p.a:([BI)I
+     134: dup
+     135: istore_3
+     136: aload_0
+     137: getfield      #46                 // Field p:I
+     140: if_icmpge     159
+     143: aload_0
+     144: invokevirtual #87                 // Method d:()V
+     147: aload_0
+     148: getfield      #31                 // Field a:Ljava/lang/String;
+     151: invokestatic  #59                 // Method j.b:(Ljava/lang/String;)V
+     154: aload_0
+     155: invokespecial #90                 // Method f:()V
+     158: return
+     159: aload_0
+     160: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+     163: invokestatic  #55                 // Method j.a:(Ljavax/microedition/rms/RecordStore;)I
+     166: istore_2
+     167: iconst_3
+     168: istore_3
+     169: aload_0
+     170: getfield      #45                 // Field o:Z
+     173: ifeq          180
+     176: aload_0
+     177: invokevirtual #87                 // Method d:()V
+     180: iconst_4
+     181: istore        4
+     183: aload_1
+     184: iconst_4
+     185: invokestatic  #73                 // Method p.a:([BI)I
+     188: istore        5
+     190: iinc          4, 4
+     193: iconst_0
+     194: istore        6
+     196: goto          368
+     199: new           #20                 // class x
+     202: dup
+     203: invokespecial #75                 // Method x."<init>":()V
+     206: astore        7
+     208: iload         4
+     210: aload         7
+     212: aload_1
+     213: iload         4
+     215: istore        9
+     217: astore        8
+     219: astore        4
+     221: iload         9
+     223: istore        10
+     225: aload         4
+     227: aload         8
+     229: iload         9
+     231: invokestatic  #73                 // Method p.a:([BI)I
+     234: putfield      #26                 // Field x.a:I
+     237: iinc          9, 4
+     240: aload         4
+     242: aload         8
+     244: iload         9
+     246: invokestatic  #74                 // Method p.b:([BI)J
+     249: putfield      #30                 // Field x.e:J
+     252: iinc          9, 8
+     255: aload         4
+     257: aload         8
+     259: iload         9
+     261: invokestatic  #73                 // Method p.a:([BI)I
+     264: putfield      #27                 // Field x.b:I
+     267: iinc          9, 4
+     270: aload         4
+     272: aload         8
+     274: iload         9
+     276: invokestatic  #73                 // Method p.a:([BI)I
+     279: newarray       int
+     281: putfield      #28                 // Field x.c:[I
+     284: iinc          9, 4
+     287: iconst_0
+     288: istore        11
+     290: goto          314
+     293: aload         4
+     295: getfield      #28                 // Field x.c:[I
+     298: iload         11
+     300: aload         8
+     302: iload         9
+     304: invokestatic  #73                 // Method p.a:([BI)I
+     307: iastore
+     308: iinc          9, 4
+     311: iinc          11, 1
+     314: iload         11
+     316: aload         4
+     318: getfield      #28                 // Field x.c:[I
+     321: arraylength
+     322: if_icmplt     293
+     325: iload         9
+     327: iload         10
+     329: isub
+     330: iadd
+     331: istore        4
+     333: aload_0
+     334: getfield      #36                 // Field f:La;
+     337: aload         7
+     339: invokevirtual #50                 // Method a.a:(Ljava/lang/Object;)V
+     342: iload_3
+     343: aload         7
+     345: getfield      #28                 // Field x.c:[I
+     348: arraylength
+     349: iadd
+     350: istore_3
+     351: aload_0
+     352: dup
+     353: getfield      #41                 // Field k:I
+     356: aload         7
+     358: getfield      #27                 // Field x.b:I
+     361: iadd
+     362: putfield      #41                 // Field k:I
+     365: iinc          6, 1
+     368: iload         6
+     370: iload         5
+     372: if_icmplt     199
+     375: aload_1
+     376: iload         4
+     378: invokestatic  #73                 // Method p.a:([BI)I
+     381: istore        6
+     383: iinc          4, 4
+     386: iconst_0
+     387: istore        7
+     389: goto          418
+     392: aload_0
+     393: getfield      #37                 // Field g:La;
+     396: new           #9                  // class java/lang/Integer
+     399: dup
+     400: aload_1
+     401: iload         4
+     403: invokestatic  #73                 // Method p.a:([BI)I
+     406: invokespecial #60                 // Method java/lang/Integer."<init>":(I)V
+     409: invokevirtual #50                 // Method a.a:(Ljava/lang/Object;)V
+     412: iinc          4, 4
+     415: iinc          7, 1
+     418: iload         7
+     420: iload         6
+     422: if_icmplt     392
+     425: iload_3
+     426: aload_0
+     427: getfield      #37                 // Field g:La;
+     430: invokevirtual #53                 // Method a.d:()I
+     433: iadd
+     434: istore_3
+     435: iload_2
+     436: iconst_3
+     437: isub
+     438: iload_3
+     439: if_icmple     457
+     442: aload_0
+     443: iload_2
+     444: invokespecial #89                 // Method e:(I)V
+     447: return
+     448: astore_1
+     449: aload_0
+     450: invokevirtual #87                 // Method d:()V
+     453: aload_1
+     454: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+     457: return
+    Exception table:
+       from    to  target type
+          19   158   448   Class java/lang/Throwable
+         159   447   448   Class java/lang/Throwable
+
+  private void e(int);
+    Code:
+       0: iload_1
+       1: iconst_1
+       2: iadd
+       3: newarray       boolean
+       5: astore_1
+       6: aload_0
+       7: getfield      #36                 // Field f:La;
+      10: invokevirtual #53                 // Method a.d:()I
+      13: iconst_1
+      14: isub
+      15: istore_2
+      16: goto          64
+      19: aload_0
+      20: getfield      #36                 // Field f:La;
+      23: iload_2
+      24: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      27: checkcast     #20                 // class x
+      30: dup
+      31: astore_3
+      32: getfield      #28                 // Field x.c:[I
+      35: arraylength
+      36: iconst_1
+      37: isub
+      38: istore        4
+      40: goto          56
+      43: aload_1
+      44: aload_3
+      45: getfield      #28                 // Field x.c:[I
+      48: iload         4
+      50: iaload
+      51: iconst_1
+      52: bastore
+      53: iinc          4, -1
+      56: iload         4
+      58: ifge          43
+      61: iinc          2, -1
+      64: iload_2
+      65: ifge          19
+      68: aload_0
+      69: getfield      #37                 // Field g:La;
+      72: invokevirtual #53                 // Method a.d:()I
+      75: iconst_1
+      76: isub
+      77: istore_2
+      78: goto          103
+      81: aload_0
+      82: getfield      #37                 // Field g:La;
+      85: iload_2
+      86: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      89: checkcast     #9                  // class java/lang/Integer
+      92: invokevirtual #61                 // Method java/lang/Integer.intValue:()I
+      95: istore_3
+      96: aload_1
+      97: iload_3
+      98: iconst_1
+      99: bastore
+     100: iinc          2, -1
+     103: iload_2
+     104: ifge          81
+     107: aload_1
+     108: arraylength
+     109: iconst_1
+     110: isub
+     111: istore_2
+     112: goto          139
+     115: aload_1
+     116: iload_2
+     117: baload
+     118: ifne          136
+     121: aload_0
+     122: getfield      #37                 // Field g:La;
+     125: new           #9                  // class java/lang/Integer
+     128: dup
+     129: iload_2
+     130: invokespecial #60                 // Method java/lang/Integer."<init>":(I)V
+     133: invokevirtual #50                 // Method a.a:(Ljava/lang/Object;)V
+     136: iinc          2, -1
+     139: iload_2
+     140: iconst_3
+     141: if_icmpgt     115
+     144: return
+
+  private x f(int);
+    Code:
+       0: aload_0
+       1: getfield      #36                 // Field f:La;
+       4: iload_1
+       5: invokevirtual #49                 // Method a.a:(I)Ljava/lang/Object;
+       8: dup
+       9: astore_1
+      10: ifnull        33
+      13: aload_1
+      14: checkcast     #20                 // class x
+      17: astore_1
+      18: aload_0
+      19: dup
+      20: getfield      #41                 // Field k:I
+      23: aload_1
+      24: getfield      #27                 // Field x.b:I
+      27: isub
+      28: putfield      #41                 // Field k:I
+      31: aload_1
+      32: areturn
+      33: aconst_null
+      34: areturn
+
+  private x a(x);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: getfield      #26                 // Field x.a:I
+       5: invokespecial #94                 // Method h:(I)I
+       8: dup
+       9: istore_1
+      10: iflt          19
+      13: aload_0
+      14: iload_1
+      15: invokespecial #91                 // Method f:(I)Lx;
+      18: areturn
+      19: aconst_null
+      20: areturn
+
+  public final byte[] a(int);
+    Code:
+       0: aload_0
+       1: getfield      #42                 // Field l:Ljava/lang/Object;
+       4: dup
+       5: astore_2
+       6: monitorenter
+       7: aload_0
+       8: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      11: ifnonnull     26
+      14: aload_0
+      15: aload_0
+      16: getfield      #31                 // Field a:Ljava/lang/String;
+      19: iconst_0
+      20: invokestatic  #54                 // Method j.a:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+      23: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      26: aload_0
+      27: iload_1
+      28: invokespecial #93                 // Method g:(I)Lx;
+      31: dup
+      32: astore_1
+      33: ifnull        50
+      36: aload_1
+      37: getfield      #28                 // Field x.c:[I
+      40: ifnull        50
+      43: aload_0
+      44: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      47: ifnonnull     58
+      50: aload_0
+      51: invokevirtual #87                 // Method d:()V
+      54: aload_2
+      55: monitorexit
+      56: aconst_null
+      57: areturn
+      58: aload_1
+      59: getfield      #29                 // Field x.d:[B
+      62: ifnull        73
+      65: aload_1
+      66: getfield      #29                 // Field x.d:[B
+      69: astore_3
+      70: goto          191
+      73: aload_1
+      74: getfield      #27                 // Field x.b:I
+      77: newarray       byte
+      79: astore_3
+      80: iconst_0
+      81: istore        4
+      83: aload_1
+      84: getfield      #28                 // Field x.c:[I
+      87: astore        5
+      89: iconst_0
+      90: istore        6
+      92: goto          183
+      95: aload_0
+      96: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      99: aload         5
+     101: iload         6
+     103: iaload
+     104: invokestatic  #56                 // Method j.a:(Ljavax/microedition/rms/RecordStore;I)[B
+     107: dup
+     108: astore        7
+     110: ifnonnull     141
+     113: aload_0
+     114: aload_1
+     115: invokespecial #83                 // Method a:(Lx;)Lx;
+     118: pop
+     119: aload_0
+     120: aload_1
+     121: getfield      #28                 // Field x.c:[I
+     124: iconst_0
+     125: aload_1
+     126: getfield      #28                 // Field x.c:[I
+     129: arraylength
+     130: invokespecial #84                 // Method a:([III)V
+     133: aload_0
+     134: invokevirtual #87                 // Method d:()V
+     137: aload_2
+     138: monitorexit
+     139: aconst_null
+     140: areturn
+     141: aload         7
+     143: arraylength
+     144: dup
+     145: istore        8
+     147: aload_3
+     148: arraylength
+     149: iload         4
+     151: isub
+     152: if_icmple     162
+     155: aload_3
+     156: arraylength
+     157: iload         4
+     159: isub
+     160: istore        8
+     162: aload         7
+     164: iconst_0
+     165: aload_3
+     166: iload         4
+     168: iload         8
+     170: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     173: iload         4
+     175: iload         8
+     177: iadd
+     178: istore        4
+     180: iinc          6, 1
+     183: iload         6
+     185: aload         5
+     187: arraylength
+     188: if_icmplt     95
+     191: aload_1
+     192: getfield      #30                 // Field x.e:J
+     195: invokestatic  #68                 // Method java/lang/System.currentTimeMillis:()J
+     198: lcmp
+     199: ifge          209
+     202: aload_1
+     203: invokestatic  #68                 // Method java/lang/System.currentTimeMillis:()J
+     206: putfield      #30                 // Field x.e:J
+     209: aload_0
+     210: getfield      #45                 // Field o:Z
+     213: ifeq          220
+     216: aload_0
+     217: invokevirtual #87                 // Method d:()V
+     220: aload_3
+     221: aload_2
+     222: monitorexit
+     223: areturn
+     224: astore_1
+     225: aload_0
+     226: invokevirtual #87                 // Method d:()V
+     229: aload_1
+     230: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+     233: aload_2
+     234: monitorexit
+     235: aconst_null
+     236: areturn
+     237: aload_2
+     238: monitorexit
+     239: athrow
+    Exception table:
+       from    to  target type
+          26    54   224   Class java/lang/Throwable
+          58   137   224   Class java/lang/Throwable
+         141   221   224   Class java/lang/Throwable
+           7    56   237   any
+          58   139   237   any
+         141   223   237   any
+         224   235   237   any
+
+  private boolean g();
+    Code:
+       0: iconst_0
+       1: istore_1
+       2: aload_0
+       3: iconst_1
+       4: putfield      #43                 // Field m:Z
+       7: aload_0
+       8: getfield      #36                 // Field f:La;
+      11: invokevirtual #53                 // Method a.d:()I
+      14: aload_0
+      15: getfield      #35                 // Field e:I
+      18: if_icmplt     31
+      21: aload_0
+      22: getfield      #36                 // Field f:La;
+      25: invokevirtual #53                 // Method a.d:()I
+      28: ifgt          33
+      31: iload_1
+      32: ireturn
+      33: aload_0
+      34: getfield      #36                 // Field f:La;
+      37: iconst_0
+      38: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      41: checkcast     #20                 // class x
+      44: astore_2
+      45: iconst_0
+      46: istore_3
+      47: iconst_1
+      48: istore        4
+      50: goto          88
+      53: aload_0
+      54: getfield      #36                 // Field f:La;
+      57: iload         4
+      59: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      62: checkcast     #20                 // class x
+      65: dup
+      66: astore        5
+      68: getfield      #30                 // Field x.e:J
+      71: aload_2
+      72: getfield      #30                 // Field x.e:J
+      75: lcmp
+      76: ifge          85
+      79: aload         5
+      81: astore_2
+      82: iload         4
+      84: istore_3
+      85: iinc          4, 1
+      88: iload         4
+      90: aload_0
+      91: getfield      #36                 // Field f:La;
+      94: invokevirtual #53                 // Method a.d:()I
+      97: if_icmplt     53
+     100: aload_2
+     101: ifnull        7
+     104: aload_2
+     105: getfield      #28                 // Field x.c:[I
+     108: ifnull        7
+     111: aload_0
+     112: aload_2
+     113: getfield      #28                 // Field x.c:[I
+     116: iconst_0
+     117: aload_2
+     118: getfield      #28                 // Field x.c:[I
+     121: arraylength
+     122: invokespecial #84                 // Method a:([III)V
+     125: aload_0
+     126: iload_3
+     127: invokespecial #91                 // Method f:(I)Lx;
+     130: pop
+     131: iconst_1
+     132: istore_1
+     133: goto          7
+
+  public final boolean a(int, byte[]);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: aload_2
+       3: iconst_0
+       4: aload_2
+       5: arraylength
+       6: invokevirtual #78                 // Method a:(I[BII)Z
+       9: ireturn
+
+  public final boolean a(int, long);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: invokespecial #93                 // Method g:(I)Lx;
+       5: dup
+       6: astore_1
+       7: ifnull        19
+      10: aload_1
+      11: ldc2_w        #24                 // long 9223372036854775807l
+      14: putfield      #30                 // Field x.e:J
+      17: iconst_1
+      18: ireturn
+      19: iconst_0
+      20: ireturn
+
+  public final boolean a(int, byte[], int, int);
+    Code:
+       0: aload_0
+       1: getfield      #42                 // Field l:Ljava/lang/Object;
+       4: dup
+       5: astore        5
+       7: monitorenter
+       8: aload_2
+       9: ifnonnull     17
+      12: aload         5
+      14: monitorexit
+      15: iconst_1
+      16: ireturn
+      17: aload_0
+      18: getfield      #34                 // Field d:I
+      21: iconst_1
+      22: if_icmpne     30
+      25: aload_0
+      26: invokespecial #92                 // Method g:()Z
+      29: pop
+      30: aload_0
+      31: iload_1
+      32: invokespecial #93                 // Method g:(I)Lx;
+      35: dup
+      36: astore        6
+      38: ifnull        88
+      41: aload         6
+      43: getfield      #28                 // Field x.c:[I
+      46: ifnull        65
+      49: aload_0
+      50: aload         6
+      52: getfield      #28                 // Field x.c:[I
+      55: iconst_0
+      56: aload         6
+      58: getfield      #28                 // Field x.c:[I
+      61: arraylength
+      62: invokespecial #84                 // Method a:([III)V
+      65: aload_0
+      66: dup
+      67: getfield      #41                 // Field k:I
+      70: aload         6
+      72: getfield      #27                 // Field x.b:I
+      75: isub
+      76: putfield      #41                 // Field k:I
+      79: aload         6
+      81: iconst_0
+      82: putfield      #27                 // Field x.b:I
+      85: goto          121
+      88: new           #20                 // class x
+      91: dup
+      92: invokespecial #75                 // Method x."<init>":()V
+      95: dup
+      96: astore        6
+      98: iload_1
+      99: putfield      #26                 // Field x.a:I
+     102: aload_0
+     103: getfield      #36                 // Field f:La;
+     106: aload         6
+     108: aload_0
+     109: iload_1
+     110: invokespecial #94                 // Method h:(I)I
+     113: iconst_1
+     114: iadd
+     115: invokestatic  #62                 // Method java/lang/Math.abs:(I)I
+     118: invokevirtual #52                 // Method a.b:(Ljava/lang/Object;I)V
+     121: aload_0
+     122: getfield      #40                 // Field j:I
+     125: aload_0
+     126: getfield      #41                 // Field k:I
+     129: isub
+     130: istore        7
+     132: iload         4
+     134: iload         7
+     136: if_icmple     151
+     139: aload_0
+     140: aload         6
+     142: invokespecial #83                 // Method a:(Lx;)Lx;
+     145: pop
+     146: aload         5
+     148: monitorexit
+     149: iconst_0
+     150: ireturn
+     151: aload         6
+     153: iload_1
+     154: putfield      #26                 // Field x.a:I
+     157: aload         6
+     159: invokestatic  #68                 // Method java/lang/System.currentTimeMillis:()J
+     162: putfield      #30                 // Field x.e:J
+     165: aload         6
+     167: iload         4
+     169: putfield      #27                 // Field x.b:I
+     172: aload_0
+     173: dup
+     174: getfield      #41                 // Field k:I
+     177: iload         4
+     179: iadd
+     180: putfield      #41                 // Field k:I
+     183: iload         4
+     185: aload_0
+     186: getfield      #32                 // Field b:I
+     189: idiv
+     190: istore        7
+     192: iload         4
+     194: aload_0
+     195: getfield      #32                 // Field b:I
+     198: irem
+     199: ifeq          205
+     202: iinc          7, 1
+     205: iload         7
+     207: newarray       int
+     209: astore        7
+     211: iconst_0
+     212: istore        8
+     214: goto          274
+     217: aload_0
+     218: getfield      #37                 // Field g:La;
+     221: invokevirtual #53                 // Method a.d:()I
+     224: iconst_1
+     225: isub
+     226: dup
+     227: istore        9
+     229: iflt          265
+     232: aload         7
+     234: iload         8
+     236: aload_0
+     237: getfield      #37                 // Field g:La;
+     240: iload         9
+     242: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+     245: checkcast     #9                  // class java/lang/Integer
+     248: invokevirtual #61                 // Method java/lang/Integer.intValue:()I
+     251: iastore
+     252: aload_0
+     253: getfield      #37                 // Field g:La;
+     256: iload         9
+     258: invokevirtual #49                 // Method a.a:(I)Ljava/lang/Object;
+     261: pop
+     262: goto          271
+     265: aload         7
+     267: iload         8
+     269: iconst_m1
+     270: iastore
+     271: iinc          8, 1
+     274: iload         8
+     276: aload         7
+     278: arraylength
+     279: if_icmplt     217
+     282: aload         6
+     284: aload         7
+     286: putfield      #28                 // Field x.c:[I
+     289: aload         6
+     291: iload         4
+     293: newarray       byte
+     295: putfield      #29                 // Field x.d:[B
+     298: aload_2
+     299: iload_3
+     300: aload         6
+     302: getfield      #29                 // Field x.d:[B
+     305: iconst_0
+     306: iload         4
+     308: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     311: aload_0
+     312: iconst_1
+     313: putfield      #43                 // Field m:Z
+     316: aload         5
+     318: monitorexit
+     319: iconst_1
+     320: ireturn
+     321: astore        6
+     323: aload_0
+     324: iload_1
+     325: invokevirtual #85                 // Method b:(I)V
+     328: aload         6
+     330: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+     333: aload         5
+     335: monitorexit
+     336: iconst_0
+     337: ireturn
+     338: aload         5
+     340: monitorexit
+     341: athrow
+    Exception table:
+       from    to  target type
+          17   146   321   Class java/lang/Throwable
+         151   316   321   Class java/lang/Throwable
+          17   149   338   any
+         151   319   338   any
+         321   336   338   any
+
+  public final int b(int, byte[], int, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: aload_2
+       3: iconst_0
+       4: iload         4
+       6: invokevirtual #78                 // Method a:(I[BII)Z
+       9: pop
+      10: aload_0
+      11: invokevirtual #77                 // Method a:()I
+      14: ireturn
+
+  public final int b(int, byte[]);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: aload_2
+       3: iconst_0
+       4: aload_2
+       5: arraylength
+       6: invokevirtual #86                 // Method b:(I[BII)I
+       9: ireturn
+
+  public final int a();
+    Code:
+       0: aload_0
+       1: getfield      #43                 // Field m:Z
+       4: ifne          9
+       7: iconst_0
+       8: ireturn
+       9: aload_0
+      10: iconst_0
+      11: putfield      #43                 // Field m:Z
+      14: aload_0
+      15: getfield      #42                 // Field l:Ljava/lang/Object;
+      18: dup
+      19: astore_1
+      20: monitorenter
+      21: aload_0
+      22: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      25: ifnonnull     40
+      28: aload_0
+      29: aload_0
+      30: getfield      #31                 // Field a:Ljava/lang/String;
+      33: iconst_0
+      34: invokestatic  #54                 // Method j.a:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+      37: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      40: aload_0
+      41: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      44: ifnonnull     80
+      47: aload_0
+      48: aload_0
+      49: getfield      #31                 // Field a:Ljava/lang/String;
+      52: iconst_1
+      53: invokestatic  #54                 // Method j.a:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+      56: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      59: aload_0
+      60: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      63: ifnonnull     71
+      66: aload_1
+      67: monitorexit
+      68: bipush        -3
+      70: ireturn
+      71: aload_0
+      72: aload_0
+      73: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      76: invokespecial #81                 // Method a:(Ljavax/microedition/rms/RecordStore;)[B
+      79: pop
+      80: iconst_0
+      81: istore_2
+      82: aload_0
+      83: getfield      #36                 // Field f:La;
+      86: invokevirtual #53                 // Method a.d:()I
+      89: istore_3
+      90: goto          156
+      93: aload_0
+      94: getfield      #36                 // Field f:La;
+      97: iload_2
+      98: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+     101: checkcast     #20                 // class x
+     104: dup
+     105: astore        4
+     107: getfield      #29                 // Field x.d:[B
+     110: ifnull        153
+     113: aload_0
+     114: aload_0
+     115: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+     118: aload         4
+     120: getfield      #29                 // Field x.d:[B
+     123: aload         4
+     125: getfield      #28                 // Field x.c:[I
+     128: invokespecial #82                 // Method a:(Ljavax/microedition/rms/RecordStore;[B[I)I
+     131: istore        5
+     133: aload         4
+     135: aconst_null
+     136: putfield      #29                 // Field x.d:[B
+     139: iload         5
+     141: ifge          153
+     144: aload_0
+     145: invokevirtual #87                 // Method d:()V
+     148: iload         5
+     150: aload_1
+     151: monitorexit
+     152: ireturn
+     153: iinc          2, 1
+     156: iload_2
+     157: iload_3
+     158: if_icmplt     93
+     161: aload_0
+     162: getfield      #33                 // Field c:I
+     165: newarray       byte
+     167: astore_2
+     168: iconst_0
+     169: istore_3
+     170: aload_0
+     171: getfield      #46                 // Field p:I
+     174: invokestatic  #71                 // Method p.a:(I)[B
+     177: iconst_0
+     178: aload_2
+     179: iconst_0
+     180: iconst_4
+     181: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     184: iinc          3, 4
+     187: aload_0
+     188: getfield      #36                 // Field f:La;
+     191: invokevirtual #53                 // Method a.d:()I
+     194: invokestatic  #71                 // Method p.a:(I)[B
+     197: iconst_0
+     198: aload_2
+     199: iconst_4
+     200: iconst_4
+     201: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     204: iinc          3, 4
+     207: iconst_0
+     208: istore        4
+     210: aload_0
+     211: getfield      #36                 // Field f:La;
+     214: invokevirtual #53                 // Method a.d:()I
+     217: istore        5
+     219: goto          406
+     222: aload_0
+     223: getfield      #36                 // Field f:La;
+     226: iload         4
+     228: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+     231: checkcast     #20                 // class x
+     234: dup
+     235: astore        6
+     237: astore        6
+     239: bipush        20
+     241: aload         6
+     243: getfield      #28                 // Field x.c:[I
+     246: arraylength
+     247: iconst_2
+     248: ishl
+     249: iadd
+     250: dup
+     251: istore        7
+     253: newarray       byte
+     255: astore        7
+     257: iconst_0
+     258: istore        8
+     260: aload         6
+     262: getfield      #26                 // Field x.a:I
+     265: invokestatic  #71                 // Method p.a:(I)[B
+     268: iconst_0
+     269: aload         7
+     271: iconst_0
+     272: iconst_4
+     273: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     276: iinc          8, 4
+     279: aload         6
+     281: getfield      #30                 // Field x.e:J
+     284: invokestatic  #72                 // Method p.a:(J)[B
+     287: iconst_0
+     288: aload         7
+     290: iconst_4
+     291: bipush        8
+     293: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     296: iinc          8, 8
+     299: aload         6
+     301: getfield      #27                 // Field x.b:I
+     304: invokestatic  #71                 // Method p.a:(I)[B
+     307: iconst_0
+     308: aload         7
+     310: bipush        12
+     312: iconst_4
+     313: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     316: iinc          8, 4
+     319: aload         6
+     321: getfield      #28                 // Field x.c:[I
+     324: arraylength
+     325: invokestatic  #71                 // Method p.a:(I)[B
+     328: iconst_0
+     329: aload         7
+     331: bipush        16
+     333: iconst_4
+     334: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     337: iinc          8, 4
+     340: iconst_0
+     341: istore        9
+     343: goto          372
+     346: aload         6
+     348: getfield      #28                 // Field x.c:[I
+     351: iload         9
+     353: iaload
+     354: invokestatic  #71                 // Method p.a:(I)[B
+     357: iconst_0
+     358: aload         7
+     360: iload         8
+     362: iconst_4
+     363: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     366: iinc          8, 4
+     369: iinc          9, 1
+     372: iload         9
+     374: aload         6
+     376: getfield      #28                 // Field x.c:[I
+     379: arraylength
+     380: if_icmplt     346
+     383: aload         7
+     385: dup
+     386: astore        6
+     388: iconst_0
+     389: aload_2
+     390: iload_3
+     391: aload         6
+     393: arraylength
+     394: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     397: iload_3
+     398: aload         6
+     400: arraylength
+     401: iadd
+     402: istore_3
+     403: iinc          4, 1
+     406: iload         4
+     408: iload         5
+     410: if_icmplt     222
+     413: aload_0
+     414: getfield      #38                 // Field h:La;
+     417: invokevirtual #53                 // Method a.d:()I
+     420: iconst_1
+     421: isub
+     422: istore        4
+     424: goto          446
+     427: aload_0
+     428: getfield      #37                 // Field g:La;
+     431: aload_0
+     432: getfield      #38                 // Field h:La;
+     435: iload         4
+     437: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+     440: invokevirtual #50                 // Method a.a:(Ljava/lang/Object;)V
+     443: iinc          4, -1
+     446: iload         4
+     448: ifge          427
+     451: aload_0
+     452: getfield      #38                 // Field h:La;
+     455: invokevirtual #48                 // Method a.a:()V
+     458: aload_0
+     459: getfield      #37                 // Field g:La;
+     462: invokevirtual #53                 // Method a.d:()I
+     465: invokestatic  #71                 // Method p.a:(I)[B
+     468: iconst_0
+     469: aload_2
+     470: iload_3
+     471: iconst_4
+     472: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     475: iinc          3, 4
+     478: aload_0
+     479: getfield      #37                 // Field g:La;
+     482: invokevirtual #53                 // Method a.d:()I
+     485: iconst_1
+     486: isub
+     487: istore        4
+     489: goto          526
+     492: aload_0
+     493: getfield      #37                 // Field g:La;
+     496: iload         4
+     498: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+     501: checkcast     #9                  // class java/lang/Integer
+     504: invokevirtual #61                 // Method java/lang/Integer.intValue:()I
+     507: dup
+     508: istore        5
+     510: invokestatic  #71                 // Method p.a:(I)[B
+     513: iconst_0
+     514: aload_2
+     515: iload_3
+     516: iconst_4
+     517: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     520: iinc          3, 4
+     523: iinc          4, -1
+     526: iload         4
+     528: ifge          492
+     531: aload_0
+     532: getfield      #39                 // Field i:I
+     535: iconst_1
+     536: if_icmpne     543
+     539: iconst_2
+     540: goto          544
+     543: iconst_1
+     544: istore        4
+     546: aload_0
+     547: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+     550: iload         4
+     552: aload_2
+     553: invokestatic  #57                 // Method j.a:(Ljavax/microedition/rms/RecordStore;I[B)V
+     556: aload_0
+     557: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+     560: iconst_3
+     561: iconst_1
+     562: newarray       byte
+     564: dup
+     565: iconst_0
+     566: iload         4
+     568: i2b
+     569: bastore
+     570: invokestatic  #57                 // Method j.a:(Ljavax/microedition/rms/RecordStore;I[B)V
+     573: aload_0
+     574: iload         4
+     576: putfield      #39                 // Field i:I
+     579: aload_0
+     580: getfield      #45                 // Field o:Z
+     583: ifeq          590
+     586: aload_0
+     587: invokevirtual #87                 // Method d:()V
+     590: aload_1
+     591: monitorexit
+     592: iconst_0
+     593: ireturn
+     594: astore_2
+     595: aload_0
+     596: invokevirtual #87                 // Method d:()V
+     599: aload_2
+     600: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+     603: aload_1
+     604: monitorexit
+     605: iconst_0
+     606: ireturn
+     607: aload_1
+     608: monitorexit
+     609: athrow
+    Exception table:
+       from    to  target type
+          40    66   594   Class java/lang/Throwable
+          71   150   594   Class java/lang/Throwable
+         153   590   594   Class java/lang/Throwable
+          21    68   607   any
+          71   152   607   any
+         153   592   607   any
+         594   605   607   any
+
+  public final void b(int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: invokespecial #94                 // Method h:(I)I
+       5: dup
+       6: istore_1
+       7: iflt          102
+      10: aload_0
+      11: iload_1
+      12: invokespecial #91                 // Method f:(I)Lx;
+      15: dup
+      16: astore_1
+      17: getfield      #28                 // Field x.c:[I
+      20: ifnull        91
+      23: aload_0
+      24: aload_1
+      25: getfield      #28                 // Field x.c:[I
+      28: iconst_0
+      29: aload_1
+      30: getfield      #28                 // Field x.c:[I
+      33: arraylength
+      34: istore_3
+      35: istore_1
+      36: astore_2
+      37: astore_1
+      38: aload_2
+      39: ifnonnull     45
+      42: goto          91
+      45: iload_3
+      46: iconst_0
+      47: iadd
+      48: istore_3
+      49: iconst_0
+      50: istore        4
+      52: goto          76
+      55: aload_1
+      56: getfield      #37                 // Field g:La;
+      59: new           #9                  // class java/lang/Integer
+      62: dup
+      63: aload_2
+      64: iload         4
+      66: iaload
+      67: invokespecial #60                 // Method java/lang/Integer."<init>":(I)V
+      70: invokevirtual #50                 // Method a.a:(Ljava/lang/Object;)V
+      73: iinc          4, 1
+      76: iload         4
+      78: iload_3
+      79: if_icmplt     55
+      82: goto          91
+      85: dup
+      86: astore        4
+      88: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+      91: aload_0
+      92: iconst_1
+      93: putfield      #43                 // Field m:Z
+      96: return
+      97: dup
+      98: astore_1
+      99: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+     102: return
+    Exception table:
+       from    to  target type
+          45    82    85   Class java/lang/Throwable
+           0    96    97   Class java/lang/Throwable
+
+  private x g(int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: invokespecial #94                 // Method h:(I)I
+       5: dup
+       6: istore_1
+       7: iflt          22
+      10: aload_0
+      11: getfield      #36                 // Field f:La;
+      14: iload_1
+      15: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      18: checkcast     #20                 // class x
+      21: areturn
+      22: aconst_null
+      23: areturn
+
+  private void a(int[], int, int);
+    Code:
+       0: aload_1
+       1: ifnonnull     5
+       4: return
+       5: iload_3
+       6: iconst_0
+       7: iadd
+       8: istore_3
+       9: iconst_0
+      10: istore_2
+      11: goto          34
+      14: aload_0
+      15: getfield      #38                 // Field h:La;
+      18: new           #9                  // class java/lang/Integer
+      21: dup
+      22: aload_1
+      23: iload_2
+      24: iaload
+      25: invokespecial #60                 // Method java/lang/Integer."<init>":(I)V
+      28: invokevirtual #50                 // Method a.a:(Ljava/lang/Object;)V
+      31: iinc          2, 1
+      34: iload_2
+      35: iload_3
+      36: if_icmplt     14
+      39: return
+
+  private int a(javax.microedition.rms.RecordStore, byte[], int[]);
+    Code:
+       0: aload_0
+       1: getfield      #32                 // Field b:I
+       4: newarray       byte
+       6: astore        4
+       8: iconst_0
+       9: istore        5
+      11: iconst_0
+      12: istore        6
+      14: goto          113
+      17: aload_2
+      18: arraylength
+      19: iload         5
+      21: isub
+      22: dup
+      23: istore        7
+      25: aload         4
+      27: arraylength
+      28: if_icmple     36
+      31: aload         4
+      33: arraylength
+      34: istore        7
+      36: aload_2
+      37: iload         5
+      39: aload         4
+      41: iconst_0
+      42: iload         7
+      44: invokestatic  #67                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+      47: iload         5
+      49: iload         7
+      51: iadd
+      52: istore        5
+      54: aload_3
+      55: iload         6
+      57: iaload
+      58: iconst_3
+      59: if_icmple     86
+      62: aload_1
+      63: aload_3
+      64: iload         6
+      66: iaload
+      67: aload         4
+      69: invokestatic  #57                 // Method j.a:(Ljavax/microedition/rms/RecordStore;I[B)V
+      72: goto          110
+      75: pop
+      76: iconst_m1
+      77: ireturn
+      78: pop
+      79: bipush        -2
+      81: ireturn
+      82: pop
+      83: bipush        -3
+      85: ireturn
+      86: aload_3
+      87: iload         6
+      89: aload_1
+      90: aload         4
+      92: invokestatic  #58                 // Method j.a:(Ljavax/microedition/rms/RecordStore;[B)I
+      95: iastore
+      96: goto          110
+      99: pop
+     100: iconst_m1
+     101: ireturn
+     102: pop
+     103: bipush        -2
+     105: ireturn
+     106: pop
+     107: bipush        -3
+     109: ireturn
+     110: iinc          6, 1
+     113: iload         6
+     115: aload_3
+     116: arraylength
+     117: if_icmplt     17
+     120: iconst_0
+     121: ireturn
+    Exception table:
+       from    to  target type
+          62    72    75   Class javax/microedition/rms/RecordStoreNotOpenException
+          62    72    78   Class javax/microedition/rms/RecordStoreFullException
+          62    72    82   Class javax/microedition/rms/RecordStoreException
+          86    96    99   Class javax/microedition/rms/RecordStoreNotOpenException
+          86    96   102   Class javax/microedition/rms/RecordStoreFullException
+          86    96   106   Class javax/microedition/rms/RecordStoreException
+
+  public final boolean c(int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: invokespecial #94                 // Method h:(I)I
+       5: iflt          10
+       8: iconst_1
+       9: ireturn
+      10: iconst_0
+      11: ireturn
+
+  private int h(int);
+    Code:
+       0: iconst_0
+       1: istore_2
+       2: aload_0
+       3: getfield      #36                 // Field f:La;
+       6: invokevirtual #53                 // Method a.d:()I
+       9: iconst_1
+      10: isub
+      11: istore_3
+      12: goto          72
+      15: iload_2
+      16: iload_3
+      17: iadd
+      18: iconst_1
+      19: iushr
+      20: istore        4
+      22: aload_0
+      23: getfield      #36                 // Field f:La;
+      26: iload         4
+      28: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      31: checkcast     #20                 // class x
+      34: dup
+      35: astore        5
+      37: getfield      #26                 // Field x.a:I
+      40: iload_1
+      41: if_icmpge     52
+      44: iload         4
+      46: iconst_1
+      47: iadd
+      48: istore_2
+      49: goto          72
+      52: aload         5
+      54: getfield      #26                 // Field x.a:I
+      57: iload_1
+      58: if_icmple     69
+      61: iload         4
+      63: iconst_1
+      64: isub
+      65: istore_3
+      66: goto          72
+      69: iload         4
+      71: ireturn
+      72: iload_2
+      73: iload_3
+      74: if_icmple     15
+      77: iload_2
+      78: iconst_1
+      79: iadd
+      80: ineg
+      81: ireturn
+
+  public final java.lang.String b();
+    Code:
+       0: aload_0
+       1: getfield      #31                 // Field a:Ljava/lang/String;
+       4: areturn
+
+  public final int c();
+    Code:
+       0: aload_0
+       1: getfield      #36                 // Field f:La;
+       4: invokevirtual #53                 // Method a.d:()I
+       7: ireturn
+
+  public final int d(int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: invokespecial #93                 // Method g:(I)Lx;
+       5: dup
+       6: astore_1
+       7: ifnull        15
+      10: aload_1
+      11: getfield      #27                 // Field x.b:I
+      14: ireturn
+      15: iconst_0
+      16: ireturn
+
+  public final void d();
+    Code:
+       0: aload_0
+       1: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+       4: ifnull        29
+       7: aload_0
+       8: getfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      11: astore_1
+      12: aload_1
+      13: invokevirtual #70                 // Method javax/microedition/rms/RecordStore.closeRecordStore:()V
+      16: goto          24
+      19: dup
+      20: astore_1
+      21: invokevirtual #69                 // Method java/lang/Throwable.printStackTrace:()V
+      24: aload_0
+      25: aconst_null
+      26: putfield      #44                 // Field n:Ljavax/microedition/rms/RecordStore;
+      29: return
+    Exception table:
+       from    to  target type
+          12    16    19   Class java/lang/Throwable
+
+  public final void e();
+    Code:
+       0: aload_0
+       1: getfield      #42                 // Field l:Ljava/lang/Object;
+       4: dup
+       5: astore_1
+       6: monitorenter
+       7: aload_0
+       8: getfield      #34                 // Field d:I
+      11: iconst_1
+      12: if_icmpne     30
+      15: aload_0
+      16: invokespecial #92                 // Method g:()Z
+      19: ifeq          152
+      22: aload_0
+      23: invokevirtual #77                 // Method a:()I
+      26: pop
+      27: goto          152
+      30: aload_0
+      31: getfield      #34                 // Field d:I
+      34: iconst_2
+      35: if_icmpne     152
+      38: aload_0
+      39: astore_2
+      40: iconst_0
+      41: istore_3
+      42: aload_2
+      43: iconst_1
+      44: putfield      #43                 // Field m:Z
+      47: invokestatic  #68                 // Method java/lang/System.currentTimeMillis:()J
+      50: lstore        4
+      52: iconst_0
+      53: istore        6
+      55: goto          131
+      58: aload_2
+      59: getfield      #36                 // Field f:La;
+      62: iload         6
+      64: invokevirtual #51                 // Method a.b:(I)Ljava/lang/Object;
+      67: checkcast     #20                 // class x
+      70: dup
+      71: astore        7
+      73: getfield      #28                 // Field x.c:[I
+      76: ifnull        128
+      79: lload         4
+      81: aload         7
+      83: getfield      #30                 // Field x.e:J
+      86: lsub
+      87: ldc2_w        #22                 // long 3600l
+      90: ldiv
+      91: aload_2
+      92: getfield      #35                 // Field e:I
+      95: i2l
+      96: lcmp
+      97: iflt          128
+     100: aload_2
+     101: aload         7
+     103: getfield      #28                 // Field x.c:[I
+     106: iconst_0
+     107: aload         7
+     109: getfield      #28                 // Field x.c:[I
+     112: arraylength
+     113: invokespecial #84                 // Method a:([III)V
+     116: aload_2
+     117: iload         6
+     119: invokespecial #91                 // Method f:(I)Lx;
+     122: pop
+     123: iinc          6, -1
+     126: iconst_1
+     127: istore_3
+     128: iinc          6, 1
+     131: iload         6
+     133: aload_2
+     134: getfield      #36                 // Field f:La;
+     137: invokevirtual #53                 // Method a.d:()I
+     140: if_icmplt     58
+     143: iload_3
+     144: ifeq          152
+     147: aload_0
+     148: invokevirtual #77                 // Method a:()I
+     151: pop
+     152: aload_1
+     153: monitorexit
+     154: return
+     155: aload_1
+     156: monitorexit
+     157: athrow
+    Exception table:
+       from    to  target type
+           7   154   155   any
+
+  public static y a(java.lang.String, int, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iload_2
+       3: iconst_0
+       4: iconst_0
+       5: invokestatic  #79                 // Method a:(Ljava/lang/String;IIII)Ly;
+       8: areturn
+
+  public static y a(java.lang.String, int, int, int, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iload_2
+       3: iload_3
+       4: iload         4
+       6: ldc           #1                  // int 2147483647
+       8: iconst_1
+       9: invokestatic  #80                 // Method a:(Ljava/lang/String;IIIIIZ)Ly;
+      12: areturn
+
+  public static y a(java.lang.String, int, int, int, int, int, boolean);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iload_2
+       3: iload_3
+       4: iload         4
+       6: iload         5
+       8: iconst_0
+       9: iload         6
+      11: istore        6
+      13: istore_0
+      14: istore        5
+      16: istore        4
+      18: istore_3
+      19: istore_2
+      20: istore_1
+      21: astore_0
+      22: new           #21                 // class y
+      25: dup
+      26: aload_0
+      27: iload_1
+      28: iload_2
+      29: iload_3
+      30: iload         4
+      32: iload         5
+      34: iconst_0
+      35: iload         6
+      37: invokespecial #76                 // Method "<init>":(Ljava/lang/String;IIIIIIZ)V
+      40: areturn
+
+  public static void a(y);
+    Code:
+       0: aload_0
+       1: ifnull        17
+       4: aload_0
+       5: invokevirtual #87                 // Method d:()V
+       8: aload_0
+       9: dup
+      10: astore_0
+      11: getfield      #31                 // Field a:Ljava/lang/String;
+      14: invokestatic  #59                 // Method j.b:(Ljava/lang/String;)V
+      17: return
+
+  private y();
+    Code:
+       0: aload_0
+       1: invokespecial #64                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static byte[] a(byte[], java.lang.String);
+    Code:
+       0: aload_0
+       1: iconst_0
+       2: baload
+       3: istore_3
+       4: aload_1
+       5: ldc           #2                  // String UTF-8
+       7: invokevirtual #66                 // Method java/lang/String.getBytes:(Ljava/lang/String;)[B
+      10: astore        4
+      12: aload_0
+      13: arraylength
+      14: iconst_1
+      15: isub
+      16: aload         4
+      18: arraylength
+      19: iload_3
+      20: iadd
+      21: invokestatic  #63                 // Method java/lang/Math.max:(II)I
+      24: iconst_1
+      25: iadd
+      26: newarray       byte
+      28: dup
+      29: astore_2
+      30: iconst_0
+      31: aload         4
+      33: arraylength
+      34: i2b
+      35: bastore
+      36: iconst_0
+      37: istore        5
+      39: goto          106
+      42: bipush        17
+      44: istore        6
+      46: iconst_0
+      47: istore        7
+      49: iload         5
+      51: iconst_1
+      52: iadd
+      53: aload_0
+      54: arraylength
+      55: if_icmpge     66
+      58: aload_0
+      59: iload         5
+      61: iconst_1
+      62: iadd
+      63: baload
+      64: istore        6
+      66: iload         5
+      68: iload_3
+      69: if_icmplt     91
+      72: iload         5
+      74: iload_3
+      75: isub
+      76: aload         4
+      78: arraylength
+      79: if_icmpge     91
+      82: aload         4
+      84: iload         5
+      86: iload_3
+      87: isub
+      88: baload
+      89: istore        7
+      91: aload_2
+      92: iload         5
+      94: iconst_1
+      95: iadd
+      96: iload         6
+      98: iload         7
+     100: ixor
+     101: i2b
+     102: bastore
+     103: iinc          5, 1
+     106: iload         5
+     108: aload_2
+     109: arraylength
+     110: iconst_1
+     111: isub
+     112: if_icmplt     42
+     115: aload_2
+     116: areturn
+     117: pop
+     118: aload_0
+     119: iconst_0
+     120: baload
+     121: istore        4
+     123: aload_1
+     124: invokevirtual #65                 // Method java/lang/String.getBytes:()[B
+     127: astore        5
+     129: aload_0
+     130: arraylength
+     131: iconst_1
+     132: isub
+     133: aload         5
+     135: arraylength
+     136: iload         4
+     138: iadd
+     139: invokestatic  #63                 // Method java/lang/Math.max:(II)I
+     142: iconst_1
+     143: iadd
+     144: newarray       byte
+     146: dup
+     147: astore_3
+     148: iconst_0
+     149: aload         5
+     151: arraylength
+     152: i2b
+     153: bastore
+     154: iconst_0
+     155: istore        6
+     157: goto          224
+     160: bipush        17
+     162: istore        7
+     164: iconst_0
+     165: istore_1
+     166: iload         6
+     168: iconst_1
+     169: iadd
+     170: aload_0
+     171: arraylength
+     172: if_icmpge     183
+     175: aload_0
+     176: iload         6
+     178: iconst_1
+     179: iadd
+     180: baload
+     181: istore        7
+     183: iload         6
+     185: iload         4
+     187: if_icmplt     210
+     190: iload         6
+     192: iload         4
+     194: isub
+     195: aload         5
+     197: arraylength
+     198: if_icmpge     210
+     201: aload         5
+     203: iload         6
+     205: iload         4
+     207: isub
+     208: baload
+     209: istore_1
+     210: aload_3
+     211: iload         6
+     213: iconst_1
+     214: iadd
+     215: iload         7
+     217: iload_1
+     218: ixor
+     219: i2b
+     220: bastore
+     221: iinc          6, 1
+     224: iload         6
+     226: aload_3
+     227: arraylength
+     228: iconst_1
+     229: isub
+     230: if_icmplt     160
+     233: aload_3
+     234: areturn
+     235: pop
+     236: aconst_null
+     237: areturn
+    Exception table:
+       from    to  target type
+           0   116   117   Class java/lang/Throwable
+         118   234   235   Class java/lang/Throwable
+}

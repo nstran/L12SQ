@@ -56,7 +56,7 @@ final class ProfilePackets {
         profile.intTag(47, 1000);
         profile.intTag(42, 50);
         profile.intTag(73, 0);
-        profile.intTag(74, 0);
+        profile.intTag(74, 100);
         profile.intTag(43, 30);
         profile.intTag(99, 1000);
 
@@ -140,7 +140,7 @@ final class ProfilePackets {
         profile.intTag(53, 0);
         profile.intTag(76, 0);
         profile.intTag(73, 0);
-        profile.intTag(74, 0);
+        profile.intTag(74, 100);
         profile.intTag(108, 5);
         profile.intTag(109, 5);
         profile.stringTag(151, "");

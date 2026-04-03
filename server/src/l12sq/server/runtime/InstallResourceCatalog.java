@@ -17,6 +17,9 @@ import javax.imageio.ImageIO;
 
 final class InstallResourceCatalog {
     static final int INSTALL_PACKAGE_VERSION = 5;
+    static final int MAP_HOA_LU_BACKGROUND_ID = 31000;
+    static final int MAP_HOA_LU_OVERLAY_ID = 31001;
+    static final int MAP_HOA_LU_TILESET_ID = 31002;
     static final List<Integer> STARTUP_INSTALL_RESOURCE_IDS = Arrays.asList(
             30099,
             79899,
@@ -63,6 +66,9 @@ final class InstallResourceCatalog {
     private static Map<Integer, byte[]> createInstallResources() {
         Map<Integer, byte[]> resources = new LinkedHashMap<>();
         resources.put(30099, PLACEHOLDER_PNG);
+        resources.put(MAP_HOA_LU_BACKGROUND_ID, sceneBackgroundBytes());
+        resources.put(MAP_HOA_LU_OVERLAY_ID, sceneOverlayBytes());
+        resources.put(MAP_HOA_LU_TILESET_ID, tileAtlasBytes());
         resources.put(79899, metadataBytes(700000));
         resources.put(79999, metadataBytes(700010));
         resources.put(89999, metadataBytes(700020));
@@ -104,6 +110,81 @@ final class InstallResourceCatalog {
         }
     }
 
+    private static byte[] sceneBackgroundBytes() {
+        BufferedImage image = new BufferedImage(240, 160, BufferedImage.TYPE_BYTE_INDEXED);
+        Graphics2D graphics = image.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setPaint(new java.awt.GradientPaint(0, 0, new Color(124, 196, 255), 0, 120, new Color(230, 241, 212)));
+        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+
+        graphics.setColor(new Color(94, 162, 86));
+        graphics.fillOval(-20, 90, 130, 90);
+        graphics.fillOval(55, 82, 110, 84);
+        graphics.fillOval(128, 92, 138, 88);
+
+        graphics.setColor(new Color(188, 149, 95));
+        graphics.fillRect(0, 128, image.getWidth(), 32);
+
+        graphics.setColor(new Color(212, 188, 138));
+        for (int x = 0; x < image.getWidth(); x += 16) {
+            graphics.fillRect(x, 124 + ((x / 16) % 2), 8, 6);
+        }
+        graphics.dispose();
+        return writePng(image, "scene background");
+    }
+
+    private static byte[] sceneOverlayBytes() {
+        BufferedImage image = new BufferedImage(240, 160, BufferedImage.TYPE_BYTE_INDEXED);
+        Graphics2D graphics = image.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        graphics.setColor(new Color(255, 255, 255));
+        graphics.fillOval(18, 16, 48, 14);
+        graphics.fillOval(150, 20, 56, 16);
+
+        graphics.setColor(new Color(160, 104, 49));
+        graphics.fillRect(42, 78, 18, 54);
+        graphics.setColor(new Color(56, 132, 62));
+        graphics.fillOval(24, 50, 54, 42);
+
+        graphics.setColor(new Color(123, 79, 38));
+        graphics.fillRect(182, 84, 28, 48);
+        graphics.setColor(new Color(198, 74, 60));
+        graphics.fillRect(176, 72, 40, 16);
+        graphics.setColor(new Color(247, 212, 86));
+        graphics.fillRect(190, 96, 8, 10);
+
+        graphics.dispose();
+        return writePng(image, "scene overlay");
+    }
+
+    private static byte[] tileAtlasBytes() {
+        final int tileSize = 32;
+        BufferedImage image = new BufferedImage(tileSize * 2, tileSize * 2, BufferedImage.TYPE_BYTE_INDEXED);
+        Graphics2D graphics = image.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+
+        drawTile(graphics, 0, 0, tileSize, new Color(118, 171, 83), new Color(102, 149, 70));
+        drawTile(graphics, tileSize, 0, tileSize, new Color(194, 168, 121), new Color(176, 150, 98));
+        drawTile(graphics, 0, tileSize, tileSize, new Color(111, 155, 190), new Color(90, 132, 170));
+        drawTile(graphics, tileSize, tileSize, tileSize, new Color(154, 154, 154), new Color(126, 126, 126));
+
+        graphics.dispose();
+        return writePng(image, "tile atlas");
+    }
+
+    private static void drawTile(Graphics2D graphics, int x, int y, int tileSize, Color base, Color accent) {
+        graphics.setColor(base);
+        graphics.fillRect(x, y, tileSize, tileSize);
+        graphics.setColor(accent);
+        for (int row = 0; row < tileSize; row += 8) {
+            graphics.fillRect(x, y + row, tileSize, 2);
+        }
+        for (int col = 0; col < tileSize; col += 8) {
+            graphics.fillRect(x + col, y, 2, tileSize);
+        }
+    }
+
     private static byte[] spriteSheetBytes(SpriteLayer layer, int groupId, int frameCount) {
         final int frameWidth = 16;
         final int frameHeight = 22;
@@ -129,6 +210,16 @@ final class InstallResourceCatalog {
             return output.toByteArray();
         } catch (IOException exception) {
             throw new IllegalStateException("Unable to render sprite sheet for " + layer + " group " + groupId, exception);
+        }
+    }
+
+    private static byte[] writePng(BufferedImage image, String label) {
+        try {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", output);
+            return output.toByteArray();
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to render " + label, exception);
         }
     }
 

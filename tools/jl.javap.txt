@@ -1,0 +1,159 @@
+public final class jl {
+  public int a;
+
+  public java.lang.String b;
+
+  public int c;
+
+  public int d;
+
+  public int e;
+
+  public int f;
+
+  public int g;
+
+  public boolean h;
+
+  public int i;
+
+  public jl();
+    Code:
+       0: aload_0
+       1: invokespecial #23                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public final byte[] a();
+    Code:
+       0: iconst_0
+       1: istore_1
+       2: aconst_null
+       3: astore_2
+       4: aconst_null
+       5: astore_3
+       6: aload_0
+       7: getfield      #17                 // Field b:Ljava/lang/String;
+      10: invokestatic  #30                 // Method l.c:(Ljava/lang/String;)[B
+      13: astore_3
+      14: bipush        12
+      16: aload_3
+      17: arraylength
+      18: iadd
+      19: bipush        16
+      21: iadd
+      22: dup
+      23: istore_1
+      24: newarray       byte
+      26: astore_2
+      27: aload_0
+      28: getfield      #16                 // Field a:I
+      31: invokestatic  #31                 // Method p.a:(I)[B
+      34: iconst_0
+      35: aload_2
+      36: iconst_0
+      37: iconst_4
+      38: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+      41: aload_0
+      42: getfield      #18                 // Field c:I
+      45: invokestatic  #31                 // Method p.a:(I)[B
+      48: iconst_0
+      49: aload_2
+      50: iconst_4
+      51: iconst_4
+      52: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+      55: aload_0
+      56: getfield      #19                 // Field d:I
+      59: invokestatic  #31                 // Method p.a:(I)[B
+      62: iconst_0
+      63: aload_2
+      64: bipush        8
+      66: iconst_4
+      67: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+      70: aload_0
+      71: getfield      #20                 // Field e:I
+      74: invokestatic  #31                 // Method p.a:(I)[B
+      77: iconst_0
+      78: aload_2
+      79: bipush        12
+      81: iconst_4
+      82: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+      85: aload_0
+      86: getfield      #21                 // Field f:I
+      89: invokestatic  #31                 // Method p.a:(I)[B
+      92: iconst_0
+      93: aload_2
+      94: bipush        16
+      96: iconst_4
+      97: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     100: aload_0
+     101: getfield      #22                 // Field g:I
+     104: invokestatic  #31                 // Method p.a:(I)[B
+     107: iconst_0
+     108: aload_2
+     109: bipush        20
+     111: iconst_4
+     112: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     115: aload_3
+     116: arraylength
+     117: invokestatic  #31                 // Method p.a:(I)[B
+     120: iconst_0
+     121: aload_2
+     122: bipush        24
+     124: iconst_4
+     125: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     128: aload_3
+     129: iconst_0
+     130: aload_2
+     131: bipush        28
+     133: aload_3
+     134: arraylength
+     135: invokestatic  #28                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+     138: goto          146
+     141: dup
+     142: astore_1
+     143: invokevirtual #29                 // Method java/lang/Throwable.printStackTrace:()V
+     146: aload_2
+     147: areturn
+    Exception table:
+       from    to  target type
+           6   138   141   Class java/io/UnsupportedEncodingException
+
+  public final java.lang.String toString();
+    Code:
+       0: new           #10                 // class java/lang/StringBuffer
+       3: dup
+       4: ldc           #5                  // String  x =
+       6: invokespecial #24                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       9: aload_0
+      10: getfield      #19                 // Field d:I
+      13: invokevirtual #25                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+      16: ldc           #6                  // String  y=
+      18: invokevirtual #26                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+      21: aload_0
+      22: getfield      #20                 // Field e:I
+      25: invokevirtual #25                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+      28: ldc           #2                  // String        w =
+      30: invokevirtual #26                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+      33: aload_0
+      34: getfield      #21                 // Field f:I
+      37: invokevirtual #25                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+      40: ldc           #4                  // String  h =
+      42: invokevirtual #26                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+      45: aload_0
+      46: getfield      #22                 // Field g:I
+      49: invokevirtual #25                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+      52: ldc           #1                  // String
+      54: invokevirtual #26                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+      57: aload_0
+      58: getfield      #17                 // Field b:Ljava/lang/String;
+      61: invokevirtual #26                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+      64: ldc           #3                  // String    type =
+      66: invokevirtual #26                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+      69: aload_0
+      70: getfield      #16                 // Field a:I
+      73: invokevirtual #25                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+      76: invokevirtual #27                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+      79: dup
+      80: astore_1
+      81: areturn
+}
