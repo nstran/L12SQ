@@ -1,0 +1,23 @@
+{
+  "mapName": "Hoa Lu",
+  "width": 10,
+  "height": 5,
+  "tileSize": 32,
+  "roomEntry": {
+    "roomId": 1,
+    "label": "Khu 1",
+    "centerX": 120,
+    "centerY": 96,
+    "width": 180,
+    "height": 24
+  },
+  "walkableRanges": [
+    { "row": 4, "startCol": 0, "endCol": 9 }
+  ],
+  "spawnCells": [
+    { "row": 4, "col": 3 },
+    { "row": 4, "col": 4 },
+    { "row": 4, "col": 5 },
+    { "row": 4, "col": 6 }
+  ]
+}

@@ -27,8 +27,8 @@ public final class HoaLuPreviewExporter {
         Path outDir = Path.of("ref", "prototypes");
         Files.createDirectories(outDir);
 
-        Path basePath = outDir.resolve("hoalu_review_v4_base.png");
-        Path previewPath = outDir.resolve("hoalu_review_v4_preview.png");
+        Path basePath = outDir.resolve("hoalu_review_v20_base.png");
+        Path previewPath = outDir.resolve("hoalu_review_v20_preview.png");
 
         ImageIO.write(composite, "png", basePath.toFile());
 
