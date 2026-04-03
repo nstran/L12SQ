@@ -20,6 +20,7 @@ import l12sq.server.storage.AccountStore;
 import l12sq.server.storage.CharacterStore;
 
 public final class GameServer {
+    private static final int INSTALL_RESOURCE_CHUNK_SIZE = 32 * 1024;
     private final ServerConfig config;
     private final AuthService authService;
     private final CharacterStore characterStore;
@@ -269,7 +270,7 @@ public final class GameServer {
             WorldPackets.sendWorldMapHotspots(dos, mapName);
             return;
         }
-        WorldPackets.sendMapInfo(dos, mapName);
+        WorldPackets.sendMapInfo(dos, mapName, Math.max(1, session.currentRoomId()));
     }
 
     private void handleMapSelectionRequest(Map<Integer, byte[]> tags, DataOutputStream dos, GameSession session) throws IOException {
@@ -375,13 +376,21 @@ public final class GameServer {
             return;
         }
 
+        int totalChunks = totalChunks(resource.length);
         if (chunkIndex < 0) {
-            sendInstallResourceAnnouncement(dos, resourceId, resource.length, 1);
+            sendInstallResourceAnnouncement(dos, resourceId, resource.length, totalChunks);
+            return;
+        }
+
+        if (chunkIndex >= totalChunks) {
+            ServerLog.info("[GAME] [WARN] CMD 6 invalid chunk index resource=" + resourceId
+                    + " chunk=" + chunkIndex
+                    + " totalChunks=" + totalChunks);
             return;
         }
 
         sendInstallResourceChunk(dos, resourceId, chunkIndex, resource);
-        if (chunkIndex == 0) {
+        if (chunkIndex == totalChunks - 1) {
             session.preloadedResources().add(resourceId);
             session.pendingResourceAnnouncements().remove(resourceId);
             if (session.activeInstallResourceId() != null && session.activeInstallResourceId() == resourceId) {
@@ -417,7 +426,7 @@ public final class GameServer {
                 continue;
             }
             session.setActiveInstallResourceId(resourceId);
-            sendInstallResourceAnnouncement(dos, resourceId, resource.length, 1);
+            sendInstallResourceAnnouncement(dos, resourceId, resource.length, totalChunks(resource.length));
             return;
         }
 
@@ -445,9 +454,23 @@ public final class GameServer {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.intTag(4, resourceId);
         builder.intTag(7, chunkIndex);
-        builder.rawTag(8, chunkBytes);
-        ServerLog.info("[GAME] >> CMD 6 chunk resource=" + resourceId + " chunk=" + chunkIndex + " bytes=" + chunkBytes.length);
+        byte[] payload = chunkSlice(chunkBytes, chunkIndex);
+        builder.rawTag(8, payload);
+        ServerLog.info("[GAME] >> CMD 6 chunk resource=" + resourceId + " chunk=" + chunkIndex + " bytes=" + payload.length);
         TlvCodec.sendPacket(dos, 6, builder.payload(), builder.count());
+    }
+
+    private static int totalChunks(int totalBytes) {
+        return Math.max(1, (totalBytes + INSTALL_RESOURCE_CHUNK_SIZE - 1) / INSTALL_RESOURCE_CHUNK_SIZE);
+    }
+
+    private static byte[] chunkSlice(byte[] bytes, int chunkIndex) {
+        int start = chunkIndex * INSTALL_RESOURCE_CHUNK_SIZE;
+        int end = Math.min(bytes.length, start + INSTALL_RESOURCE_CHUNK_SIZE);
+        int length = Math.max(0, end - start);
+        byte[] slice = new byte[length];
+        System.arraycopy(bytes, start, slice, 0, length);
+        return slice;
     }
 
     private static String safeUsername(String username) {

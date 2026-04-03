@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 final class HoaLuMapSpec {
     private static final Path DEFAULT_PATH = ExternalAssetLoader.resolve("maps/hoalu/hoalu.json");
     private static final Pattern OBJECT_PATTERN = Pattern.compile("\\{(.*?)\\}", Pattern.DOTALL);
+    private static final int DEFAULT_ROOM_TILE_WIDTH = 8;
 
     private final String mapName;
     private final int width;
@@ -117,9 +118,100 @@ final class HoaLuMapSpec {
         return layer;
     }
 
+    int roomCount() {
+        return Math.max(1, (width + roomTileWidth() - 1) / roomTileWidth());
+    }
+
+    int roomTileWidth() {
+        return Math.min(width, DEFAULT_ROOM_TILE_WIDTH);
+    }
+
+    RoomView room(int roomId) {
+        int normalizedRoomId = Math.max(1, Math.min(roomId, roomCount()));
+        int startCol = (normalizedRoomId - 1) * roomTileWidth();
+        int roomWidth = Math.min(roomTileWidth(), width - startCol);
+        String label = "Khu " + normalizedRoomId;
+        RoomEntry entry = new RoomEntry(
+                normalizedRoomId,
+                label,
+                Math.max(80, (roomWidth * tileSize) / 2),
+                Math.max(96, (height * tileSize) / 2),
+                Math.max(180, roomWidth * tileSize / 2),
+                32);
+        return new RoomView(
+                normalizedRoomId,
+                label,
+                startCol,
+                roomWidth,
+                height,
+                tileSize,
+                entry,
+                buildLogicLayer(normalizedRoomId));
+    }
+
+    private byte[] buildLogicLayer(int roomId) {
+        RoomView room = buildRoomShell(roomId);
+        byte[] layer = new byte[room.width() * room.height()];
+        int roomStartCol = room.startCol();
+        int roomEndCol = roomStartCol + room.width() - 1;
+
+        for (WalkableRange range : walkableRanges) {
+            int localStart = Math.max(range.startCol(), roomStartCol);
+            int localEnd = Math.min(range.endCol(), roomEndCol);
+            if (localStart > localEnd) {
+                continue;
+            }
+            for (int col = localStart; col <= localEnd; col++) {
+                int localCol = col - roomStartCol;
+                setCell(layer, room.height(), room.width(), range.row(), localCol, 32);
+            }
+        }
+
+        boolean spawnPlaced = false;
+        for (SpawnCell spawnCell : spawnCells) {
+            if (spawnCell.col() < roomStartCol || spawnCell.col() > roomEndCol) {
+                continue;
+            }
+            int localCol = spawnCell.col() - roomStartCol;
+            setCell(layer, room.height(), room.width(), spawnCell.row(), localCol, 2);
+            spawnPlaced = true;
+        }
+
+        if (!spawnPlaced) {
+            int fallbackRow = Math.max(0, room.height() - 1);
+            int fallbackCol = Math.min(Math.max(0, room.width() / 2), Math.max(0, room.width() - 1));
+            setCell(layer, room.height(), room.width(), fallbackRow, fallbackCol, 2);
+        }
+
+        return layer;
+    }
+
+    private RoomView buildRoomShell(int roomId) {
+        int normalizedRoomId = Math.max(1, Math.min(roomId, roomCount()));
+        int startCol = (normalizedRoomId - 1) * roomTileWidth();
+        int roomWidth = Math.min(roomTileWidth(), width - startCol);
+        String label = "Khu " + normalizedRoomId;
+        RoomEntry entry = new RoomEntry(
+                normalizedRoomId,
+                label,
+                Math.max(80, (roomWidth * tileSize) / 2),
+                Math.max(96, (height * tileSize) / 2),
+                Math.max(180, roomWidth * tileSize / 2),
+                32);
+        return new RoomView(normalizedRoomId, label, startCol, roomWidth, height, tileSize, entry, new byte[0]);
+    }
+
     private void setCell(byte[] layer, int row, int col, int value) {
         int index = row * width + col;
         if (index < 0 || index >= layer.length) {
+            return;
+        }
+        layer[index] = (byte) (value & 0xFF);
+    }
+
+    private void setCell(byte[] layer, int rows, int cols, int row, int col, int value) {
+        int index = row * cols + col;
+        if (row < 0 || row >= rows || col < 0 || col >= cols || index < 0 || index >= layer.length) {
             return;
         }
         layer[index] = (byte) (value & 0xFF);
@@ -224,5 +316,16 @@ final class HoaLuMapSpec {
     }
 
     record SpawnCell(int row, int col) {
+    }
+
+    record RoomView(
+            int roomId,
+            String label,
+            int startCol,
+            int width,
+            int height,
+            int tileSize,
+            RoomEntry roomEntry,
+            byte[] logicLayer) {
     }
 }

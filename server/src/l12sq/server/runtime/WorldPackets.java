@@ -29,37 +29,40 @@ final class WorldPackets {
 
     static void sendMapRoomList(DataOutputStream dos, String mapName) throws IOException {
         HoaLuMapSpec mapSpec = HoaLuMapSpec.load();
-        HoaLuMapSpec.RoomEntry roomEntry = mapSpec.roomEntry();
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.byteTag(12, 0);
         builder.stringTag(20, mapName);
-        appendEntry(builder, roomEntry.roomId(), roomEntry.label(), 0, roomEntry.centerX(), roomEntry.centerY(), roomEntry.width(), roomEntry.height(), true, 0);
-        System.out.println("[GAME] Sending room list CMD 11 map=" + mapName + " count=1");
+        for (int roomId = 1; roomId <= mapSpec.roomCount(); roomId++) {
+            HoaLuMapSpec.RoomEntry roomEntry = mapSpec.room(roomId).roomEntry();
+            appendEntry(builder, roomEntry.roomId(), roomEntry.label(), 0, roomEntry.centerX(), roomEntry.centerY(), roomEntry.width(), roomEntry.height(), true, 0);
+        }
+        System.out.println("[GAME] Sending room list CMD 11 map=" + mapName + " count=" + mapSpec.roomCount());
         TlvCodec.sendPacket(dos, 11, builder.payload(), builder.count());
     }
 
-    static void sendMapInfo(DataOutputStream dos, String mapName) throws IOException {
+    static void sendMapInfo(DataOutputStream dos, String mapName, int roomId) throws IOException {
         HoaLuMapSpec mapSpec = HoaLuMapSpec.load();
-        HoaLuMapSpec.RoomEntry roomEntry = mapSpec.roomEntry();
-        byte[] groundLayer = repeatedByteArray(mapSpec.width() * mapSpec.height(), 0);
-        byte[] decorationLayer = repeatedByteArray(mapSpec.width() * mapSpec.height(), 0);
-        byte[] triggerLayer = mapSpec.buildLogicLayer();
+        HoaLuMapSpec.RoomView room = mapSpec.room(roomId);
+        HoaLuMapSpec.RoomEntry roomEntry = room.roomEntry();
+        byte[] groundLayer = repeatedByteArray(room.width() * room.height(), 0);
+        byte[] decorationLayer = repeatedByteArray(room.width() * room.height(), 0);
+        byte[] triggerLayer = room.logicLayer();
 
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.byteTag(12, 1);
         builder.stringTag(20, mapSpec.mapName());
-        builder.stringTag(26, mapSpec.mapName());
+        builder.stringTag(26, room.label());
         builder.intTag(41, 5120);
-        builder.intTag(56, mapSpec.width());
-        builder.intTag(57, mapSpec.height());
-        builder.intTag(58, mapSpec.tileSize());
-        builder.intTag(59, mapSpec.tileSize());
+        builder.intTag(56, room.width());
+        builder.intTag(57, room.height());
+        builder.intTag(58, room.tileSize());
+        builder.intTag(59, room.tileSize());
         builder.rawTag(55, groundLayer);
         builder.rawTag(54, decorationLayer);
         builder.rawTag(61, triggerLayer);
         builder.intTag(60, InstallResourceCatalog.MAP_HOA_LU_TILESET_ID);
-        builder.intTag(63, InstallResourceCatalog.MAP_HOA_LU_BACKGROUND_ID);
-        builder.intTag(29, InstallResourceCatalog.MAP_HOA_LU_OVERLAY_ID);
+        builder.intTag(63, InstallResourceCatalog.roomBackgroundId(room.roomId()));
+        builder.intTag(29, InstallResourceCatalog.roomOverlayId(room.roomId()));
         appendEntry(
                 builder,
                 roomEntry.roomId(),
@@ -73,7 +76,7 @@ final class WorldPackets {
                 0);
         builder.intTag(6, 0);
         builder.intTag(6, 0);
-        System.out.println("[GAME] Sending map info CMD 11 map=" + mapName + " resources=3 rooms=1");
+        System.out.println("[GAME] Sending map info CMD 11 map=" + mapName + " room=" + room.roomId() + " resources=3 rooms=1");
         TlvCodec.sendPacket(dos, 11, builder.payload(), builder.count());
     }
 
@@ -92,8 +95,7 @@ final class WorldPackets {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.stringTag(20, mapName);
         builder.byteTag(40, 3);
-        appendSceneActor(builder, "npc_hoalu_guard", "Linh canh", 1, 0, 0, 1, 0, 48, 104);
-        System.out.println("[GAME] Sending scene actors CMD 43 map=" + mapName + " viewer=" + username + " count=1");
+        System.out.println("[GAME] Sending scene actors CMD 43 map=" + mapName + " viewer=" + username + " count=0");
         TlvCodec.sendPacket(dos, 43, builder.payload(), builder.count());
     }
 

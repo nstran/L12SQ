@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedHashMap;
@@ -20,10 +22,12 @@ import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 
 final class InstallResourceCatalog {
-    static final int INSTALL_PACKAGE_VERSION = 29;
+    static final int INSTALL_PACKAGE_VERSION = 35;
     static final int MAP_HOA_LU_BACKGROUND_ID = 31000;
     static final int MAP_HOA_LU_OVERLAY_ID = 31001;
     static final int MAP_HOA_LU_TILESET_ID = 31002;
+    private static final int MAP_HOA_LU_ROOM_BACKGROUND_BASE_ID = 31100;
+    private static final int MAP_HOA_LU_ROOM_OVERLAY_BASE_ID = 31200;
     static final List<Integer> STARTUP_INSTALL_RESOURCE_IDS = Arrays.asList(
             30099,
             79899,
@@ -63,6 +67,7 @@ final class InstallResourceCatalog {
     private static final Color FOLIAGE_LIGHT = new Color(101, 161, 87);
     private static final Color FOLIAGE_MID = new Color(94, 161, 52);
     private static final Color FOLIAGE_DARK = new Color(36, 109, 42);
+    private static final Path EXTERNAL_CHARACTER_IMAGE_PATH = Path.of("ref", "raw", "images", "nam.png");
     private static final Map<Integer, byte[]> INSTALL_RESOURCES = createInstallResources();
 
     private InstallResourceCatalog() {
@@ -83,12 +88,21 @@ final class InstallResourceCatalog {
         return total;
     }
 
+    static int roomBackgroundId(int roomId) {
+        return MAP_HOA_LU_ROOM_BACKGROUND_BASE_ID + Math.max(1, roomId);
+    }
+
+    static int roomOverlayId(int roomId) {
+        return MAP_HOA_LU_ROOM_OVERLAY_BASE_ID + Math.max(1, roomId);
+    }
+
     private static Map<Integer, byte[]> createInstallResources() {
         Map<Integer, byte[]> resources = new LinkedHashMap<>();
         resources.put(30099, PLACEHOLDER_PNG);
         resources.put(MAP_HOA_LU_BACKGROUND_ID, loadMapAsset("maps/hoalu/background.png", InstallResourceCatalog::sceneBackgroundBytes));
         resources.put(MAP_HOA_LU_OVERLAY_ID, loadMapAsset("maps/hoalu/overlay.png", InstallResourceCatalog::sceneOverlayBytes));
         resources.put(MAP_HOA_LU_TILESET_ID, loadMapAsset("maps/hoalu/tileset.png", InstallResourceCatalog::tileAtlasBytes));
+        addHoaLuRoomResources(resources);
         resources.put(79899, metadataBytes(700000));
         resources.put(79999, metadataBytes(700010));
         resources.put(89999, metadataBytes(700020));
@@ -101,6 +115,57 @@ final class InstallResourceCatalog {
 
     private static byte[] loadMapAsset(String relativePath, Supplier<byte[]> fallbackSupplier) {
         return ExternalAssetLoader.loadBytes(relativePath, fallbackSupplier);
+    }
+
+    private static void addHoaLuRoomResources(Map<Integer, byte[]> resources) {
+        HoaLuMapSpec spec = HoaLuMapSpec.load();
+        for (int roomId = 1; roomId <= spec.roomCount(); roomId++) {
+            resources.put(roomBackgroundId(roomId), cropHoaLuRoomAsset("maps/hoalu/background.png", roomId, false));
+            resources.put(roomOverlayId(roomId), cropHoaLuRoomAsset("maps/hoalu/overlay.png", roomId, true));
+        }
+    }
+
+    private static byte[] cropHoaLuRoomAsset(String relativePath, int roomId, boolean transparentFallback) {
+        Path assetPath = ExternalAssetLoader.resolve(relativePath);
+        HoaLuMapSpec.RoomView room = HoaLuMapSpec.load().room(roomId);
+        int cropX = room.startCol() * room.tileSize();
+        int cropWidth = room.width() * room.tileSize();
+        int cropHeight = room.height() * room.tileSize();
+
+        try {
+            BufferedImage source = Files.isRegularFile(assetPath) ? ImageIO.read(assetPath.toFile()) : null;
+            if (source == null) {
+                return transparentFallback ? transparentRoomBytes(cropWidth, cropHeight) : sceneBackgroundBytes();
+            }
+
+            int safeWidth = Math.min(cropWidth, Math.max(1, source.getWidth() - cropX));
+            int safeHeight = Math.min(cropHeight, source.getHeight());
+            int imageType = transparentFallback ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_BYTE_INDEXED;
+            BufferedImage roomImage = new BufferedImage(safeWidth, safeHeight, imageType);
+            Graphics2D graphics = roomImage.createGraphics();
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+            graphics.drawImage(
+                    source,
+                    0,
+                    0,
+                    safeWidth,
+                    safeHeight,
+                    cropX,
+                    0,
+                    cropX + safeWidth,
+                    safeHeight,
+                    null);
+            graphics.dispose();
+            return writePng(roomImage, "Hoa Lu room asset " + roomId);
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to crop Hoa Lu room asset: " + assetPath, exception);
+        }
+    }
+
+    private static byte[] transparentRoomBytes(int width, int height) {
+        BufferedImage image = new BufferedImage(Math.max(1, width), Math.max(1, height), BufferedImage.TYPE_INT_ARGB);
+        return writePng(image, "transparent room overlay");
     }
 
     private static byte[] metadataBytes(int imageBaseId) {
@@ -269,6 +334,19 @@ final class InstallResourceCatalog {
     private static byte[] spriteSheetBytes(SpriteLayer layer, int groupId, int frameCount) {
         final int frameWidth = 24;
         final int frameHeight = 32;
+        if (layer == SpriteLayer.BODY) {
+            byte[] externalSheet = externalCharacterSpriteSheet(frameCount, frameWidth, frameHeight, groupId);
+            if (externalSheet != null) {
+                return externalSheet;
+            }
+        }
+        if (layer == SpriteLayer.HAIR || layer == SpriteLayer.FACE || layer == SpriteLayer.SKIN) {
+            byte[] transparentSheet = transparentSpriteSheet(frameCount, frameWidth, frameHeight);
+            if (transparentSheet != null) {
+                return transparentSheet;
+            }
+        }
+
         BufferedImage image = new BufferedImage(frameWidth * frameCount, frameHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
@@ -292,6 +370,117 @@ final class InstallResourceCatalog {
         } catch (IOException exception) {
             throw new IllegalStateException("Unable to render sprite sheet for " + layer + " group " + groupId, exception);
         }
+    }
+
+    private static byte[] transparentSpriteSheet(int frameCount, int frameWidth, int frameHeight) {
+        BufferedImage image = new BufferedImage(frameWidth * frameCount, frameHeight, BufferedImage.TYPE_INT_ARGB);
+        return writePng(image, "transparent sprite sheet");
+    }
+
+    private static byte[] externalCharacterSpriteSheet(int frameCount, int frameWidth, int frameHeight, int groupId) {
+        if (!Files.isRegularFile(EXTERNAL_CHARACTER_IMAGE_PATH)) {
+            return null;
+        }
+        try {
+            BufferedImage raw = ImageIO.read(EXTERNAL_CHARACTER_IMAGE_PATH.toFile());
+            if (raw == null) {
+                return null;
+            }
+
+            BufferedImage cropped = cropCharacterSilhouette(raw);
+            BufferedImage frame = fitCharacterFrame(cropped, frameWidth, frameHeight);
+
+            BufferedImage sheet = new BufferedImage(frameWidth * frameCount, frameHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D graphics = sheet.createGraphics();
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+            graphics.setBackground(new Color(0, 0, 0, 0));
+            graphics.clearRect(0, 0, sheet.getWidth(), sheet.getHeight());
+
+            for (int frameIndex = 0; frameIndex < frameCount; frameIndex++) {
+                int bob = (frameIndex + groupId) % 2;
+                int drawX = frameIndex * frameWidth;
+                graphics.drawImage(frame, drawX, bob, null);
+            }
+
+            graphics.dispose();
+            return writePng(sheet, "external character sprite sheet");
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to load external character image: " + EXTERNAL_CHARACTER_IMAGE_PATH, exception);
+        }
+    }
+
+    private static BufferedImage cropCharacterSilhouette(BufferedImage source) {
+        int[] sampleXs = {0, source.getWidth() - 1, 0, source.getWidth() - 1};
+        int[] sampleYs = {0, 0, source.getHeight() - 1, source.getHeight() - 1};
+        int avgR = 0;
+        int avgG = 0;
+        int avgB = 0;
+        for (int index = 0; index < sampleXs.length; index++) {
+            Color color = new Color(source.getRGB(sampleXs[index], sampleYs[index]), true);
+            avgR += color.getRed();
+            avgG += color.getGreen();
+            avgB += color.getBlue();
+        }
+        avgR /= sampleXs.length;
+        avgG /= sampleXs.length;
+        avgB /= sampleXs.length;
+
+        BufferedImage masked = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        int minX = source.getWidth();
+        int minY = source.getHeight();
+        int maxX = -1;
+        int maxY = -1;
+
+        for (int y = 0; y < source.getHeight(); y++) {
+            for (int x = 0; x < source.getWidth(); x++) {
+                Color color = new Color(source.getRGB(x, y), true);
+                int alpha = color.getAlpha();
+                int distance = Math.abs(color.getRed() - avgR)
+                        + Math.abs(color.getGreen() - avgG)
+                        + Math.abs(color.getBlue() - avgB);
+                boolean keepPixel = alpha > 20 && distance > 70;
+                if (keepPixel) {
+                    masked.setRGB(x, y, source.getRGB(x, y));
+                    if (x < minX) {
+                        minX = x;
+                    }
+                    if (y < minY) {
+                        minY = y;
+                    }
+                    if (x > maxX) {
+                        maxX = x;
+                    }
+                    if (y > maxY) {
+                        maxY = y;
+                    }
+                }
+            }
+        }
+
+        if (maxX < minX || maxY < minY) {
+            return source;
+        }
+        return masked.getSubimage(minX, minY, (maxX - minX) + 1, (maxY - minY) + 1);
+    }
+
+    private static BufferedImage fitCharacterFrame(BufferedImage source, int frameWidth, int frameHeight) {
+        int targetHeight = frameHeight;
+        int scaledWidth = Math.max(1, source.getWidth() * targetHeight / Math.max(1, source.getHeight()));
+        if (scaledWidth > frameWidth) {
+            scaledWidth = frameWidth;
+            targetHeight = Math.max(1, source.getHeight() * frameWidth / Math.max(1, source.getWidth()));
+        }
+
+        BufferedImage frame = new BufferedImage(frameWidth, frameHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = frame.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        int drawX = (frameWidth - scaledWidth) / 2;
+        int drawY = Math.max(0, frameHeight - targetHeight);
+        graphics.drawImage(source, drawX, drawY, scaledWidth, targetHeight, null);
+        graphics.dispose();
+        return frame;
     }
 
     private static byte[] writePng(BufferedImage image, String label) {
