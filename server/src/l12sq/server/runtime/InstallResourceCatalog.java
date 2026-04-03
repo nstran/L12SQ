@@ -21,14 +21,14 @@ import java.util.Map;
 import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 
-final class InstallResourceCatalog {
-    static final int INSTALL_PACKAGE_VERSION = 35;
+public final class InstallResourceCatalog {
+    public static final int INSTALL_PACKAGE_VERSION = 35;
     static final int MAP_HOA_LU_BACKGROUND_ID = 31000;
     static final int MAP_HOA_LU_OVERLAY_ID = 31001;
     static final int MAP_HOA_LU_TILESET_ID = 31002;
     private static final int MAP_HOA_LU_ROOM_BACKGROUND_BASE_ID = 31100;
     private static final int MAP_HOA_LU_ROOM_OVERLAY_BASE_ID = 31200;
-    static final List<Integer> STARTUP_INSTALL_RESOURCE_IDS = Arrays.asList(
+    public static final List<Integer> STARTUP_INSTALL_RESOURCE_IDS = Arrays.asList(
             30099,
             79899,
             79999,
@@ -38,7 +38,7 @@ final class InstallResourceCatalog {
             700010, 700011, 700012, 700013, 700014, 700015, 700016,
             700020, 700021, 700022, 700023, 700024, 700025, 700026
     );
-    static final List<Integer> CREATE_CHAR_RESOURCE_IDS = Arrays.asList(
+    public static final List<Integer> CREATE_CHAR_RESOURCE_IDS = Arrays.asList(
             79899,
             79999,
             89999,
@@ -73,11 +73,11 @@ final class InstallResourceCatalog {
     private InstallResourceCatalog() {
     }
 
-    static byte[] resourceById(int resourceId) {
+    public static byte[] resourceById(int resourceId) {
         return INSTALL_RESOURCES.get(resourceId);
     }
 
-    static int totalInstallBytes(List<Integer> resourceIds) {
+    public static int totalInstallBytes(List<Integer> resourceIds) {
         int total = 0;
         for (int resourceId : resourceIds) {
             byte[] resource = INSTALL_RESOURCES.get(resourceId);
@@ -88,7 +88,7 @@ final class InstallResourceCatalog {
         return total;
     }
 
-    static int roomBackgroundId(int roomId) {
+    public static int roomBackgroundId(int roomId) {
         return MAP_HOA_LU_ROOM_BACKGROUND_BASE_ID + Math.max(1, roomId);
     }
 

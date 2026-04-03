@@ -3,7 +3,7 @@ package l12sq.server.runtime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-final class GameSession {
+public final class GameSession {
     private final String channel;
     private boolean authenticated;
     private boolean awaitingCharacterCreation;
@@ -17,91 +17,91 @@ final class GameSession {
     private int currentRoomId;
     private boolean sceneReady;
 
-    GameSession(String channel) {
+    public GameSession(String channel) {
         this.channel = channel;
     }
 
-    String channel() {
+    public String channel() {
         return channel;
     }
 
-    boolean authenticated() {
+    public boolean authenticated() {
         return authenticated;
     }
 
-    void setAuthenticated(boolean authenticated) {
+    public void setAuthenticated(boolean authenticated) {
         this.authenticated = authenticated;
     }
 
-    boolean awaitingCharacterCreation() {
+    public boolean awaitingCharacterCreation() {
         return awaitingCharacterCreation;
     }
 
-    void setAwaitingCharacterCreation(boolean awaitingCharacterCreation) {
+    public void setAwaitingCharacterCreation(boolean awaitingCharacterCreation) {
         this.awaitingCharacterCreation = awaitingCharacterCreation;
     }
 
-    boolean createCharacterOptionsSent() {
+    public boolean createCharacterOptionsSent() {
         return createCharacterOptionsSent;
     }
 
-    void setCreateCharacterOptionsSent(boolean createCharacterOptionsSent) {
+    public void setCreateCharacterOptionsSent(boolean createCharacterOptionsSent) {
         this.createCharacterOptionsSent = createCharacterOptionsSent;
     }
 
-    String username() {
+    public String username() {
         return username;
     }
 
-    void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    Set<Integer> pendingResourceAnnouncements() {
+    public Set<Integer> pendingResourceAnnouncements() {
         return pendingResourceAnnouncements;
     }
 
-    Set<Integer> preloadedResources() {
+    public Set<Integer> preloadedResources() {
         return preloadedResources;
     }
 
-    Integer activeInstallResourceId() {
+    public Integer activeInstallResourceId() {
         return activeInstallResourceId;
     }
 
-    void setActiveInstallResourceId(Integer activeInstallResourceId) {
+    public void setActiveInstallResourceId(Integer activeInstallResourceId) {
         this.activeInstallResourceId = activeInstallResourceId;
     }
 
-    boolean installManifestSent() {
+    public boolean installManifestSent() {
         return installManifestSent;
     }
 
-    void setInstallManifestSent(boolean installManifestSent) {
+    public void setInstallManifestSent(boolean installManifestSent) {
         this.installManifestSent = installManifestSent;
     }
 
-    String currentMapName() {
+    public String currentMapName() {
         return currentMapName;
     }
 
-    void setCurrentMapName(String currentMapName) {
+    public void setCurrentMapName(String currentMapName) {
         this.currentMapName = currentMapName;
     }
 
-    int currentRoomId() {
+    public int currentRoomId() {
         return currentRoomId;
     }
 
-    void setCurrentRoomId(int currentRoomId) {
+    public void setCurrentRoomId(int currentRoomId) {
         this.currentRoomId = currentRoomId;
     }
 
-    boolean sceneReady() {
+    public boolean sceneReady() {
         return sceneReady;
     }
 
-    void setSceneReady(boolean sceneReady) {
+    public void setSceneReady(boolean sceneReady) {
         this.sceneReady = sceneReady;
     }
 }

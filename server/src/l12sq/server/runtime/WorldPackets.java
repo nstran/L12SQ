@@ -5,11 +5,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import l12sq.server.net.TlvCodec;
 
-final class WorldPackets {
+public final class WorldPackets {
     private WorldPackets() {
     }
 
-    static void sendMapJoin(DataOutputStream dos, String username, String mapName, int roomId) throws IOException {
+    public static void sendMapJoin(DataOutputStream dos, String username, String mapName, int roomId) throws IOException {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.stringTag(9, username);
         builder.stringTag(20, mapName);
@@ -18,7 +18,7 @@ final class WorldPackets {
         TlvCodec.sendPacket(dos, 29, builder.payload(), builder.count());
     }
 
-    static void sendWorldMapHotspots(DataOutputStream dos, String mapName) throws IOException {
+    public static void sendWorldMapHotspots(DataOutputStream dos, String mapName) throws IOException {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.byteTag(12, 0);
         builder.stringTag(20, mapName);
@@ -27,7 +27,7 @@ final class WorldPackets {
         TlvCodec.sendPacket(dos, 11, builder.payload(), builder.count());
     }
 
-    static void sendMapRoomList(DataOutputStream dos, String mapName) throws IOException {
+    public static void sendMapRoomList(DataOutputStream dos, String mapName) throws IOException {
         HoaLuMapSpec mapSpec = HoaLuMapSpec.load();
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.byteTag(12, 0);
@@ -40,7 +40,7 @@ final class WorldPackets {
         TlvCodec.sendPacket(dos, 11, builder.payload(), builder.count());
     }
 
-    static void sendMapInfo(DataOutputStream dos, String mapName, int roomId) throws IOException {
+    public static void sendMapInfo(DataOutputStream dos, String mapName, int roomId) throws IOException {
         HoaLuMapSpec mapSpec = HoaLuMapSpec.load();
         HoaLuMapSpec.RoomView room = mapSpec.room(roomId);
         HoaLuMapSpec.RoomEntry roomEntry = room.roomEntry();
@@ -80,7 +80,7 @@ final class WorldPackets {
         TlvCodec.sendPacket(dos, 11, builder.payload(), builder.count());
     }
 
-    static void sendMapSelectionAck(DataOutputStream dos, String mapName, int roomOrMarkerId, int selectionType) throws IOException {
+    public static void sendMapSelectionAck(DataOutputStream dos, String mapName, int roomOrMarkerId, int selectionType) throws IOException {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.stringTag(20, mapName);
         builder.intTag(21, roomOrMarkerId);
@@ -91,7 +91,7 @@ final class WorldPackets {
         TlvCodec.sendPacket(dos, 13, builder.payload(), builder.count());
     }
 
-    static void sendSceneActors(DataOutputStream dos, String mapName, String username) throws IOException {
+    public static void sendSceneActors(DataOutputStream dos, String mapName, String username) throws IOException {
         TagPacketBuilder builder = new TagPacketBuilder();
         builder.stringTag(20, mapName);
         builder.byteTag(40, 3);

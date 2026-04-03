@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import l12sq.server.storage.CharacterStore;
 
-final class ProfilePackets {
+public final class ProfilePackets {
     private ProfilePackets() {
     }
 
-    static TagPacketBuilder buildCharacterProfile(CharacterStore.CharacterData characterData) {
+    public static TagPacketBuilder buildCharacterProfile(CharacterStore.CharacterData characterData) {
         TagPacketBuilder profile = buildBaseProfile(characterData.username());
         profile.byteTag(15, characterData.element());
         profile.byteTag(16, characterData.gender());
@@ -20,7 +20,7 @@ final class ProfilePackets {
         return profile;
     }
 
-    static TagPacketBuilder buildStartProfile(String username) {
+    public static TagPacketBuilder buildStartProfile(String username) {
         TagPacketBuilder profile = buildBaseProfile(username);
         appendCmd9AppearanceEntry(profile, 79800, 0, 79899, 79899);
         appendCmd9AppearanceEntry(profile, 79900, 1, 79999, 79999);
@@ -28,7 +28,7 @@ final class ProfilePackets {
         return profile;
     }
 
-    static TagPacketBuilder buildNoCharacterProfile(String username) {
+    public static TagPacketBuilder buildNoCharacterProfile(String username) {
         TagPacketBuilder profile = new TagPacketBuilder();
 
         profile.intTag(23, 31);
@@ -72,7 +72,7 @@ final class ProfilePackets {
         return profile;
     }
 
-    static void appendCreateCharacterOptions(TagPacketBuilder options) {
+    public static void appendCreateCharacterOptions(TagPacketBuilder options) {
         appendCmd8AppearanceEntry(options, 79800, 0, 0, "Nam Toc 1", 79899, "Mau Toc Nam 1");
         appendCmd8AppearanceEntry(options, 79900, 1, 0, "Nam Mat 1", 79999, "Nam Mat 1");
         appendCmd8AppearanceEntry(options, 89900, 2, 0, "Nam Da 1", 89999, "Mau Da Nam 1");
@@ -81,7 +81,7 @@ final class ProfilePackets {
         appendCmd8AppearanceEntry(options, 89900, 2, 1, "Nu Da 1", 89999, "Mau Da Nu 1");
     }
 
-    static CreateCharacterSelection parseCreateCharacterSelection(byte[] payload) {
+    public static CreateCharacterSelection parseCreateCharacterSelection(byte[] payload) {
         List<TagEntry> entries = parseTagEntries(payload);
         int gender = 0;
         int element = 1;
@@ -204,7 +204,7 @@ final class ProfilePackets {
     private record TagEntry(int tagId, byte[] value) {
     }
 
-    record CreateCharacterSelection(
+    public record CreateCharacterSelection(
             int gender,
             int element,
             int hairOptionId,

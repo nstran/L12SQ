@@ -8,14 +8,14 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-final class ServerLog {
+public final class ServerLog {
     private static final Path LOG_FILE = Paths.get("server", "runtime", "server-debug.log");
     private static final DateTimeFormatter TS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     private ServerLog() {
     }
 
-    static synchronized void info(String message) {
+    public static synchronized void info(String message) {
         String line = "[" + LocalDateTime.now().format(TS) + "] " + message;
         System.out.println(message);
         try {
