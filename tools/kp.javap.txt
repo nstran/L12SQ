@@ -1,0 +1,211 @@
+public interface kp {
+  public abstract void w();
+
+  public abstract void v();
+
+  public abstract void x();
+
+  public abstract void a(int, java.lang.String);
+
+  public abstract void u();
+
+  public abstract void a(boolean, java.lang.String, int, int[], int);
+
+  public abstract void S();
+
+  public abstract void a(java.lang.String, java.lang.String, int);
+
+  public abstract void a(java.lang.String, int, int);
+
+  public abstract void b(java.lang.String);
+
+  public abstract void R();
+
+  public abstract void a(lf, byte);
+
+  public abstract void a(di[], di[], di[], di[], di[], di[]);
+
+  public abstract void a(java.lang.String, jl[]);
+
+  public abstract void a(jm, int[], int, int[], int);
+
+  public abstract void a(nq[]);
+
+  public abstract void a(nq, boolean);
+
+  public abstract void y();
+
+  public abstract void z();
+
+  public abstract void a(jn[], java.lang.String);
+
+  public abstract void b(jn[], java.lang.String);
+
+  public abstract void c(jn[], java.lang.String);
+
+  public abstract void a(java.lang.String, dq[]);
+
+  public abstract void a(java.lang.String, dq, java.lang.String, long);
+
+  public abstract void a(java.lang.String, java.lang.String);
+
+  public abstract void b(java.lang.String, dq, java.lang.String, long);
+
+  public abstract void a(lf, java.lang.String, long, java.lang.String, boolean, boolean);
+
+  public abstract void b(java.lang.String, java.lang.String);
+
+  public abstract void a(lf, lf, boolean, byte[], byte[], byte[], int, byte, byte);
+
+  public abstract void a(lu[]);
+
+  public abstract void e(int, int);
+
+  public abstract void c(java.lang.String);
+
+  public abstract void a(long);
+
+  public abstract void a(lj[], lk[], int, int);
+
+  public abstract void b(java.lang.String, int, int);
+
+  public abstract void d(java.lang.String[]);
+
+  public abstract void c(java.lang.String[]);
+
+  public abstract void a(ld[]);
+
+  public abstract void a(int, lo[]);
+
+  public abstract void a(int[], int[]);
+
+  public abstract void a(java.lang.String[], int[]);
+
+  public abstract void a(int[], java.lang.String[]);
+
+  public abstract void k(java.lang.String);
+
+  public abstract void m(java.lang.String);
+
+  public abstract void n(java.lang.String);
+
+  public abstract void I();
+
+  public abstract void l(int);
+
+  public abstract void a(lk);
+
+  public abstract void a(lk, int);
+
+  public abstract void b(lj);
+
+  public abstract void j(java.lang.String);
+
+  public abstract void a(lj[], lk[], int);
+
+  public abstract void O();
+
+  public abstract void N();
+
+  public abstract void l(java.lang.String);
+
+  public abstract void i(java.lang.String);
+
+  public abstract void c(java.lang.String, java.lang.String);
+
+  public abstract void o(java.lang.String);
+
+  public abstract void a(java.lang.String, byte);
+
+  public abstract void a(dk[]);
+
+  public abstract void s(java.lang.String);
+
+  public abstract void a(java.lang.String, boolean, boolean);
+
+  public abstract void a(java.lang.String, boolean, boolean, boolean);
+
+  public abstract void b(java.lang.String, boolean, boolean, boolean);
+
+  public abstract void c(boolean);
+
+  public abstract void d(boolean);
+
+  public abstract void b(lp[]);
+
+  public abstract void a(lp[]);
+
+  public abstract void a(java.lang.String, java.lang.String, long, int);
+
+  public abstract void a(byte[], byte[]);
+
+  public abstract void a(java.lang.String, byte, byte, di, di, di);
+
+  public abstract void a(java.lang.String, int, int, int, int, int, int, int, int, int, int, int);
+
+  public abstract void a(java.lang.String, int, int, int, int, int, int, int);
+
+  public abstract void a(java.lang.String, lj[]);
+
+  public abstract void a(lt[]);
+
+  public abstract void a(java.lang.String, int, int, int, int, int, java.lang.String, java.lang.String, java.lang.String);
+
+  public abstract void a(java.lang.String[], int[], int[], int[], int[]);
+
+  public abstract void w(java.lang.String);
+
+  public abstract void c(lj);
+
+  public abstract void a(lk[]);
+
+  public abstract void f(int, int);
+
+  public abstract void a(int, java.lang.String[]);
+
+  public abstract void a(lr[]);
+
+  public abstract void e(java.lang.String, java.lang.String);
+
+  public abstract void a(java.lang.String, java.lang.String, java.lang.String);
+
+  public abstract void a(java.lang.String, java.lang.String, byte, long);
+
+  public abstract void b(java.lang.String, java.lang.String, byte, long);
+
+  public abstract void T();
+
+  public abstract void a(java.lang.String, byte, long);
+
+  public abstract void a(int, int, java.lang.String, byte, long);
+
+  public abstract void d(java.lang.String, java.lang.String, byte, long);
+
+  public abstract void c(java.lang.String, java.lang.String, byte, long);
+
+  public abstract void b(java.lang.String, byte, long);
+
+  public abstract void b(int, int, java.lang.String, byte, long);
+
+  public abstract void a(java.lang.String, long);
+
+  public abstract void a(java.lang.String, lj[], lk[]);
+
+  public abstract void b(ld[]);
+
+  public abstract void a(int, int, long);
+
+  public abstract void a(int, int, lo[]);
+
+  public abstract void b(java.lang.String, lj[], lk[]);
+
+  public abstract void a(java.lang.String, lj[], lk[], byte);
+
+  public abstract void b(java.lang.String, lj[], lk[], byte);
+
+  public abstract void x(java.lang.String);
+
+  public abstract void b(java.lang.String, java.lang.String, java.lang.String[], java.lang.String[]);
+
+  public abstract void U();
+}

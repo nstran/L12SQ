@@ -15,6 +15,7 @@ final class GameSession {
     private boolean installManifestSent;
     private String currentMapName;
     private int currentRoomId;
+    private boolean sceneReady;
 
     GameSession(String channel) {
         this.channel = channel;
@@ -94,5 +95,13 @@ final class GameSession {
 
     void setCurrentRoomId(int currentRoomId) {
         this.currentRoomId = currentRoomId;
+    }
+
+    boolean sceneReady() {
+        return sceneReady;
+    }
+
+    void setSceneReady(boolean sceneReady) {
+        this.sceneReady = sceneReady;
     }
 }

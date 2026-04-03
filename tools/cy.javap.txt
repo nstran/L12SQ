@@ -1,0 +1,44 @@
+public final class cy {
+  private static java.util.Random a;
+
+  static {};
+    Code:
+       0: new           #4                  // class java/util/Random
+       3: dup
+       4: invokestatic  #7                  // Method java/lang/System.currentTimeMillis:()J
+       7: invokespecial #8                  // Method java/util/Random."<init>":(J)V
+      10: putstatic     #5                  // Field a:Ljava/util/Random;
+      13: return
+
+  public cy();
+    Code:
+       0: aload_0
+       1: invokespecial #6                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static final int a(int);
+    Code:
+       0: getstatic     #5                  // Field a:Ljava/util/Random;
+       3: iload_0
+       4: invokevirtual #10                 // Method java/util/Random.nextInt:(I)I
+       7: ireturn
+
+  public static final int a();
+    Code:
+       0: getstatic     #5                  // Field a:Ljava/util/Random;
+       3: invokevirtual #9                  // Method java/util/Random.nextInt:()I
+       6: ireturn
+
+  public static final int a(int, int);
+    Code:
+       0: getstatic     #5                  // Field a:Ljava/util/Random;
+       3: iload_1
+       4: iload_0
+       5: isub
+       6: iconst_1
+       7: iadd
+       8: invokevirtual #10                 // Method java/util/Random.nextInt:(I)I
+      11: iload_0
+      12: iadd
+      13: ireturn
+}

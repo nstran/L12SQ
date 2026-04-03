@@ -89,8 +89,10 @@ public final class GameServer {
             case 9 -> handleProfileSync(request.tags(), dos, session);
             case 11 -> handleWorldMapHotspotRequest(request.tags(), dos, session);
             case 13 -> handleMapSelectionRequest(request.tags(), dos, session);
+            case 14, 20, 44 -> handleGameplayInput(request.command(), request.tags(), session);
             case 29 -> handleMapJoinRequest(request.tags(), dos, session);
             case 30 -> handleNoCharacterBootstrap(request.tags(), dos, session);
+            case 43 -> handleSceneReady(request.tags(), dos, session);
             case 42 -> handleStartButton(request.tags(), dos, session);
             case 1 -> TlvCodec.sendEmpty(dos, 1);
             default -> ServerLog.info("[" + channel + "] [WARN] Unhandled CMD " + request.command());
@@ -179,6 +181,7 @@ public final class GameServer {
             TlvCodec.sendPacket(dos, 9, profile.payload(), profile.count());
             session.setCurrentMapName("M99");
             session.setCurrentRoomId(0);
+            session.setSceneReady(false);
             WorldPackets.sendMapJoin(dos, username, session.currentMapName(), session.currentRoomId());
             session.setAwaitingCharacterCreation(false);
             session.setCreateCharacterOptionsSent(false);
@@ -256,6 +259,9 @@ public final class GameServer {
         String mapName = firstNonBlank(TlvCodec.tagString(tags, 20), session.currentMapName(), "M99");
         int requestValue = tagInt(tags, 41, 0);
         session.setCurrentMapName(mapName);
+        if ("M99".equalsIgnoreCase(mapName)) {
+            session.setSceneReady(false);
+        }
 
         ServerLog.info("[GAME] Respond CMD 11 for " + session.username()
                 + " map=" + mapName + " requestValue=" + requestValue);
@@ -277,6 +283,7 @@ public final class GameServer {
         int targetRoomId = "M99".equalsIgnoreCase(sourceMapName) ? 1 : roomOrMarkerId;
         session.setCurrentMapName(targetMapName);
         session.setCurrentRoomId(targetRoomId);
+        session.setSceneReady(false);
 
         ServerLog.info("[GAME] Respond CMD 13 for " + session.username()
                 + " sourceMap=" + sourceMapName
@@ -324,9 +331,34 @@ public final class GameServer {
         session.setAwaitingCharacterCreation(false);
         session.setCurrentMapName("M99");
         session.setCurrentRoomId(0);
+        session.setSceneReady(false);
         TagPacketBuilder profile = ProfilePackets.buildCharacterProfile(characterData);
         TlvCodec.sendPacket(dos, 9, profile.payload(), profile.count());
         WorldPackets.sendMapJoin(dos, session.username(), session.currentMapName(), session.currentRoomId());
+    }
+
+    private void handleSceneReady(Map<Integer, byte[]> tags, DataOutputStream dos, GameSession session) throws IOException {
+        if (!session.authenticated()) {
+            return;
+        }
+
+        String mapName = firstNonBlank(TlvCodec.tagString(tags, 20), session.currentMapName(), "M99");
+        session.setCurrentMapName(mapName);
+        session.setSceneReady(true);
+        ServerLog.info("[GAME] Scene ready CMD 43 for " + session.username() + " map=" + mapName);
+        WorldPackets.sendSceneActors(dos, mapName, session.username());
+    }
+
+    private void handleGameplayInput(int command, Map<Integer, byte[]> tags, GameSession session) {
+        if (!session.authenticated()) {
+            return;
+        }
+
+        String mapName = firstNonBlank(TlvCodec.tagString(tags, 20), session.currentMapName(), "M99");
+        ServerLog.info("[GAME] Observed gameplay CMD " + command
+                + " user=" + session.username()
+                + " map=" + mapName
+                + " sceneReady=" + session.sceneReady());
     }
 
     private void handleInstallResourceRequest(Map<Integer, byte[]> tags, DataOutputStream dos, GameSession session) throws IOException {
